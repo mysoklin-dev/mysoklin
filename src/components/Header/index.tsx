@@ -12,7 +12,7 @@ const Header = () => {
               </a>
             </div>
 
-            <div className="flex items-center justify-end gap-2">
+            <div className="flex items-center justify-end gap-4">
               {/* Search */}
               <div>
                 <div className="search">
@@ -43,7 +43,7 @@ const Header = () => {
         >
           <div className="container mx-auto max-w-7xl items-center">
             <nav
-              className="flex items-center justify-around  text-white"
+              className="menu flex items-center justify-around  text-white"
               style={{ height: 50 }}
             >
               <a className="d-block py-2 px-3 text-white" href="#">
@@ -95,6 +95,10 @@ const Header = () => {
           background: transparent;
           outline: none;
           font-size: 12px;
+        }
+
+        .menu a {
+          text-decoration: none;
         }
       `}</style>
     </>
