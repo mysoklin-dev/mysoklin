@@ -12,6 +12,10 @@ a:hover {
 
 @tailwind utilities;
 
+body {
+  font-size: 14px;
+}
+
 .content p {
   @apply my-6;
 }
