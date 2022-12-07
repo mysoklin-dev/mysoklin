@@ -1,6 +1,16 @@
 /* eslint-disable tailwindcss/no-custom-classname */
+import { useState } from 'react';
 
 const Header = () => {
+  const [isShowMega, setShowMega] = useState<boolean>(false);
+
+  const showMegamenu = () => {
+    setShowMega(true);
+  };
+  const hideMegaMenu = () => {
+    setShowMega(false);
+  };
+
   return (
     <>
       <header>
@@ -46,27 +56,112 @@ const Header = () => {
               className="menu flex items-center justify-around  text-white"
               style={{ height: 50 }}
             >
-              <a className="d-block py-2 px-3 text-white" href="#">
+              <a
+                onMouseEnter={showMegamenu}
+                onMouseLeave={hideMegaMenu}
+                className="d-block py-2 px-3 text-white"
+                href="#"
+              >
                 company
               </a>
-              <a className="d-block py-2 px-3 text-white" href="#">
+              <a
+                onMouseEnter={showMegamenu}
+                onMouseLeave={hideMegaMenu}
+                className="d-block py-2 px-3 text-white"
+                href="#"
+              >
                 products
               </a>
-              <a className="d-block py-2 px-3 text-white" href="#">
+              <a
+                onMouseEnter={showMegamenu}
+                onMouseLeave={hideMegaMenu}
+                className="d-block py-2 px-3 text-white"
+                href="#"
+              >
                 updates
               </a>
-              <a className="d-block py-2 px-3 text-white" href="#">
+              <a
+                onMouseEnter={showMegamenu}
+                onMouseLeave={hideMegaMenu}
+                className="d-block py-2 px-3 text-white"
+                href="#"
+              >
                 articles
               </a>
-              <a className="d-block py-2 px-3 text-white" href="#">
+              <a
+                onMouseEnter={showMegamenu}
+                onMouseLeave={hideMegaMenu}
+                className="d-block py-2 px-3 text-white"
+                href="#"
+              >
                 contact
               </a>
             </nav>
           </div>
         </div>
+
+        {/* Mega menu */}
+        {isShowMega && (
+          <div className="megamenu">
+            <div className="container mx-auto max-w-7xl">
+              <div className="flex flex-wrap justify-around gap-20">
+                <div>
+                  <h4 className="text-md font-bold text-blue-400">
+                    Powder Detergent
+                  </h4>
+                  <ul>
+                    <li>SoKlin Smart</li>
+                    <li>SoKlin Softergent</li>
+                    <li>SoKlin Antisep</li>
+                    <li>SoKlin Biomatic Powder</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="text-md font-bold text-blue-400">
+                    Powder Detergent
+                  </h4>
+                  <ul>
+                    <li>SoKlin Smart</li>
+                    <li>SoKlin Softergent</li>
+                    <li>SoKlin Antisep</li>
+                    <li>SoKlin Biomatic Powder</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="text-md font-bold text-blue-400">
+                    Powder Detergent
+                  </h4>
+                  <ul>
+                    <li>SoKlin Smart</li>
+                    <li>SoKlin Softergent</li>
+                    <li>SoKlin Antisep</li>
+                    <li>SoKlin Biomatic Powder</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="text-md font-bold text-blue-400">
+                    Powder Detergent
+                  </h4>
+                  <ul>
+                    <li>SoKlin Smart</li>
+                    <li>SoKlin Softergent</li>
+                    <li>SoKlin Antisep</li>
+                    <li>SoKlin Biomatic Powder</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </header>
 
       <style jsx>{`
+        header {
+          position: relative;
+        }
         .middle {
           width: 100%;
           height: 100px;
@@ -99,6 +194,34 @@ const Header = () => {
 
         .menu a {
           text-decoration: none;
+        }
+
+        .megamenu {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          height: auto;
+          background: #fff;
+          padding: 20px 0;
+          box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .megamenu h4 {
+          margin-bottom: 10px;
+          color: #0042e4 !important;
+          font-size: 14px !important;
+        }
+
+        .megamenu ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+
+        .megamenu ul li {
+          margin: 10px 0 !important;
+          display: block;
         }
       `}</style>
     </>
