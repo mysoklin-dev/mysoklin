@@ -3,7 +3,7 @@ import Button from '../Button';
 
 const TipsAndTricks = () => {
   return (
-    <section className="pt-20 pb-10">
+    <section className="pt-20 pb-10" style={{ background: '#F5F5F5' }}>
       <div className="container mx-auto mb-20 max-w-6xl">
         <div className="grid grid-cols-4">
           <div className="col-span-3">

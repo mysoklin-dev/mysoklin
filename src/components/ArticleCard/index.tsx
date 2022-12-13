@@ -47,7 +47,7 @@ const ArticleCard = ({ thumbnail, title, link, text }: ArticleCardProps) => {
           object-fit: cover !important;
           margin: 0 auto;
           position: relative;
-          z-index: -1;
+          z-index: 0;
         }
 
         .thumbnail img {

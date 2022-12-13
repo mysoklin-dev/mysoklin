@@ -7,7 +7,7 @@ const LatestUpdates = () => {
       <div className="container mx-auto mb-20 max-w-6xl">
         <div className="grid grid-cols-4">
           <div className="col-span-3">
-            <h2 className="text-blue-700">Find the right SoKlin Products</h2>
+            <h2 className="text-blue-700">Our Latest Updates</h2>
           </div>
           <div className="col-span-1">
             <div className="mr-0 ml-auto text-right">
