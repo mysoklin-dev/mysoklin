@@ -1,7 +1,11 @@
 @tailwind base;
 
-a {
+/* a {
   @apply text-blue-700;
+} */
+
+a {
+  color: #888888;
 }
 
 a:hover {
@@ -22,4 +26,23 @@ body {
 
 .content ul {
   @apply my-6;
+}
+
+.control-dots .dot {
+  background: rgba(0,0,0,.25)!important;
+  box-shadow: none!important;
+  width: 13px!important;
+  height: 13px!important;
+}
+
+.control-dots .dot.selected {
+  background: #FB4C06!important;
+}
+
+.carousel .slide {
+  text-align: left!important;
+}
+
+.carousel-status {
+  display: none!important;
 }

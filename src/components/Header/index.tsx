@@ -14,12 +14,28 @@ const Header = () => {
   return (
     <>
       <header>
-        <div className="container mx-auto max-w-7xl">
+        <div className="container mx-auto max-w-7xl py-2">
           <div className="flex items-center justify-between">
             <div>
-              <a href="#">
-                <img src="/assets/images/social.svg" alt="" />
-              </a>
+              <div
+                className="grow-1 mr-0 flex w-full shrink-0 gap-4"
+                style={{ fontSize: 10 }}
+              >
+                <div className="flex items-center gap-3">
+                  <img src="/assets/images/ig.svg" alt="" />
+                  <div>SoKlinDetergent</div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <img src="/assets/images/fb.svg" alt="" />
+                  <div>SoKlinDetergent</div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <img src="/assets/images/yt.svg" alt="" />
+                  <div>SoKlinDetergent</div>
+                </div>
+              </div>
             </div>
 
             <div className="flex items-center justify-end gap-4">
@@ -205,6 +221,7 @@ const Header = () => {
           background: #fff;
           padding: 20px 0;
           box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
+          z-index: 99999;
         }
 
         .megamenu h4 {
