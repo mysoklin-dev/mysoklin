@@ -74,7 +74,6 @@ const Header = () => {
             >
               <a
                 onMouseEnter={showMegamenu}
-                onMouseLeave={hideMegaMenu}
                 className="d-block py-2 px-3 text-white"
                 href="#"
               >
@@ -82,7 +81,6 @@ const Header = () => {
               </a>
               <a
                 onMouseEnter={showMegamenu}
-                onMouseLeave={hideMegaMenu}
                 className="d-block py-2 px-3 text-white"
                 href="#"
               >
@@ -90,7 +88,6 @@ const Header = () => {
               </a>
               <a
                 onMouseEnter={showMegamenu}
-                onMouseLeave={hideMegaMenu}
                 className="d-block py-2 px-3 text-white"
                 href="#"
               >
@@ -98,7 +95,6 @@ const Header = () => {
               </a>
               <a
                 onMouseEnter={showMegamenu}
-                onMouseLeave={hideMegaMenu}
                 className="d-block py-2 px-3 text-white"
                 href="#"
               >
@@ -106,7 +102,6 @@ const Header = () => {
               </a>
               <a
                 onMouseEnter={showMegamenu}
-                onMouseLeave={hideMegaMenu}
                 className="d-block py-2 px-3 text-white"
                 href="#"
               >
@@ -118,7 +113,7 @@ const Header = () => {
 
         {/* Mega menu */}
         {isShowMega && (
-          <div className="megamenu">
+          <div className="megamenu" onMouseLeave={hideMegaMenu}>
             <div className="container mx-auto max-w-7xl">
               <div className="flex flex-wrap justify-around gap-20">
                 <div>
