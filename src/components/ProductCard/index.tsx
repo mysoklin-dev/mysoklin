@@ -4,15 +4,23 @@ interface ProductCardProps {
   thumbnail: string;
   title: string;
   link: string;
+  onClick?:
+    | ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void)
+    | undefined;
 }
 
 const ProductCard = ({
   thumbnail = '/assets/images/wb-1.png',
   title,
   link,
+  onClick = () => {},
+  ...rest
 }: ProductCardProps) => {
+  const handleOnClick = (e: any) => {
+    onClick(e);
+  };
   return (
-    <div className="cardWrapper">
+    <div className="cardWrapper" {...rest} onClick={handleOnClick}>
       <div className="thumbnail">
         <img
           src={thumbnail}
@@ -35,6 +43,20 @@ const ProductCard = ({
       <style jsx>{`
         .cardWrapper {
           position: relative;
+          border-radius: 20px;
+          overflow: hidden;
+          transition: all 0.2s;
+          border: 5px solid transparent;
+          padding-top: 20px;
+        }
+
+        .cardWrapper:hover {
+          background: #eef3f6;
+          border-color: #071789;
+        }
+
+        .cardWrapper:hover .card-background {
+          border-color: transparent;
         }
 
         .thumbnail {

@@ -1,4 +1,5 @@
 /* eslint-disable tailwindcss/no-custom-classname */
+import Link from 'next/link';
 import { useState } from 'react';
 
 const Header = () => {
@@ -14,7 +15,7 @@ const Header = () => {
   return (
     <>
       <header>
-        <div className="container mx-auto max-w-7xl py-2">
+        <div className="container mx-auto max-w-6xl py-2">
           <div className="flex items-center justify-between">
             <div>
               <div
@@ -61,42 +62,46 @@ const Header = () => {
         </div>
 
         {/* logo */}
-        <div className="middle"></div>
+        <div className="middle flex items-center justify-center">
+          <Link href="/">
+            <img src="/assets/images/logo.png" alt="My Soklin" />
+          </Link>
+        </div>
 
         <div
           className="items-center bg-blue-400 uppercase"
           style={{ height: 50 }}
         >
-          <div className="container mx-auto max-w-7xl items-center">
+          <div className="container mx-auto max-w-6xl items-center">
             <nav
-              className="menu flex items-center justify-around  text-white"
+              className="menu flex items-center justify-between  text-white"
               style={{ height: 50 }}
             >
-              <a
+              <Link
                 onMouseEnter={showMegamenu}
                 className="d-block py-2 px-3 text-white"
-                href="#"
+                href="/company-history"
               >
                 company
-              </a>
+              </Link>
               <a
                 onMouseEnter={showMegamenu}
                 className="d-block py-2 px-3 text-white"
-                href="#"
+                href="/products"
               >
                 products
               </a>
               <a
                 onMouseEnter={showMegamenu}
                 className="d-block py-2 px-3 text-white"
-                href="#"
+                href="/updates"
               >
                 updates
               </a>
               <a
                 onMouseEnter={showMegamenu}
                 className="d-block py-2 px-3 text-white"
-                href="#"
+                href="/articles"
               >
                 articles
               </a>
@@ -114,8 +119,8 @@ const Header = () => {
         {/* Mega menu */}
         {isShowMega && (
           <div className="megamenu" onMouseLeave={hideMegaMenu}>
-            <div className="container mx-auto max-w-7xl">
-              <div className="flex flex-wrap justify-around gap-20">
+            <div className="container mx-auto max-w-6xl">
+              <div className="flex flex-wrap justify-between gap-20">
                 <div>
                   <h4 className="text-md font-bold text-blue-400">
                     Powder Detergent
@@ -176,7 +181,7 @@ const Header = () => {
         .middle {
           width: 100%;
           height: 100px;
-          background: url('/assets/images/headerbg.png') no-repeat center center;
+          background: url('/assets/images/wave.png') no-repeat center center;
         }
 
         .search {

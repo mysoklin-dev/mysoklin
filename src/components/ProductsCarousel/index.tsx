@@ -16,7 +16,9 @@ const ProductsCarousel = () => {
           </div>
           <div className="col-span-1">
             <div className="mr-0 ml-auto text-right">
-              <Button style={{ width: '170px', height: 40 }}>
+              <Button
+                style={{ width: '170px', height: 40, marginLeft: 'auto' }}
+              >
                 {'Read More'}
               </Button>
             </div>

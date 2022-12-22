@@ -1,83 +1,89 @@
 import Link from 'next/link';
 import React from 'react';
 
-export default function Footer() {
+export type IFooterProps = {
+  showBanner?: boolean;
+};
+
+export default function Footer({ showBanner = true }: IFooterProps) {
   return (
     <footer>
       {/* big fucking banner */}
-      <div className="grid grid-cols-2">
-        <div className="left col-span-1">
-          <div className="mb-10 flex w-full flex-1 flex-row content-between">
-            <div>
-              <h1 className="text-5xl font-bold text-white">
-                History of <br /> SoKlin
-              </h1>
+      {showBanner && (
+        <div className="grid grid-cols-2">
+          <div className="left col-span-1">
+            <div className="mb-10 flex w-full flex-1 flex-row content-between">
+              <div>
+                <h1 className="text-5xl font-bold text-white">
+                  History of <br /> SoKlin
+                </h1>
+              </div>
+
+              <div className="ml-auto">
+                <Link href="#">
+                  <img
+                    src="/assets/images/right-arrow.svg"
+                    width="70"
+                    height="70"
+                    loading="lazy"
+                    alt=""
+                  />
+                </Link>
+              </div>
             </div>
 
-            <div className="ml-auto">
-              <Link href="#">
-                <img
-                  src="/assets/images/right-arrow.svg"
-                  width="70"
-                  height="70"
-                  loading="lazy"
-                  alt=""
-                />
-              </Link>
+            <div className="mb-10 text-2xl text-white">
+              <p>
+                Selama lebih dari 40 tahun, SoKlin, merek fabric care & home
+                care produksi Wings Care, hadir sebagai solusi kebersihan
+                pakaian dan rumah andalan keluarga.
+              </p>
+            </div>
+
+            <div className="text-center">
+              <img
+                src="/assets/images/HIS-SOK-04-2003-A.png"
+                alt=""
+                loading="lazy"
+              />
             </div>
           </div>
 
-          <div className="mb-10 text-2xl text-white">
-            <p>
-              Selama lebih dari 40 tahun, SoKlin, merek fabric care & home care
-              produksi Wings Care, hadir sebagai solusi kebersihan pakaian dan
-              rumah andalan keluarga.
-            </p>
-          </div>
+          <div className="right col-span-1">
+            <div className="mb-10 flex w-full flex-1 flex-row content-between">
+              <div>
+                <h1 className="text-5xl font-bold text-blue-700">
+                  Create account and
+                  <br />
+                  get limited
+                  <br />
+                  offer.
+                </h1>
+              </div>
 
-          <div className="text-center">
-            <img
-              src="/assets/images/HIS-SOK-04-2003-A.png"
-              alt=""
-              loading="lazy"
-            />
+              <div className="ml-auto">
+                <Link href="#">
+                  <img
+                    src="/assets/images/right-arrow.svg"
+                    width="70"
+                    height="70"
+                    loading="lazy"
+                    alt=""
+                  />
+                </Link>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <img
+                src="/assets/images/footer-products.png"
+                alt=""
+                loading="lazy"
+              />
+            </div>
           </div>
         </div>
-
-        <div className="right col-span-1">
-          <div className="mb-10 flex w-full flex-1 flex-row content-between">
-            <div>
-              <h1 className="text-5xl font-bold text-blue-700">
-                Create account and
-                <br />
-                get limited
-                <br />
-                offer.
-              </h1>
-            </div>
-
-            <div className="ml-auto">
-              <Link href="#">
-                <img
-                  src="/assets/images/right-arrow.svg"
-                  width="70"
-                  height="70"
-                  loading="lazy"
-                  alt=""
-                />
-              </Link>
-            </div>
-          </div>
-
-          <div className="text-center">
-            <img
-              src="/assets/images/footer-products.png"
-              alt=""
-              loading="lazy"
-            />
-          </div>
-        </div>
-      </div>
+      )}
 
       {/* Footer Links */}
 

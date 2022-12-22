@@ -3,29 +3,48 @@ import React from 'react';
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   style?: React.CSSProperties | undefined;
-  variant: 'contained' | 'outlined' | undefined;
+  variant: 'contained' | 'outlined' | 'elevated' | undefined;
+  icon?: React.ReactNode;
+  fullWidth?: boolean;
 }
 
 const Button: any = ({
   children,
   style,
   variant = 'contained',
+  icon,
+  fullWidth = false,
 }: ButtonProps) => {
   return (
     <>
-      <button className={`Button ${variant}`} style={style}>
-        {children}
-      </button>
+      <div
+        className={`Button flex items-center justify-center gap-2 ${variant}`}
+        style={style}
+      >
+        {icon && <div className="mr-auto">{icon}</div>}
+        <div>{children}</div>
+      </div>
 
       <style jsx>{`
         .Button {
           box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
           border-radius: 100px;
           line-height: 1;
-          padding: 10px 15px;
-          display: inline-block;
+          padding: 10px 25px;
           cursor: pointer;
           height: 40px;
+          transition: all 0.2s;
+          width: ${fullWidth ? '100%' : 'auto'};
+        }
+
+        .Button.elevated {
+          background-color: #071789;
+          box-shadow: 0px 5px 10px rgba(7, 23, 137, 0.5);
+          color: #fff;
+        }
+
+        .Button:hover {
+          opacity: 0.8;
         }
 
         .Button.contained {

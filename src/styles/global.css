@@ -8,8 +8,9 @@ a {
   color: #888888;
 }
 
-a:hover {
-  @apply border-b-2 border-blue-700;
+article p {
+  @apply text-lg font-serif my-6;
+  line-height: 175%;
 }
 
 @tailwind components;
@@ -45,4 +46,8 @@ body {
 
 .carousel-status {
   display: none!important;
+}
+
+.yt-lite.lyt-activated {
+  background: none!important;
 }

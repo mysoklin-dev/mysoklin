@@ -7,7 +7,12 @@ interface ArticleCardProps {
   text: string;
 }
 
-const ArticleCard = ({ thumbnail, title, link, text }: ArticleCardProps) => {
+const ArticleCard = ({
+  thumbnail,
+  title,
+  link = '/article-detail',
+  text,
+}: ArticleCardProps) => {
   return (
     <div className="cardWrapper">
       <div className="thumbnail">
@@ -26,7 +31,7 @@ const ArticleCard = ({ thumbnail, title, link, text }: ArticleCardProps) => {
 
         <p className="mb-3">{text}</p>
 
-        <Link href={link}>
+        <Link href={link === '#' ? '/article-detail' : link}>
           <div className="button">Read</div>
         </Link>
       </div>
@@ -52,6 +57,7 @@ const ArticleCard = ({ thumbnail, title, link, text }: ArticleCardProps) => {
 
         .thumbnail img {
           display: inline-block;
+          width: 100%;
         }
 
         p {
@@ -62,15 +68,23 @@ const ArticleCard = ({ thumbnail, title, link, text }: ArticleCardProps) => {
         }
 
         .card-background {
-          background: #ffffff;
+          background: #fff;
           border: 0.5px solid #aaaaaa;
           border-radius: 5px;
           padding: 40px 30px 30px;
-          margin: -40px auto 0;
+          margin: 0 auto;
           position: relative;
           z-index: 1;
           text-align: center;
           width: 80%;
+          transition: all 0.2s ease-in;
+          transform: translateY(-40px);
+        }
+
+        .cardWrapper:hover .card-background {
+          transform: translateY(0);
+          width: 100%;
+          border-radius: 0;
         }
 
         .button {

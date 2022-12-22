@@ -13,7 +13,10 @@ const TipsAndTricks = () => {
           </div>
           <div className="col-span-1">
             <div className="mr-0 ml-auto text-right">
-              <Button variant="outlined" style={{ width: '170px', height: 40 }}>
+              <Button
+                variant="outlined"
+                style={{ width: '170px', height: 40, marginLeft: 'auto' }}
+              >
                 {'Read More'}
               </Button>
             </div>
@@ -22,7 +25,7 @@ const TipsAndTricks = () => {
       </div>
 
       <div className="container mx-auto mb-20 max-w-6xl">
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-3 gap-10">
           <div className="col-span-1">
             <ArticleCard
               title="Melindungi Pakaian Dari Bau Apek"
