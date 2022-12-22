@@ -1,14 +1,14 @@
 import React from 'react';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+type ButtonProps = {
   children: React.ReactNode;
   style?: React.CSSProperties | undefined;
-  variant: 'contained' | 'outlined' | 'elevated' | undefined;
+  variant?: 'contained' | 'outlined' | 'elevated' | undefined;
   icon?: React.ReactNode;
   fullWidth?: boolean;
-}
+};
 
-const Button: any = ({
+const Button = ({
   children,
   style,
   variant = 'contained',

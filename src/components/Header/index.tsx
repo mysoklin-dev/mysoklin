@@ -108,7 +108,7 @@ const Header = () => {
               <a
                 onMouseEnter={showMegamenu}
                 className="d-block py-2 px-3 text-white"
-                href="#"
+                href="/contact"
               >
                 contact
               </a>
