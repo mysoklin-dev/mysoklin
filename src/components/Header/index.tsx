@@ -84,34 +84,34 @@ const Header = () => {
               >
                 company
               </Link>
-              <a
+              <Link
                 onMouseEnter={showMegamenu}
                 className="d-block py-2 px-3 text-white"
                 href="/products"
               >
                 products
-              </a>
-              <a
+              </Link>
+              <Link
                 onMouseEnter={showMegamenu}
                 className="d-block py-2 px-3 text-white"
                 href="/updates"
               >
                 updates
-              </a>
-              <a
+              </Link>
+              <Link
                 onMouseEnter={showMegamenu}
                 className="d-block py-2 px-3 text-white"
                 href="/articles"
               >
                 articles
-              </a>
-              <a
+              </Link>
+              <Link
                 onMouseEnter={showMegamenu}
                 className="d-block py-2 px-3 text-white"
                 href="/contact"
               >
                 contact
-              </a>
+              </Link>
             </nav>
           </div>
         </div>
