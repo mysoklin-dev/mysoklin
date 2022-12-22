@@ -4,6 +4,8 @@ import Head from 'next/head';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import Container from '@/components/Container';
+import LatestUpdates from '@/components/LatestUpdates';
+import ProductsCarousel from '@/components/ProductsCarousel';
 import Main from '@/layouts/Main';
 
 const Contact = () => {
@@ -125,6 +127,9 @@ const Contact = () => {
           </div>
         </div>
       </Container>
+
+      <ProductsCarousel />
+      <LatestUpdates />
     </Main>
   );
 };
