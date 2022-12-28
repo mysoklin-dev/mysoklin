@@ -5,7 +5,7 @@ import { Carousel as ReactCarousel } from 'react-responsive-carousel';
 
 const Carousel = () => {
   return (
-    <ReactCarousel showThumbs={false}>
+    <ReactCarousel showThumbs={false} autoPlay swipeable>
       <div>
         <img src="/assets/images/banner2-1 1.jpg" alt="test" />
       </div>

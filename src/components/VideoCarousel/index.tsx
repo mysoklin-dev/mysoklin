@@ -28,9 +28,9 @@ const VideoCarousel = () => {
 
   return (
     <div className="videoCarousel px-20 pt-20 pb-10">
-      <ReactCarousel showThumbs={false}>
+      <ReactCarousel showThumbs={false} autoPlay swipeable>
         {videos.map((item, i) => (
-          <div key={`video-${i}`} className="mx-auto max-w-6xl pb-20">
+          <div key={`video-${i}`} className="mx-auto max-w-6xl px-10 pb-20">
             <div className="grid grid-cols-12 gap-10">
               <div className="col-span-5">
                 <h3 className="mb-10">{item.title}</h3>
@@ -39,7 +39,7 @@ const VideoCarousel = () => {
 
                 <Link href={item.link}>
                   <Button style={{ width: '170px', height: 40 }}>
-                    {'Read More'}
+                    {'Show More'}
                   </Button>
                 </Link>
               </div>

@@ -24,17 +24,29 @@ const Header = () => {
               >
                 <div className="flex items-center gap-3">
                   <img src="/assets/images/ig.svg" alt="" />
-                  <div>SoKlinDetergent</div>
+                  <div>
+                    <a href="https://www.instagram.com/soklindetergent/">
+                      SoKlinDetergent
+                    </a>
+                  </div>
                 </div>
 
                 <div className="flex items-center gap-3">
                   <img src="/assets/images/fb.svg" alt="" />
-                  <div>SoKlinDetergent</div>
+                  <div>
+                    <a href="https://www.facebook.com/SoKlinDetergent/">
+                      SoKlinDetergent
+                    </a>
+                  </div>
                 </div>
 
                 <div className="flex items-center gap-3">
                   <img src="/assets/images/yt.svg" alt="" />
-                  <div>SoKlinDetergent</div>
+                  <div>
+                    <a href="https://www.youtube.com/channel/UC70wBrqBB3diQ6YaVO309YA">
+                      SoKlinDetergent
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -55,7 +67,9 @@ const Header = () => {
               </div>
 
               <div>
-                <img src="/assets/images/lgo-wings-care-gede 1.png" alt="" />
+                <a href="https://wingscorp.com/">
+                  <img src="/assets/images/lgo-wings-care-gede 1.png" alt="" />
+                </a>
               </div>
             </div>
           </div>
@@ -78,7 +92,6 @@ const Header = () => {
               style={{ height: 50 }}
             >
               <Link
-                onMouseEnter={showMegamenu}
                 className="d-block py-2 px-3 text-white"
                 href="/company-history"
               >
@@ -91,25 +104,13 @@ const Header = () => {
               >
                 products
               </Link>
-              <Link
-                onMouseEnter={showMegamenu}
-                className="d-block py-2 px-3 text-white"
-                href="/updates"
-              >
+              <Link className="d-block py-2 px-3 text-white" href="/updates">
                 updates
               </Link>
-              <Link
-                onMouseEnter={showMegamenu}
-                className="d-block py-2 px-3 text-white"
-                href="/articles"
-              >
+              <Link className="d-block py-2 px-3 text-white" href="/articles">
                 articles
               </Link>
-              <Link
-                onMouseEnter={showMegamenu}
-                className="d-block py-2 px-3 text-white"
-                href="/contact"
-              >
+              <Link className="d-block py-2 px-3 text-white" href="/contact">
                 contact
               </Link>
             </nav>

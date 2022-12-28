@@ -32,7 +32,7 @@ const ArticleCard = ({
         <p className="mb-3">{text}</p>
 
         <Link href={link === '#' ? '/article-detail' : link}>
-          <div className="button">Read</div>
+          <div className="button text-blue-400">Read</div>
         </Link>
       </div>
 
@@ -77,13 +77,12 @@ const ArticleCard = ({
           z-index: 1;
           text-align: center;
           width: 80%;
-          transition: all 0.2s ease-in;
+          transition: all 0.15s ease-in;
           transform: translateY(-40px);
         }
 
         .cardWrapper:hover .card-background {
-          transform: translateY(0);
-          width: 100%;
+          transform: scale(1.25) translateY(-10px);
           border-radius: 0;
         }
 

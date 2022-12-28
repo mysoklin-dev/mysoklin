@@ -19,14 +19,14 @@ const ProductsCarousel = () => {
               <Button
                 style={{ width: '170px', height: 40, marginLeft: 'auto' }}
               >
-                {'Read More'}
+                {'Show More'}
               </Button>
             </div>
           </div>
         </div>
       </div>
 
-      <ReactCarousel showThumbs={false}>
+      <ReactCarousel showThumbs={false} autoPlay swipeable>
         <div className="mx-auto grid max-w-6xl grid-cols-3 gap-20 pb-20">
           <div className="col-span-1">
             <ProductCard

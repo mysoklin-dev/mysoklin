@@ -4,6 +4,10 @@
   @apply text-blue-700;
 } */
 
+:root {
+  --primary: #071789;
+}
+
 a {
   color: #888888;
 }
@@ -61,4 +65,12 @@ body {
   width: 100%;
   display: block;
   min-height: 50px;
+}
+
+.carousel.carousel-slider .control-arrow {
+  width: 60px;
+  height: 60px;
+  background: var(--primary)!important;
+  top: 50%!important;
+  transform: translateY(-50%);
 }

@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import ArticleCard from '../ArticleCard';
 import Button from '../Button';
 
@@ -13,12 +15,14 @@ const TipsAndTricks = () => {
           </div>
           <div className="col-span-1">
             <div className="mr-0 ml-auto text-right">
-              <Button
-                variant="outlined"
-                style={{ width: '170px', height: 40, marginLeft: 'auto' }}
-              >
-                {'Read More'}
-              </Button>
+              <Link href="/articles">
+                <Button
+                  variant="outlined"
+                  style={{ width: '170px', height: 40, marginLeft: 'auto' }}
+                >
+                  {'Show More'}
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

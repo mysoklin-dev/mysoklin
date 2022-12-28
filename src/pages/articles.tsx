@@ -27,7 +27,7 @@ const Articles = () => {
             </p>
 
             <div className="flex justify-center">
-              <Button variant="elevated">Read More</Button>
+              <Button variant="elevated">Read</Button>
             </div>
           </div>
         </div>

@@ -20,7 +20,7 @@ export default function Footer({ showBanner = true }: IFooterProps) {
               </div>
 
               <div className="ml-auto">
-                <Link href="#">
+                <Link href="/company-history">
                   <img
                     src="/assets/images/right-arrow.svg"
                     width="70"
@@ -99,7 +99,7 @@ export default function Footer({ showBanner = true }: IFooterProps) {
             </ul>
           </div>
           <div className="col-span-1">
-            <h4 className="font-bold">Company</h4>
+            <h4 className="font-bold">Products</h4>
 
             <ul>
               <li>
