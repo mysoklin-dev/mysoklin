@@ -32,21 +32,18 @@ const ProductsCarousel = () => {
             <ProductCard
               title="Powder Detergent"
               thumbnail="/assets/images/wb-1.png"
-              link="#"
             />
           </div>
           <div className="col-span-1">
             <ProductCard
               title="Powder Detergent"
               thumbnail="/assets/images/wb-1.png"
-              link="#"
             />
           </div>
           <div className="col-span-1">
             <ProductCard
               title="Powder Detergent"
               thumbnail="/assets/images/wb-1.png"
-              link="#"
             />
           </div>
         </div>
