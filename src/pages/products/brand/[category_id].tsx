@@ -61,6 +61,7 @@ const ProductCardCircle = ({ img, title }: IProductCardCircleProps) => {
 const ProductDetail = () => {
   const [brand, setBrand] = useState<any>();
   const [items, setProducts] = useState<any>();
+  const [socials, setSocials] = useState<any[]>([]);
   const router = useRouter();
   // eslint-disable-next-line @typescript-eslint/naming-convention
   const { category_id } = router.query;
@@ -93,9 +94,24 @@ const ProductDetail = () => {
       }
     };
 
+    const getSocial = async () => {
+      try {
+        const resultList = await pb.collection('social_group').getList(1, 50, {
+          filter: `product_brand_id ~ '${category_id}'`,
+        });
+        if (resultList.items.length > 0 && resultList.items[0]) {
+          setSocials(resultList.items);
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        if (error) console.log(error);
+      }
+    };
+
     if (category_id) {
       getBrand();
       getProducts();
+      getSocial();
     }
   }, [category_id]);
 
@@ -124,24 +140,33 @@ const ProductDetail = () => {
 
                   <p className="mt-5 text-xl">{brand.description}</p>
 
-                  <div className="mt-5 flex gap-3">
-                    <Button icon={<FaInstagram />} variant="outlined">
-                      soklinrapikaid
-                    </Button>
-                    <Button icon={<FaFacebook />} variant="outlined">
-                      So-Klin-Rapika
-                    </Button>
-                    <Button icon={<FaYoutube />} variant="outlined">
-                      SoKlinDetergent
-                    </Button>
-                  </div>
+                  {socials && socials.length > 0 && socials[0] && (
+                    <div className="mt-5 flex gap-3">
+                      {/* <pre>{JSON.stringify(socials[0], null, 2)}</pre> */}
+                      <a href={socials[0].instagram}>
+                        <Button icon={<FaInstagram />} variant="outlined">
+                          {socials[0].instagram_label}
+                        </Button>
+                      </a>
+                      <a href={socials[0].facebook}>
+                        <Button icon={<FaFacebook />} variant="outlined">
+                          {socials[0].facebook_label}
+                        </Button>
+                      </a>
+                      <a href={socials[0].youtube}>
+                        <Button icon={<FaYoutube />} variant="outlined">
+                          {socials[0].youtube_label}
+                        </Button>
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
 
               <div className="mt-8">
                 <div className="flex items-center justify-between">
                   <div className="text-xl font-black text-blue-400">
-                    {items.length} Products
+                    {items && items.length > 0 && items.length} Products
                   </div>
 
                   <div className="font-black text-blue-400">
