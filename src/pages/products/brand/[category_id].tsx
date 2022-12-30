@@ -204,7 +204,10 @@ const ProductDetail = () => {
 
       <style jsx>{`
         .hero {
-          background: #f9c10f;
+          background: ${brand.header_color ? brand.header_color : '#f9c10f'}
+            url('${process.env
+              .NEXT_PUBLIC_API_URL}/files/${brand.collectionId}/${brand.id}/${brand.header_image}')
+            no-repeat center top;
         }
       `}</style>
     </Main>
