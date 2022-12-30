@@ -117,8 +117,17 @@ const ProductDetail = () => {
 
   return (
     <Main>
-      <div className="hero pt-56">
-        {brand && (
+      {brand && (
+        <div
+          className="hero pt-56"
+          style={{
+            background: `${brand.header_color ? brand.header_color : '#f9c10f'}
+            url('${process.env.NEXT_PUBLIC_API_URL}/files/${
+              brand.collectionId
+            }/${brand.id}/${brand.header_image}')
+            no-repeat`,
+          }}
+        >
           <Container>
             <div
               className="bg-white p-10 pb-4"
@@ -182,8 +191,8 @@ const ProductDetail = () => {
               </div>
             </div>
           </Container>
-        )}
-      </div>
+        </div>
+      )}
 
       <Container className="py-20">
         <div className="grid grid-cols-3 gap-10">
@@ -201,15 +210,6 @@ const ProductDetail = () => {
       </Container>
 
       <TipsAndTricks />
-
-      <style jsx>{`
-        .hero {
-          background: ${brand.header_color ? brand.header_color : '#f9c10f'}
-            url('${process.env
-              .NEXT_PUBLIC_API_URL}/files/${brand.collectionId}/${brand.id}/${brand.header_image}')
-            no-repeat center top;
-        }
-      `}</style>
     </Main>
   );
 };
