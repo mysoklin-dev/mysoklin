@@ -141,7 +141,7 @@ const ProductDetail = () => {
               <div className="mt-8">
                 <div className="flex items-center justify-between">
                   <div className="text-xl font-black text-blue-400">
-                    6 Products
+                    {items.length} Products
                   </div>
 
                   <div className="font-black text-blue-400">
