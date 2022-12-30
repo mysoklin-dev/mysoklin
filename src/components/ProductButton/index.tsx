@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const ProductButton = (props: any) => {
   return (
-    <Link href="/product-detail">
+    <Link href={`/products/brand/${props.data.id}`}>
       <div className="product-opt flex items-center gap-4 px-10">
         <div>
           <img

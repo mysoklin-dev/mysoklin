@@ -16,11 +16,7 @@ const ProductCard = ({
     onClick(e);
   };
   return (
-    <div
-      className="cardWrapper cursor-pointer"
-      {...rest}
-      onClick={handleOnClick}
-    >
+    <div className="cardWrapper" {...rest} onClick={handleOnClick}>
       <div className="thumbnail">
         <img
           src={thumbnail}

@@ -122,6 +122,7 @@ const ProductsCarousel = () => {
                   brands.map((item: any, i: number) => (
                     <div className="col-span-1" key={`product-${i}`}>
                       <ProductButton
+                        data={item}
                         title={item.title}
                         logo={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item.logo}`}
                       />
