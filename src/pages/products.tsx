@@ -1,43 +1,12 @@
 import Link from 'next/link';
+import process from 'process';
 import { useState } from 'react';
+import useSWR from 'swr';
 
 import Container from '@/components/Container';
 import ProductCard from '@/components/ProductCard';
 import TipsAndTricks from '@/components/TipsAndTricks';
 import Main from '@/layouts/Main';
-
-const items = [
-  {
-    title: 'Powder Detergent',
-    link: '#',
-    img: '/assets/images/products/product-3.png',
-  },
-  {
-    title: 'Liquid Detergent',
-    link: '#',
-    img: '/assets/images/products/product-5.png',
-  },
-  {
-    title: 'Fabric Conditioner',
-    link: '#',
-    img: '/assets/images/products/product-4.png',
-  },
-  {
-    title: 'Ironing Aid',
-    link: '#',
-    img: '/assets/images/products/product-6.png',
-  },
-  {
-    title: 'Bleach',
-    link: '#',
-    img: '/assets/images/products/product-2.png',
-  },
-  {
-    title: 'Floor Cleaner',
-    link: '#',
-    img: '/assets/images/products/product-1.png',
-  },
-];
 
 const ProductButton = () => {
   return (
@@ -72,6 +41,10 @@ const ProductButton = () => {
 const Products = () => {
   const [modal, setModal] = useState(false);
 
+  const { data, error } = useSWR(
+    `${process.env.NEXT_PUBLIC_API_URL}/collections/product_categories/records`
+  );
+
   return (
     <Main>
       <div className="hero py-24">
@@ -98,16 +71,20 @@ const Products = () => {
         {/* Product Grid */}
         <Container className="mt-24">
           <div className="grid grid-cols-3 gap-10">
-            {items.map((item, i) => (
-              <div className="col-span-1" key={`product-${i}`}>
-                <ProductCard
-                  onClick={() => setModal(true)}
-                  thumbnail={item.img}
-                  title={item.title}
-                  link={item.link}
-                />
-              </div>
-            ))}
+            {data &&
+              !error &&
+              data.items.length > 0 &&
+              data.items.map((item: any, i: number) => (
+                <div className="col-span-1" key={`product-${i}`}>
+                  <ProductCard
+                    onClick={() => setModal(true)}
+                    thumbnail={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item.image}`}
+                    title={item.title}
+                  />
+                </div>
+              ))}
+
+            {/* <pre>{JSON.stringify(data.items, null, 2)}</pre> */}
           </div>
         </Container>
       </div>

@@ -1,9 +1,6 @@
-import Link from 'next/link';
-
 interface ProductCardProps {
   thumbnail: string;
   title: string;
-  link: string;
   onClick?:
     | ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void)
     | undefined;
@@ -12,7 +9,6 @@ interface ProductCardProps {
 const ProductCard = ({
   thumbnail = '/assets/images/wb-1.png',
   title,
-  link,
   onClick = () => {},
   ...rest
 }: ProductCardProps) => {
@@ -35,9 +31,7 @@ const ProductCard = ({
       <div className="card-background pt-20 pb-10">
         <h4>{title}</h4>
 
-        <Link href={link}>
-          <div className="productButton">See Products</div>
-        </Link>
+        <div className="productButton">See Products</div>
       </div>
 
       <style jsx>{`
