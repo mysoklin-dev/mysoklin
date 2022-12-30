@@ -1,49 +1,32 @@
-import Link from 'next/link';
+import PocketBase from 'pocketbase';
 import process from 'process';
 import { useState } from 'react';
 import useSWR from 'swr';
 
 import Container from '@/components/Container';
+import ProductButton from '@/components/ProductButton';
 import ProductCard from '@/components/ProductCard';
 import TipsAndTricks from '@/components/TipsAndTricks';
 import Main from '@/layouts/Main';
 
-const ProductButton = () => {
-  return (
-    <Link href="/product-detail">
-      <div className="product-opt flex items-center gap-4 px-10">
-        <div>
-          <img src="/assets/images/logos/logo-1.png" loading="lazy" alt="" />
-        </div>
-
-        <div className="ml-10 text-xl font-black text-blue-400">
-          SoKlin Smart
-        </div>
-
-        <div className="ml-auto">
-          <img src="/assets/images/chevron-right.svg" loading="lazy" alt="" />
-        </div>
-
-        <style jsx>{`
-          .product-opt {
-            background: #ffffff;
-            height: 80px;
-            border: 0.5px solid #071789;
-            border-radius: 20px;
-            cursor: pointer;
-          }
-        `}</style>
-      </div>
-    </Link>
-  );
-};
-
 const Products = () => {
   const [modal, setModal] = useState(false);
+  const [brands, setBrands] = useState<[]>([]);
+  const [modaltitle, setModaltitle] = useState('');
+  const pb = new PocketBase('https://mysoklin-dashboard.efectifity.com');
 
   const { data, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/collections/product_categories/records`
+    `${process.env.NEXT_PUBLIC_API_URL}/collections/product_categories/records?sort=-created`
   );
+
+  const getBrands = async (title: string, product_category_id: string) => {
+    const records: any = await pb.collection('product_brands').getList(1, 50, {
+      filter: `product_category_id ~ '${product_category_id}'`,
+    });
+    setBrands(records.items);
+    setModal(true);
+    setModaltitle(title);
+  };
 
   return (
     <Main>
@@ -77,14 +60,12 @@ const Products = () => {
               data.items.map((item: any, i: number) => (
                 <div className="col-span-1" key={`product-${i}`}>
                   <ProductCard
-                    onClick={() => setModal(true)}
+                    onClick={() => getBrands(item.title, item.id)}
                     thumbnail={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item.image}`}
                     title={item.title}
                   />
                 </div>
               ))}
-
-            {/* <pre>{JSON.stringify(data.items, null, 2)}</pre> */}
           </div>
         </Container>
       </div>
@@ -94,7 +75,7 @@ const Products = () => {
         <div className="modal">
           <div className="modal-box">
             <div className="modal-header flex items-center justify-center font-black">
-              Product Name Dummy
+              {modaltitle}
               <div
                 className="closer"
                 onClick={() => {
@@ -106,15 +87,25 @@ const Products = () => {
             </div>
 
             <div className="modal-content">
-              {/* Product item */}
+              {/* Brands item */}
               <div className="mb-3">
-                <ProductButton />
-              </div>
-              <div className="mb-3">
-                <ProductButton />
-              </div>
-              <div className="mb-3">
-                <ProductButton />
+                {brands &&
+                  brands.map((item: any, i: number) => (
+                    <div className="col-span-1" key={`product-${i}`}>
+                      <ProductButton
+                        title={item.title}
+                        logo={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item.logo}`}
+                      />
+                    </div>
+                  ))}
+
+                {brands.length === 0 && (
+                  <h3 className="p-4 text-center text-xl">
+                    No Products for this Category
+                  </h3>
+                )}
+
+                {/* <pre>{JSON.stringify(brands, null, 2)}</pre> */}
               </div>
             </div>
           </div>
