@@ -233,7 +233,7 @@ const ProductDetail = () => {
                       width={213}
                       height={424}
                       style={{ width: 'auto!important', height: 424 }}
-                      className="d-inline-block"
+                      className="d-inline-block w-auto"
                       alt=""
                     />
                   </div>
