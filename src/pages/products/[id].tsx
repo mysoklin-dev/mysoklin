@@ -23,13 +23,13 @@ const ProductDetail = () => {
     const fetchData = async () => {
       const record = await pb.collection('products').getOne(id as string);
       await setData(record);
-      const galls = [];
+      const galls = [] as any[];
+      // eslint-disable-next-line array-callback-return
       record.gallery.map((item: string) => {
         galls.push(
           `${process.env.NEXT_PUBLIC_API_URL}/files/${record.collectionId}/${record.id}/${item}`
         );
       });
-      console.log(galls);
       setSources(galls);
     };
 

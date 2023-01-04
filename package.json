@@ -44,6 +44,7 @@
     "@testing-library/cypress": "^8.0.7",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
+    "@types/fslightbox-react": "^1.4.2",
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.25",
