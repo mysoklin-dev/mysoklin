@@ -92,7 +92,7 @@ const ProductDetail = () => {
 
               {/* Socials */}
               <div className="mt-6 flex items-center gap-3">
-                <Link href={data.tokopedia}>
+                <a href={data.tokopedia}>
                   <Button
                     variant="outlined"
                     style={{ height: 50, width: 200 }}
@@ -111,9 +111,9 @@ const ProductDetail = () => {
                   >
                     Tokopedia
                   </Button>
-                </Link>
+                </a>
 
-                <Link href={data.shopee}>
+                <a href={data.shopee}>
                   <Button
                     variant="outlined"
                     style={{ height: 50, width: 200 }}
@@ -130,9 +130,9 @@ const ProductDetail = () => {
                   >
                     Shopee
                   </Button>
-                </Link>
+                </a>
 
-                <Link href={data.blibli}>
+                <a href={data.blibli}>
                   <Button
                     variant="outlined"
                     style={{ height: 50, width: 200 }}
@@ -149,9 +149,9 @@ const ProductDetail = () => {
                   >
                     Blibli
                   </Button>
-                </Link>
+                </a>
 
-                <Link href={data.jdid}>
+                <a href={data.jdid}>
                   <Button
                     variant="outlined"
                     style={{ height: 50, width: 200 }}
@@ -168,7 +168,7 @@ const ProductDetail = () => {
                   >
                     JD.ID
                   </Button>
-                </Link>
+                </a>
 
                 <Button
                   variant="contained-blue"
