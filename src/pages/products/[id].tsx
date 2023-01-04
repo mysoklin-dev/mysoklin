@@ -205,6 +205,7 @@ const ProductDetail = () => {
                 <div className="col-span-2">
                   {data && data.description ? (
                     <div
+                      className="maindesc"
                       dangerouslySetInnerHTML={{ __html: data.description }}
                     ></div>
                   ) : (
@@ -307,7 +308,7 @@ const ProductDetail = () => {
 
                   {data && data.feature ? (
                     <div
-                      className="font-serif"
+                      className="textformat font-serif"
                       dangerouslySetInnerHTML={{ __html: data.feature }}
                     ></div>
                   ) : (
@@ -331,7 +332,7 @@ const ProductDetail = () => {
 
                   {data && data.specification ? (
                     <div
-                      className="font-serif"
+                      className="textformat font-serif"
                       dangerouslySetInnerHTML={{ __html: data.specification }}
                     ></div>
                   ) : (
@@ -373,12 +374,14 @@ const ProductDetail = () => {
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
 
       <style jsx>{`
-        p {
+        p,
+        .maindesc {
           font-family: 'Karma';
           font-style: normal;
           font-size: 25px;
           line-height: 150%;
           margin: 30px 0;
+          white-space: pre-wrap;
         }
 
         .maingall img {
@@ -390,15 +393,22 @@ const ProductDetail = () => {
         ul {
           list-style: circle;
           padding-left: 20px;
+          white-space: pre-wrap;
         }
 
         ul li {
           margin-bottom: 15px;
+          white-space: pre-wrap;
         }
         .gallery > div {
           opacity: 0.9;
           transition: all 0.2s;
           cursor: pointer;
+        }
+
+        .textformat {
+          white-space: pre-wrap;
+          line-height: 1.4;
         }
       `}</style>
 
