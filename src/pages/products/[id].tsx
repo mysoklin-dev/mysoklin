@@ -250,9 +250,7 @@ const ProductDetail = () => {
                   {data && data.gallery && data.gallery.length > 0 && (
                     <div
                       className="gallery"
-                      onClick={() => {
-                        setToggler(true);
-                      }}
+                      onClick={() => setToggler(!toggler)}
                     >
                       <div>
                         <img
@@ -298,9 +296,7 @@ const ProductDetail = () => {
                     </div>
                   )}
 
-                  {data && data.gallery && data.gallery.length > 0 && (
-                    <FsLightbox toggler={toggler} sources={sources} />
-                  )}
+                  <FsLightbox toggler={toggler} sources={sources} />
                 </div>
 
                 {/* Features */}
