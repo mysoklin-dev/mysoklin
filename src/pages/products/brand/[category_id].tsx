@@ -7,56 +7,9 @@ import { useEffect, useState } from 'react';
 
 import Button from '@/components/Button';
 import Container from '@/components/Container';
+import ProductCardCircle from '@/components/ProductCardCircle';
 import TipsAndTricks from '@/components/TipsAndTricks';
 import Main from '@/layouts/Main';
-
-type IProductCardCircleProps = {
-  img: string;
-  title: string;
-};
-
-const ProductCardCircle = ({ img, title }: IProductCardCircleProps) => {
-  return (
-    <div className="text-center">
-      <div className="thumb mb-10">
-        <div className="radial"></div>
-        <img src={img} alt="" />
-      </div>
-
-      <div className="text-xl font-bold text-blue-400">{title}</div>
-
-      <style jsx>{`
-        .thumb {
-          position: relative;
-          z-index: 1;
-          text-align: center;
-        }
-
-        .thumb {
-          display: inline-block;
-        }
-        .radial {
-          position: absolute;
-          width: 192px;
-          height: 192px;
-          background: radial-gradient(
-            50% 50% at 50% 50%,
-            #00a0ff 0%,
-            #31b2ff 44.79%,
-            #bce6ff 100%
-          );
-          top: 32px;
-          left: 50%;
-          transform: translateX(-50%);
-          right: 0;
-          margin: 0 auto;
-          border-radius: 192px;
-          z-index: -1;
-        }
-      `}</style>
-    </div>
-  );
-};
 
 const ProductDetail = () => {
   const [brand, setBrand] = useState<any>();
@@ -65,7 +18,7 @@ const ProductDetail = () => {
   const router = useRouter();
   // eslint-disable-next-line @typescript-eslint/naming-convention
   const { category_id } = router.query;
-  const pb = new PocketBase('https://mysoklin-dashboard.efectifity.com');
+  const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
 
   useEffect(() => {
     const getBrand = async () => {
@@ -139,6 +92,9 @@ const ProductDetail = () => {
                     src={`${process.env.NEXT_PUBLIC_API_URL}/files/${brand.collectionId}/${brand.id}/${brand.logo}`}
                     alt=""
                     loading="lazy"
+                    width="200"
+                    height="200"
+                    style={{ width: 200, height: 'auto' }}
                   />
                 </div>
 
@@ -201,6 +157,7 @@ const ProductDetail = () => {
             items.map((item: any, i: any) => (
               <div className="col-span-1 mb-10" key={`product-${i}`}>
                 <ProductCardCircle
+                  id={item.id}
                   title={item.title}
                   img={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item.image}`}
                 />

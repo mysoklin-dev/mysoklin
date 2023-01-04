@@ -13,7 +13,7 @@ const Products = () => {
   const [modal, setModal] = useState(false);
   const [brands, setBrands] = useState<[]>([]);
   const [modaltitle, setModaltitle] = useState('');
-  const pb = new PocketBase('https://mysoklin-dashboard.efectifity.com');
+  const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
 
   const { data, error } = useSWR(
     `${process.env.NEXT_PUBLIC_API_URL}/collections/product_categories/records?sort=-created`
@@ -91,7 +91,7 @@ const Products = () => {
               <div className="mb-3">
                 {brands &&
                   brands.map((item: any, i: number) => (
-                    <div className="col-span-1" key={`product-${i}`}>
+                    <div className="col-span-1 my-3" key={`product-${i}`}>
                       <ProductButton
                         data={item}
                         title={item.title}

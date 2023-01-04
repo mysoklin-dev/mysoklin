@@ -3,8 +3,14 @@ import React from 'react';
 type ButtonProps = {
   children: React.ReactNode;
   style?: React.CSSProperties | undefined;
-  variant?: 'contained' | 'outlined' | 'elevated' | undefined;
+  variant?:
+    | 'contained'
+    | 'outlined'
+    | 'elevated'
+    | 'contained-blue'
+    | undefined;
   icon?: React.ReactNode;
+  appendIcon?: React.ReactNode;
   fullWidth?: boolean;
 };
 
@@ -13,16 +19,20 @@ const Button = ({
   style,
   variant = 'contained',
   icon,
+  appendIcon,
   fullWidth = false,
 }: ButtonProps) => {
   return (
     <>
       <div
-        className={`Button flex items-center justify-center gap-2 ${variant}`}
+        className={`Button flex items-center gap-2 ${variant} ${
+          icon ? 'justify-start' : 'justify-center'
+        }`}
         style={style}
       >
-        {icon && <div className="mr-auto">{icon}</div>}
+        {icon && <div>{icon}</div>}
         <div>{children}</div>
+        {appendIcon && <div className="ml-auto">{appendIcon}</div>}
       </div>
 
       <style jsx>{`
@@ -49,6 +59,11 @@ const Button = ({
 
         .Button.contained {
           background: #fb4c06;
+          color: #fff;
+        }
+
+        .Button.contained-blue {
+          background: #071789;
           color: #fff;
         }
 
