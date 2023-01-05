@@ -355,24 +355,26 @@ const ProductDetail = () => {
           </Container>
 
           {/* related */}
-          <Container className="py-20">
-            <h2 className="mb-20 text-2xl font-black text-blue-400">
-              Related Products
-            </h2>
-            <div className="grid grid-cols-3 gap-10">
-              {items &&
-                items.length > 0 &&
-                items.map((item: any, i: any) => (
-                  <div className="col-span-1 mb-10" key={`product-${i}`}>
-                    <ProductCardCircle
-                      id={item.id}
-                      title={item.title}
-                      img={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item.image}`}
-                    />
-                  </div>
-                ))}
-            </div>
-          </Container>
+          {items && items.length > 1 && (
+            <Container className="py-20">
+              <h2 className="mb-20 text-2xl font-black text-blue-400">
+                Related Products
+              </h2>
+              <div className="grid grid-cols-3 gap-10">
+                {items &&
+                  items.length > 0 &&
+                  items.map((item: any, i: any) => (
+                    <div className="col-span-1 mb-10" key={`product-${i}`}>
+                      <ProductCardCircle
+                        id={item.id}
+                        title={item.title}
+                        img={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item.image}`}
+                      />
+                    </div>
+                  ))}
+              </div>
+            </Container>
+          )}
         </>
       )}
 
