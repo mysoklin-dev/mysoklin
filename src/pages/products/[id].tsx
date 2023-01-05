@@ -43,7 +43,7 @@ const ProductDetail = () => {
     const getProducts = async () => {
       try {
         const resultList = await pb.collection('products').getList(1, 3, {
-          filter: `product_brand_id ~ '${data.product_brand_id}'`,
+          filter: `product_brand_id ~ '${data.product_brand_id}' && id != '${id}'`,
         });
         setProducts(resultList.items);
       } catch (error) {
