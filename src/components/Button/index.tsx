@@ -12,6 +12,10 @@ type ButtonProps = {
   icon?: React.ReactNode;
   appendIcon?: React.ReactNode;
   fullWidth?: boolean;
+  square?: boolean;
+  onClick?:
+    | ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void)
+    | undefined;
 };
 
 const Button = ({
@@ -21,14 +25,21 @@ const Button = ({
   icon,
   appendIcon,
   fullWidth = false,
+  square = false,
+  onClick = () => {},
 }: ButtonProps) => {
+  const handleOnClick = (e: any) => {
+    onClick(e);
+  };
+
   return (
     <>
       <div
         className={`Button flex items-center gap-2 ${variant} ${
           icon ? 'justify-start' : 'justify-center'
-        }`}
+        } ${square ? 'square' : ''}`}
         style={style}
+        onClick={handleOnClick}
       >
         {icon && <div>{icon}</div>}
         <div>{children}</div>
@@ -45,6 +56,10 @@ const Button = ({
           height: 40px;
           transition: all 0.2s;
           width: ${fullWidth ? '100%' : 'auto'};
+        }
+
+        .Button.square {
+          border-radius: 10px !important;
         }
 
         .Button.elevated {

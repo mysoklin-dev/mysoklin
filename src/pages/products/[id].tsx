@@ -18,6 +18,7 @@ const ProductDetail = () => {
   const [toggler, setToggler] = useState(false);
   const [items, setProducts] = useState<any>();
   const [sources, setSources] = useState<string[]>([]);
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -173,6 +174,9 @@ const ProductDetail = () => {
                 <Button
                   variant="contained-blue"
                   style={{ height: 50, width: 200 }}
+                  onClick={() => {
+                    setModal(true);
+                  }}
                   appendIcon={
                     <svg
                       width="8"
@@ -371,6 +375,171 @@ const ProductDetail = () => {
           </Container>
         </>
       )}
+
+      {/* Modal */}
+      {modal && (
+        <div className="modal">
+          <div className="modal-box">
+            <div className="modal-header flex items-center justify-center font-black">
+              Store Options
+              <div
+                className="closer"
+                onClick={() => {
+                  setModal(false);
+                }}
+              >
+                <img src="/assets/images/cross.svg" alt="close" />
+              </div>
+            </div>
+
+            <div className="modal-content">
+              {/* Brands item */}
+              <div className="mb-3">
+                <a className="d-block my-3 block" href={data.tokopedia}>
+                  <Button
+                    variant="outlined"
+                    fullWidth
+                    square
+                    style={{ height: 60 }}
+                    icon={
+                      <img src="/assets/images/logos/tokopedia.png" alt="" />
+                    }
+                    appendIcon={
+                      <img
+                        src="/assets/images/chevron-right.svg"
+                        width={10}
+                        height={7.5}
+                        style={{ height: 'auto' }}
+                        alt=""
+                      />
+                    }
+                  >
+                    Tokopedia
+                  </Button>
+                </a>
+
+                <a className="d-block my-3 block" href={data.shopee}>
+                  <Button
+                    variant="outlined"
+                    fullWidth
+                    square
+                    style={{ height: 60 }}
+                    icon={<img src="/assets/images/logos/shopee.png" alt="" />}
+                    appendIcon={
+                      <img
+                        src="/assets/images/chevron-right.svg"
+                        width={10}
+                        height={7.5}
+                        style={{ height: 'auto' }}
+                        alt=""
+                      />
+                    }
+                  >
+                    Shopee
+                  </Button>
+                </a>
+
+                <a className="d-block my-3 block" href={data.blibli}>
+                  <Button
+                    variant="outlined"
+                    fullWidth
+                    square
+                    style={{ height: 60 }}
+                    icon={<img src="/assets/images/logos/blibli.png" alt="" />}
+                    appendIcon={
+                      <img
+                        src="/assets/images/chevron-right.svg"
+                        width={10}
+                        height={7.5}
+                        style={{ height: 'auto' }}
+                        alt=""
+                      />
+                    }
+                  >
+                    Blibli
+                  </Button>
+                </a>
+
+                <a className="d-block my-3 block" href={data.jdid}>
+                  <Button
+                    variant="outlined"
+                    fullWidth
+                    square
+                    style={{ height: 60 }}
+                    icon={<img src="/assets/images/logos/jd.png" alt="" />}
+                    appendIcon={
+                      <img
+                        src="/assets/images/chevron-right.svg"
+                        width={10}
+                        height={7.5}
+                        style={{ height: 'auto' }}
+                        alt=""
+                      />
+                    }
+                  >
+                    JD.ID
+                  </Button>
+                </a>
+
+                <a className="d-block my-3 block" href={data.lazada}>
+                  <Button
+                    variant="outlined"
+                    fullWidth
+                    square
+                    style={{ height: 60 }}
+                    icon={
+                      <img
+                        src="/assets/images/logos/lazada.webp"
+                        width="30"
+                        alt=""
+                      />
+                    }
+                    appendIcon={
+                      <img
+                        src="/assets/images/chevron-right.svg"
+                        width={10}
+                        height={7.5}
+                        style={{ height: 'auto' }}
+                        alt=""
+                      />
+                    }
+                  >
+                    Lazada
+                  </Button>
+                </a>
+
+                <a className="d-block my-3 block" href={data.lazada}>
+                  <Button
+                    variant="outlined"
+                    fullWidth
+                    square
+                    style={{ height: 60 }}
+                    icon={
+                      <img
+                        src="/assets/images/logos/astro.jpeg"
+                        width="30"
+                        alt=""
+                      />
+                    }
+                    appendIcon={
+                      <img
+                        src="/assets/images/chevron-right.svg"
+                        width={10}
+                        height={7.5}
+                        style={{ height: 'auto' }}
+                        alt=""
+                      />
+                    }
+                  >
+                    Astro
+                  </Button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
 
       <style jsx>{`
