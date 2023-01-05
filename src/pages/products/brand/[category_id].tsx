@@ -1,4 +1,5 @@
 import { FaFacebook } from '@react-icons/all-files/fa/FaFacebook';
+import { FaGlobe } from '@react-icons/all-files/fa/FaGlobe';
 import { FaInstagram } from '@react-icons/all-files/fa/FaInstagram';
 import { FaYoutube } from '@react-icons/all-files/fa/FaYoutube';
 import { useRouter } from 'next/router';
@@ -121,6 +122,11 @@ const ProductDetail = () => {
                       <a href={socials[0].youtube}>
                         <Button icon={<FaYoutube />} variant="outlined">
                           {socials[0].youtube_label}
+                        </Button>
+                      </a>
+                      <a href={socials[0].website}>
+                        <Button icon={<FaGlobe />} variant="outlined">
+                          {'Website'}
                         </Button>
                       </a>
                     </div>
