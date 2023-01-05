@@ -98,7 +98,7 @@ const Header = () => {
                 company
               </Link>
               <Link
-                onMouseEnter={showMegamenu}
+                onClick={showMegamenu}
                 className="d-block py-2 px-3 text-white"
                 href="/products"
               >
