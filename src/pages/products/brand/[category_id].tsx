@@ -109,22 +109,38 @@ const ProductDetail = () => {
                   {socials && socials.length > 0 && socials[0] && (
                     <div className="mt-5 flex gap-3">
                       {/* <pre>{JSON.stringify(socials[0], null, 2)}</pre> */}
-                      <a href={socials[0].instagram}>
+                      <a
+                        href={socials[0].instagram}
+                        target="_BLANK"
+                        rel="noreferrer"
+                      >
                         <Button icon={<FaInstagram />} variant="outlined">
                           {socials[0].instagram_label}
                         </Button>
                       </a>
-                      <a href={socials[0].facebook}>
+                      <a
+                        href={socials[0].facebook}
+                        target="_BLANK"
+                        rel="noreferrer"
+                      >
                         <Button icon={<FaFacebook />} variant="outlined">
                           {socials[0].facebook_label}
                         </Button>
                       </a>
-                      <a href={socials[0].youtube}>
+                      <a
+                        href={socials[0].youtube}
+                        target="_BLANK"
+                        rel="noreferrer"
+                      >
                         <Button icon={<FaYoutube />} variant="outlined">
                           {socials[0].youtube_label}
                         </Button>
                       </a>
-                      <a href={socials[0].website}>
+                      <a
+                        href={socials[0].website}
+                        target="_BLANK"
+                        rel="noreferrer"
+                      >
                         <Button icon={<FaGlobe />} variant="outlined">
                           {'Website'}
                         </Button>

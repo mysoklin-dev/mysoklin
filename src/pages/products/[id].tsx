@@ -94,7 +94,7 @@ const ProductDetail = () => {
               {/* Socials */}
               <div className="mt-6 flex items-center gap-3">
                 {data.tokopedia !== '' && (
-                  <a href={data.tokopedia}>
+                  <a href={data.tokopedia} target="_BLANK" rel="noreferrer">
                     <Button
                       variant="outlined"
                       style={{ height: 50, width: 200 }}
@@ -117,7 +117,7 @@ const ProductDetail = () => {
                 )}
 
                 {data.shopee !== '' && (
-                  <a href={data.shopee}>
+                  <a href={data.shopee} target="_BLANK" rel="noreferrer">
                     <Button
                       variant="outlined"
                       style={{ height: 50, width: 200 }}
@@ -140,7 +140,7 @@ const ProductDetail = () => {
                 )}
 
                 {data.blibli !== '' && (
-                  <a href={data.blibli}>
+                  <a href={data.blibli} target="_BLANK" rel="noreferrer">
                     <Button
                       variant="outlined"
                       style={{ height: 50, width: 200 }}
@@ -163,7 +163,7 @@ const ProductDetail = () => {
                 )}
 
                 {data.jdid !== '' && (
-                  <a href={data.jdid}>
+                  <a href={data.jdid} target="_BLANK" rel="noreferrer">
                     <Button
                       variant="outlined"
                       style={{ height: 50, width: 200 }}
