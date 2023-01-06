@@ -8,6 +8,10 @@
   --primary: #071789;
 }
 
+/* body {
+  opacity: 0;
+} */
+
 a {
   color: #888888;
 }

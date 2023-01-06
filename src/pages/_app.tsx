@@ -7,7 +7,7 @@ import { SWRConfig } from 'swr';
 const MyApp = ({ Component, pageProps }: AppProps) => (
   <>
     <Head>
-      <title>MySoklin</title>
+      <title></title>
     </Head>
     <SWRConfig
       value={{

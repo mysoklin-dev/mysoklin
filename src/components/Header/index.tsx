@@ -1,9 +1,12 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 import Link from 'next/link';
-import { useState } from 'react';
+import PocketBase from 'pocketbase';
+import { useEffect, useState } from 'react';
 
 const Header = () => {
   const [isShowMega, setShowMega] = useState<boolean>(false);
+  const [menu, setMenu] = useState<any>(null);
+  const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
 
   const showMegamenu = () => {
     setShowMega(true);
@@ -11,6 +14,21 @@ const Header = () => {
   const hideMegaMenu = () => {
     setShowMega(false);
   };
+
+  useEffect(() => {
+    const fetchMenu = async () => {
+      const record = await pb.collection('product_categories').getList(1, 4, {
+        sort: '-created',
+        expand: 'product_brands(product_category_id)',
+      });
+
+      setMenu(record?.items);
+
+      console.log(record);
+    };
+
+    fetchMenu();
+  }, []);
 
   return (
     <>
@@ -122,53 +140,30 @@ const Header = () => {
           <div className="megamenu" onMouseLeave={hideMegaMenu}>
             <div className="container mx-auto max-w-6xl">
               <div className="flex flex-wrap justify-between gap-20">
-                <div>
-                  <h4 className="text-md font-bold text-blue-400">
-                    Powder Detergent
-                  </h4>
-                  <ul>
-                    <li>SoKlin Smart</li>
-                    <li>SoKlin Softergent</li>
-                    <li>SoKlin Antisep</li>
-                    <li>SoKlin Biomatic Powder</li>
-                  </ul>
-                </div>
+                {menu &&
+                  menu.length > 0 &&
+                  menu.map((item: any) => (
+                    <div key={`menu-${item.id}`}>
+                      <h4 className="text-md font-bold text-blue-400">
+                        {item.title}
+                      </h4>
 
-                <div>
-                  <h4 className="text-md font-bold text-blue-400">
-                    Powder Detergent
-                  </h4>
-                  <ul>
-                    <li>SoKlin Smart</li>
-                    <li>SoKlin Softergent</li>
-                    <li>SoKlin Antisep</li>
-                    <li>SoKlin Biomatic Powder</li>
-                  </ul>
-                </div>
-
-                <div>
-                  <h4 className="text-md font-bold text-blue-400">
-                    Powder Detergent
-                  </h4>
-                  <ul>
-                    <li>SoKlin Smart</li>
-                    <li>SoKlin Softergent</li>
-                    <li>SoKlin Antisep</li>
-                    <li>SoKlin Biomatic Powder</li>
-                  </ul>
-                </div>
-
-                <div>
-                  <h4 className="text-md font-bold text-blue-400">
-                    Powder Detergent
-                  </h4>
-                  <ul>
-                    <li>SoKlin Smart</li>
-                    <li>SoKlin Softergent</li>
-                    <li>SoKlin Antisep</li>
-                    <li>SoKlin Biomatic Powder</li>
-                  </ul>
-                </div>
+                      <ul>
+                        {item.expand &&
+                          item.expand['product_brands(product_category_id)']
+                            .length > 0 &&
+                          item.expand[
+                            'product_brands(product_category_id)'
+                          ].map((submenu: any) => (
+                            <li key={`submenu-${submenu.id}`}>
+                              <Link href={`/products/brand/${submenu.id}`}>
+                                {submenu.title}
+                              </Link>
+                            </li>
+                          ))}
+                      </ul>
+                    </div>
+                  ))}
               </div>
             </div>
           </div>
