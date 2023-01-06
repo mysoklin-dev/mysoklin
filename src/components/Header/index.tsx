@@ -17,7 +17,7 @@ const Header = () => {
 
   useEffect(() => {
     const fetchMenu = async () => {
-      const record = await pb.collection('product_categories').getList(1, 4, {
+      const record = await pb.collection('product_categories').getList(1, 6, {
         sort: '-created',
         expand: 'product_brands(product_category_id)',
       });
@@ -137,11 +137,11 @@ const Header = () => {
         {isShowMega && (
           <div className="megamenu" onMouseLeave={hideMegaMenu}>
             <div className="container mx-auto max-w-6xl">
-              <div className="flex flex-wrap justify-between gap-20">
+              <div className="grid grid-cols-4 justify-between gap-4">
                 {menu &&
                   menu.length > 0 &&
                   menu.map((item: any) => (
-                    <div key={`menu-${item.id}`}>
+                    <div key={`menu-${item.id}`} className="col-span-1">
                       <h4 className="text-md font-bold text-blue-400">
                         {item.title}
                       </h4>
