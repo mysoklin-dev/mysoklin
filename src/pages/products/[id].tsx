@@ -281,39 +281,30 @@ const ProductDetail = () => {
                         />
                       </div>
 
-                      <div className="mt-1 flex gap-1">
-                        <div>
-                          <img
-                            src={`${process.env.NEXT_PUBLIC_API_URL}/files/${data?.collectionId}/${data?.id}/${data?.gallery[1]}?thumb=384x300`}
-                            alt=""
-                          />
-                        </div>
-                        <div>
-                          <img
-                            src={`${process.env.NEXT_PUBLIC_API_URL}/files/${data?.collectionId}/${data?.id}/${data?.gallery[2]}?thumb=384x300`}
-                            alt=""
-                          />
-                        </div>
-                        <div>
-                          <img
-                            src={`${process.env.NEXT_PUBLIC_API_URL}/files/${data?.collectionId}/${data?.id}/${data?.gallery[3]}?thumb=384x300`}
-                            alt=""
-                          />
-                        </div>
-                        <div>
-                          <img
-                            src={`${process.env.NEXT_PUBLIC_API_URL}/files/${data?.collectionId}/${data?.id}/${data?.gallery[4]}?thumb=384x300`}
-                            alt=""
-                          />
-                        </div>
-                        <div
-                          style={{ height: 71.6, width: '74px!important' }}
-                          className="flex items-center justify-center bg-blue-400 text-xs font-bold text-white"
-                        >
-                          <div style={{ width: 74 }} className="text-center">
-                            Show All
+                      <div className="mt-1 flex justify-between gap-1">
+                        {data.gallery.length > 0 &&
+                          data.gallery.map((img: string, i: number) => (
+                            <>
+                              {i > 0 && (
+                                <div key={`gallery-${img}`}>
+                                  <img
+                                    src={`${process.env.NEXT_PUBLIC_API_URL}/files/${data?.collectionId}/${data?.id}/${data.gallery[i]}?thumb=384x300`}
+                                    alt=""
+                                  />
+                                </div>
+                              )}
+                            </>
+                          ))}
+                        {data?.gallery.length > 4 && (
+                          <div
+                            style={{ height: 69 }}
+                            className="flex items-center justify-center bg-blue-400 text-xs font-bold text-white"
+                          >
+                            <div style={{ width: 86 }} className="text-center">
+                              Show All
+                            </div>
                           </div>
-                        </div>
+                        )}
                       </div>
                     </div>
                   )}
