@@ -22,6 +22,7 @@ const Products = () => {
   const getBrands = async (title: string, product_category_id: string) => {
     const records: any = await pb.collection('product_brands').getList(1, 50, {
       filter: `product_category_id ~ '${product_category_id}'`,
+      sort: '+sequence',
     });
     setBrands(records.items);
     setModal(true);
