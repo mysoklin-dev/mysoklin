@@ -93,111 +93,128 @@ const ProductDetail = () => {
 
               {/* Socials */}
               <div className="mt-6 flex items-center gap-3">
-                <a href={data.tokopedia}>
-                  <Button
-                    variant="outlined"
-                    style={{ height: 50, width: 200 }}
-                    icon={
-                      <img src="/assets/images/logos/tokopedia.png" alt="" />
-                    }
-                    appendIcon={
-                      <img
-                        src="/assets/images/chevron-right.svg"
-                        width={10}
-                        height={7.5}
-                        style={{ height: 'auto' }}
-                        alt=""
-                      />
-                    }
-                  >
-                    Tokopedia
-                  </Button>
-                </a>
-
-                <a href={data.shopee}>
-                  <Button
-                    variant="outlined"
-                    style={{ height: 50, width: 200 }}
-                    icon={<img src="/assets/images/logos/shopee.png" alt="" />}
-                    appendIcon={
-                      <img
-                        src="/assets/images/chevron-right.svg"
-                        width={10}
-                        height={7.5}
-                        style={{ height: 'auto' }}
-                        alt=""
-                      />
-                    }
-                  >
-                    Shopee
-                  </Button>
-                </a>
-
-                <a href={data.blibli}>
-                  <Button
-                    variant="outlined"
-                    style={{ height: 50, width: 200 }}
-                    icon={<img src="/assets/images/logos/blibli.png" alt="" />}
-                    appendIcon={
-                      <img
-                        src="/assets/images/chevron-right.svg"
-                        width={10}
-                        height={7.5}
-                        style={{ height: 'auto' }}
-                        alt=""
-                      />
-                    }
-                  >
-                    Blibli
-                  </Button>
-                </a>
-
-                <a href={data.jdid}>
-                  <Button
-                    variant="outlined"
-                    style={{ height: 50, width: 200 }}
-                    icon={<img src="/assets/images/logos/jd.png" alt="" />}
-                    appendIcon={
-                      <img
-                        src="/assets/images/chevron-right.svg"
-                        width={10}
-                        height={7.5}
-                        style={{ height: 'auto' }}
-                        alt=""
-                      />
-                    }
-                  >
-                    JD.ID
-                  </Button>
-                </a>
-
-                <Button
-                  variant="contained-blue"
-                  style={{ height: 50, width: 200 }}
-                  onClick={() => {
-                    setModal(true);
-                  }}
-                  appendIcon={
-                    <svg
-                      width="8"
-                      height="10"
-                      viewBox="0 0 8 10"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+                {data.tokopedia !== '' && (
+                  <a href={data.tokopedia}>
+                    <Button
+                      variant="outlined"
+                      style={{ height: 50, width: 200 }}
+                      icon={
+                        <img src="/assets/images/logos/tokopedia.png" alt="" />
+                      }
+                      appendIcon={
+                        <img
+                          src="/assets/images/chevron-right.svg"
+                          width={10}
+                          height={7.5}
+                          style={{ height: 'auto' }}
+                          alt=""
+                        />
+                      }
                     >
-                      <path
-                        d="M2.50254 0.000771076L7.49703 5.00586L2.50254 5.00586L2.98425e-08 2.50332L2.50254 0.000771076Z"
-                        fill="white"
-                      />
-                      <path
-                        d="M2.50254 5.00552L7.49703 5.00552L2.50254 10L2.98425e-08 7.49746L2.50254 5.00552Z"
-                        fill="white"
-                      />
-                    </svg>
-                  }
-                >
-                  Show All
-                </Button>
+                      Tokopedia
+                    </Button>
+                  </a>
+                )}
+
+                {data.shopee !== '' && (
+                  <a href={data.shopee}>
+                    <Button
+                      variant="outlined"
+                      style={{ height: 50, width: 200 }}
+                      icon={
+                        <img src="/assets/images/logos/shopee.png" alt="" />
+                      }
+                      appendIcon={
+                        <img
+                          src="/assets/images/chevron-right.svg"
+                          width={10}
+                          height={7.5}
+                          style={{ height: 'auto' }}
+                          alt=""
+                        />
+                      }
+                    >
+                      Shopee
+                    </Button>
+                  </a>
+                )}
+
+                {data.blibli !== '' && (
+                  <a href={data.blibli}>
+                    <Button
+                      variant="outlined"
+                      style={{ height: 50, width: 200 }}
+                      icon={
+                        <img src="/assets/images/logos/blibli.png" alt="" />
+                      }
+                      appendIcon={
+                        <img
+                          src="/assets/images/chevron-right.svg"
+                          width={10}
+                          height={7.5}
+                          style={{ height: 'auto' }}
+                          alt=""
+                        />
+                      }
+                    >
+                      Blibli
+                    </Button>
+                  </a>
+                )}
+
+                {data.jdid !== '' && (
+                  <a href={data.jdid}>
+                    <Button
+                      variant="outlined"
+                      style={{ height: 50, width: 200 }}
+                      icon={<img src="/assets/images/logos/jd.png" alt="" />}
+                      appendIcon={
+                        <img
+                          src="/assets/images/chevron-right.svg"
+                          width={10}
+                          height={7.5}
+                          style={{ height: 'auto' }}
+                          alt=""
+                        />
+                      }
+                    >
+                      JD.ID
+                    </Button>
+                  </a>
+                )}
+
+                {data.tokopedia !== '' &&
+                  data.shopee !== '' &&
+                  data.blibli !== '' &&
+                  data.jdid !== '' && (
+                    <Button
+                      variant="contained-blue"
+                      style={{ height: 50, width: 200 }}
+                      onClick={() => {
+                        setModal(true);
+                      }}
+                      appendIcon={
+                        <svg
+                          width="8"
+                          height="10"
+                          viewBox="0 0 8 10"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M2.50254 0.000771076L7.49703 5.00586L2.50254 5.00586L2.98425e-08 2.50332L2.50254 0.000771076Z"
+                            fill="white"
+                          />
+                          <path
+                            d="M2.50254 5.00552L7.49703 5.00552L2.50254 10L2.98425e-08 7.49746L2.50254 5.00552Z"
+                            fill="white"
+                          />
+                        </svg>
+                      }
+                    >
+                      Show All
+                    </Button>
+                  )}
               </div>
             </Container>
           </section>
@@ -397,145 +414,161 @@ const ProductDetail = () => {
             <div className="modal-content">
               {/* Brands item */}
               <div className="mb-3">
-                <a className="d-block my-3 block" href={data.tokopedia}>
-                  <Button
-                    variant="outlined"
-                    fullWidth
-                    square
-                    style={{ height: 60 }}
-                    icon={
-                      <img src="/assets/images/logos/tokopedia.png" alt="" />
-                    }
-                    appendIcon={
-                      <img
-                        src="/assets/images/chevron-right.svg"
-                        width={10}
-                        height={7.5}
-                        style={{ height: 'auto' }}
-                        alt=""
-                      />
-                    }
-                  >
-                    Tokopedia
-                  </Button>
-                </a>
+                {data.tokopedia !== '' && (
+                  <a className="d-block my-3 block" href={data.tokopedia}>
+                    <Button
+                      variant="outlined"
+                      fullWidth
+                      square
+                      style={{ height: 60 }}
+                      icon={
+                        <img src="/assets/images/logos/tokopedia.png" alt="" />
+                      }
+                      appendIcon={
+                        <img
+                          src="/assets/images/chevron-right.svg"
+                          width={10}
+                          height={7.5}
+                          style={{ height: 'auto' }}
+                          alt=""
+                        />
+                      }
+                    >
+                      Tokopedia
+                    </Button>
+                  </a>
+                )}
 
-                <a className="d-block my-3 block" href={data.shopee}>
-                  <Button
-                    variant="outlined"
-                    fullWidth
-                    square
-                    style={{ height: 60 }}
-                    icon={<img src="/assets/images/logos/shopee.png" alt="" />}
-                    appendIcon={
-                      <img
-                        src="/assets/images/chevron-right.svg"
-                        width={10}
-                        height={7.5}
-                        style={{ height: 'auto' }}
-                        alt=""
-                      />
-                    }
-                  >
-                    Shopee
-                  </Button>
-                </a>
+                {data.shopee !== '' && (
+                  <a className="d-block my-3 block" href={data.shopee}>
+                    <Button
+                      variant="outlined"
+                      fullWidth
+                      square
+                      style={{ height: 60 }}
+                      icon={
+                        <img src="/assets/images/logos/shopee.png" alt="" />
+                      }
+                      appendIcon={
+                        <img
+                          src="/assets/images/chevron-right.svg"
+                          width={10}
+                          height={7.5}
+                          style={{ height: 'auto' }}
+                          alt=""
+                        />
+                      }
+                    >
+                      Shopee
+                    </Button>
+                  </a>
+                )}
 
-                <a className="d-block my-3 block" href={data.blibli}>
-                  <Button
-                    variant="outlined"
-                    fullWidth
-                    square
-                    style={{ height: 60 }}
-                    icon={<img src="/assets/images/logos/blibli.png" alt="" />}
-                    appendIcon={
-                      <img
-                        src="/assets/images/chevron-right.svg"
-                        width={10}
-                        height={7.5}
-                        style={{ height: 'auto' }}
-                        alt=""
-                      />
-                    }
-                  >
-                    Blibli
-                  </Button>
-                </a>
+                {data.blibli !== '' && (
+                  <a className="d-block my-3 block" href={data.blibli}>
+                    <Button
+                      variant="outlined"
+                      fullWidth
+                      square
+                      style={{ height: 60 }}
+                      icon={
+                        <img src="/assets/images/logos/blibli.png" alt="" />
+                      }
+                      appendIcon={
+                        <img
+                          src="/assets/images/chevron-right.svg"
+                          width={10}
+                          height={7.5}
+                          style={{ height: 'auto' }}
+                          alt=""
+                        />
+                      }
+                    >
+                      Blibli
+                    </Button>
+                  </a>
+                )}
 
-                <a className="d-block my-3 block" href={data.jdid}>
-                  <Button
-                    variant="outlined"
-                    fullWidth
-                    square
-                    style={{ height: 60 }}
-                    icon={<img src="/assets/images/logos/jd.png" alt="" />}
-                    appendIcon={
-                      <img
-                        src="/assets/images/chevron-right.svg"
-                        width={10}
-                        height={7.5}
-                        style={{ height: 'auto' }}
-                        alt=""
-                      />
-                    }
-                  >
-                    JD.ID
-                  </Button>
-                </a>
+                {data.jdid !== '' && (
+                  <a className="d-block my-3 block" href={data.jdid}>
+                    <Button
+                      variant="outlined"
+                      fullWidth
+                      square
+                      style={{ height: 60 }}
+                      icon={<img src="/assets/images/logos/jd.png" alt="" />}
+                      appendIcon={
+                        <img
+                          src="/assets/images/chevron-right.svg"
+                          width={10}
+                          height={7.5}
+                          style={{ height: 'auto' }}
+                          alt=""
+                        />
+                      }
+                    >
+                      JD.ID
+                    </Button>
+                  </a>
+                )}
 
-                <a className="d-block my-3 block" href={data.lazada}>
-                  <Button
-                    variant="outlined"
-                    fullWidth
-                    square
-                    style={{ height: 60 }}
-                    icon={
-                      <img
-                        src="/assets/images/logos/lazada.webp"
-                        width="30"
-                        alt=""
-                      />
-                    }
-                    appendIcon={
-                      <img
-                        src="/assets/images/chevron-right.svg"
-                        width={10}
-                        height={7.5}
-                        style={{ height: 'auto' }}
-                        alt=""
-                      />
-                    }
-                  >
-                    Lazada
-                  </Button>
-                </a>
+                {data.lazada !== '' && (
+                  <a className="d-block my-3 block" href={data.lazada}>
+                    <Button
+                      variant="outlined"
+                      fullWidth
+                      square
+                      style={{ height: 60 }}
+                      icon={
+                        <img
+                          src="/assets/images/logos/lazada.webp"
+                          width="30"
+                          alt=""
+                        />
+                      }
+                      appendIcon={
+                        <img
+                          src="/assets/images/chevron-right.svg"
+                          width={10}
+                          height={7.5}
+                          style={{ height: 'auto' }}
+                          alt=""
+                        />
+                      }
+                    >
+                      Lazada
+                    </Button>
+                  </a>
+                )}
 
-                <a className="d-block my-3 block" href={data.lazada}>
-                  <Button
-                    variant="outlined"
-                    fullWidth
-                    square
-                    style={{ height: 60 }}
-                    icon={
-                      <img
-                        src="/assets/images/logos/astro.jpeg"
-                        width="30"
-                        alt=""
-                      />
-                    }
-                    appendIcon={
-                      <img
-                        src="/assets/images/chevron-right.svg"
-                        width={10}
-                        height={7.5}
-                        style={{ height: 'auto' }}
-                        alt=""
-                      />
-                    }
-                  >
-                    Astro
-                  </Button>
-                </a>
+                {data.astro !== '' && (
+                  <a className="d-block my-3 block" href={data.astro}>
+                    <Button
+                      variant="outlined"
+                      fullWidth
+                      square
+                      style={{ height: 60 }}
+                      icon={
+                        <img
+                          src="/assets/images/logos/astro.jpeg"
+                          width="30"
+                          alt=""
+                        />
+                      }
+                      appendIcon={
+                        <img
+                          src="/assets/images/chevron-right.svg"
+                          width={10}
+                          height={7.5}
+                          style={{ height: 'auto' }}
+                          alt=""
+                        />
+                      }
+                    >
+                      Astro
+                    </Button>
+                  </a>
+                )}
               </div>
             </div>
           </div>
