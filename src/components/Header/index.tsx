@@ -23,8 +23,6 @@ const Header = () => {
       });
 
       setMenu(record?.items);
-
-      console.log(record);
     };
 
     fetchMenu();
@@ -116,7 +114,7 @@ const Header = () => {
                 company
               </Link>
               <Link
-                onClick={showMegamenu}
+                onMouseEnter={showMegamenu}
                 className="d-block py-2 px-3 text-white"
                 href="/products"
               >
@@ -156,7 +154,10 @@ const Header = () => {
                             'product_brands(product_category_id)'
                           ].map((submenu: any) => (
                             <li key={`submenu-${submenu.id}`}>
-                              <Link href={`/products/brand/${submenu.id}`}>
+                              <Link
+                                href={`/products/brand/${submenu.id}`}
+                                className="hover:text-blue-400"
+                              >
                                 {submenu.title}
                               </Link>
                             </li>
