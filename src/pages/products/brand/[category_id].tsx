@@ -104,7 +104,7 @@ const ProductDetail = () => {
                     {brand.title}
                   </h1>
 
-                  {/* <p className="mt-5 text-xl">{brand.description}</p> */}
+                  <p className="mt-5 text-xl">{brand.description}</p>
 
                   {/* <pre>{JSON.stringify(socials, null, 2)}</pre> */}
                   {socials && socials.length > 0 && socials[0] && (
