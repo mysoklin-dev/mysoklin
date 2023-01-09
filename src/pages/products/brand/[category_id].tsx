@@ -106,7 +106,7 @@ const ProductDetail = () => {
 
                   {/* <p className="mt-5 text-xl">{brand.description}</p> */}
 
-                  <pre>{JSON.stringify(socials, null, 2)}</pre>
+                  {/* <pre>{JSON.stringify(socials, null, 2)}</pre> */}
                   {socials && socials.length > 0 && socials[0] && (
                     <div className="mt-5 flex gap-3">
                       {socials[0].instagram && socials[0].instagram !== '' && (
