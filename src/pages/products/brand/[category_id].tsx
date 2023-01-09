@@ -106,9 +106,9 @@ const ProductDetail = () => {
 
                   <p className="mt-5 text-xl">{brand.description}</p>
 
+                  <pre>{JSON.stringify(socials[0], null, 2)}</pre>
                   {socials && socials.length > 0 && socials[0] && (
                     <div className="mt-5 flex gap-3">
-                      {/* <pre>{JSON.stringify(socials[0], null, 2)}</pre> */}
                       <a
                         href={socials[0].instagram}
                         target="_BLANK"

@@ -137,11 +137,11 @@ const Header = () => {
         {isShowMega && (
           <div className="megamenu" onMouseLeave={hideMegaMenu}>
             <div className="container mx-auto max-w-6xl">
-              <div className="grid grid-cols-4 justify-between gap-4">
+              <div className="flex justify-between gap-4">
                 {menu &&
                   menu.length > 0 &&
                   menu.map((item: any) => (
-                    <div key={`menu-${item.id}`} className="col-span-1">
+                    <div key={`menu-${item.id}`}>
                       <h4 className="text-md font-bold text-blue-400">
                         {item.title}
                       </h4>
