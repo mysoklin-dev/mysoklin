@@ -10,7 +10,7 @@ import Main from '@/layouts/Main';
 
 const Updates = () => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
-  const [posts, setPosts] = useState<any>(null);
+  const [posts, setPosts] = useState<any>([]);
 
   useEffect(() => {
     const getPosts = async () => {
@@ -59,17 +59,8 @@ const Updates = () => {
         </div>
 
         {/* Blog */}
-        <pre>{JSON.stringify(posts, null, 2)}</pre>
+        {/* <pre>{JSON.stringify(posts, null, 2)}</pre> */}
         <div className="mt-20 grid grid-cols-3 gap-10">
-          <div className="col-span-1">
-            <ArticleCard
-              title="Melindungi Pakaian Dari Bau Apek"
-              text="Agar kita tidak terjebak dalam sifat boros, ada baiknya jika kita mulai belajar merawat pakaian agar tetap terjaga dengan baik ketimbang membeli"
-              link="#"
-              thumbnail="/assets/images/tips-and-trick.jpg"
-            />
-          </div>
-
           {posts.map((item: any) => (
             <div className="col-span-1" key={`article-${item.id}`}>
               <ArticleCard
