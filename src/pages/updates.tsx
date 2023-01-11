@@ -32,31 +32,35 @@ const Updates = () => {
 
   return (
     <Main>
-      <img
-        src={posts[0].banner_image}
-        alt={posts[0].title}
-        style={{ zIndex: '-1', position: 'relative', width: '100%' }}
-      />
+      {posts[0] && (
+        <img
+          src={`${process.env.NEXT_PUBLIC_API_URL}/files/${posts[0].collectionId}/${posts[0].id}/${posts[0]?.banner_image}`}
+          alt={posts[0]?.title}
+          style={{ zIndex: '-1', position: 'relative', width: '100%' }}
+        />
+      )}
 
       <Container className="px-5">
-        <div className="-mt-32 rounded-md border-2 border-gray-200 bg-white p-20 text-center">
-          <h1 className="text-2xl font-black text-blue-400">
-            {posts[0].title}
-          </h1>
+        {posts[0] && (
+          <div className="-mt-32 rounded-md border-2 border-gray-200 bg-white p-20 text-center">
+            <h1 className="text-2xl font-black text-blue-400">
+              {posts[0]?.title}
+            </h1>
 
-          <div className="mt-10">
-            <div
-              className="mb-10 font-sans text-xl"
-              dangerouslySetInnerHTML={{ __html: posts[0].content }}
-            ></div>
+            <div className="mt-10">
+              <div
+                className="mb-10 font-sans text-xl"
+                dangerouslySetInnerHTML={{ __html: posts[0]?.content }}
+              ></div>
 
-            <div className="flex justify-center">
-              <Link href={`/updates/${posts[0].id}`}>
-                <Button variant="elevated">Read</Button>
-              </Link>
+              <div className="flex justify-center">
+                <Link href={`/updates/${posts[0]?.id}`}>
+                  <Button variant="elevated">Read</Button>
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* Blog */}
         {/* <pre>{JSON.stringify(posts, null, 2)}</pre> */}
@@ -67,7 +71,7 @@ const Updates = () => {
                 title={item.title}
                 text={item.content.substring(0, 50)}
                 link={`/updates/${item.id}`}
-                thumbnail={item.image}
+                thumbnail={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item?.image}`}
               />
             </div>
           ))}
