@@ -75,7 +75,7 @@ const ArticleDetail = () => {
   return (
     <Main>
       <Container className="py-20">
-        <pre>{JSON.stringify(post, null, 2)}</pre>
+        {/* <pre>{JSON.stringify(post, null, 2)}</pre> */}
         <article className="grid grid-cols-3 gap-10">
           <div className="col-span-2">
             <header className="mb-5">
