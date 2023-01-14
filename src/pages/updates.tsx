@@ -1,22 +1,25 @@
 import Link from 'next/link';
 import PocketBase from 'pocketbase';
+import Pagination from 'rc-pagination';
 import { useEffect, useState } from 'react';
 
 import ArticleCard from '@/components/ArticleCard';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
-import Pagination from '@/components/Pagination';
 import Main from '@/layouts/Main';
 
 const Updates = () => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const [posts, setPosts] = useState<any>([]);
+  const [current, setCurrent] = useState(1);
+  const [total, setTotal] = useState<number>(10);
 
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const resultList = await pb.collection('updates').getList(1, 6);
+        const resultList = await pb.collection('updates').getList(current, 6);
         setPosts(resultList.items);
+        setTotal(resultList.totalItems);
       } catch (error) {
         // eslint-disable-next-line no-console
         if (error) console.log(error);
@@ -24,7 +27,11 @@ const Updates = () => {
     };
 
     getPosts();
-  }, []);
+  }, [current]);
+
+  const onChange = (page: any) => {
+    setCurrent(page);
+  };
 
   if (!posts && posts.length === 0) {
     return null;
@@ -78,7 +85,12 @@ const Updates = () => {
         </div>
 
         <div className="mt-10 flex justify-center pb-20">
-          <Pagination />
+          <Pagination
+            onChange={onChange}
+            current={current}
+            total={total}
+            pageSize={6}
+          />
         </div>
       </Container>
     </Main>

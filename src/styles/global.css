@@ -127,3 +127,37 @@ body {
   right: 20px;
   cursor: pointer;
 }
+
+.rc-pagination {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rc-pagination li > button, .rc-pagination li > a {
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  text-align: center;
+  line-height: 28px;
+  cursor: pointer;
+  color: #000!important;
+}
+
+.rc-pagination li.rc-pagination-item-active > a {
+  background: #071789!important;
+  border-color: #071789!important;
+  color: #fff!important;
+}
+
+.rc-pagination-prev button:after {
+    content: "‹";
+    display: block;
+}
+
+.rc-pagination-next button:after {
+    content: "›";
+    display: block;
+}
