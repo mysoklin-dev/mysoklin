@@ -15,7 +15,7 @@ const Updates = () => {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const resultList = await pb.collection('updates').getList(1, 7);
+        const resultList = await pb.collection('updates').getList(1, 6);
         setPosts(resultList.items);
       } catch (error) {
         // eslint-disable-next-line no-console

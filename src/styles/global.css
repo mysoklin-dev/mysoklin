@@ -16,7 +16,7 @@ a {
   color: #888888;
 }
 
-article p {
+article p, .content {
   @apply text-lg font-serif my-6;
   line-height: 175%;
 }

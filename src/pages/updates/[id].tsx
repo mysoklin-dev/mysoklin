@@ -3,28 +3,97 @@ import { FaInstagram } from '@react-icons/all-files/fa/FaInstagram';
 import { FaLink } from '@react-icons/all-files/fa/FaLink';
 import { FaTwitter } from '@react-icons/all-files/fa/FaTwitter';
 import { FaWhatsapp } from '@react-icons/all-files/fa/FaWhatsapp';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import PocketBase from 'pocketbase';
+import { useEffect, useState } from 'react';
 
 import Container from '@/components/Container';
 import Main from '@/layouts/Main';
 
 const ArticleDetail = () => {
+  const router = useRouter();
+  const { id } = router.query;
+  const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
+  const [post, setPost] = useState<any>(null);
+  const [related, setRelated] = useState<any>([]);
+
+  useEffect(() => {
+    const getPosts = async () => {
+      try {
+        const resultList = await pb.collection('updates').getOne(`${id}`);
+        setPost(resultList);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        if (error) console.log(error);
+      }
+    };
+
+    getPosts();
+  }, [id]);
+
+  useEffect(() => {
+    const getRelated = async () => {
+      try {
+        const resultList = await pb.collection('updates').getList(1, 4, {
+          filter: `id != '${id}'`,
+        });
+        setRelated(resultList.items);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        if (error) console.log(error);
+      }
+    };
+
+    getRelated();
+  }, [post]);
+
+  const convertDate = (datestring: string) => {
+    if (!datestring) {
+      return datestring;
+    }
+    const initialDate = datestring.replace('T', ' ');
+
+    const formattedDate = new Date(initialDate).toLocaleDateString(undefined, {
+      year: 'numeric',
+      month: 'long',
+      day: '2-digit',
+      hour12: true,
+    });
+
+    if (formattedDate.toLowerCase() === 'invalid date') {
+      return initialDate;
+    }
+
+    return formattedDate;
+  };
+
+  if (post === null || related === null) {
+    return <>Loading...</>;
+  }
+
   return (
     <Main>
       <Container className="py-20">
-        <article className="grid grid-cols-3">
+        <pre>{JSON.stringify(post, null, 2)}</pre>
+        <article className="grid grid-cols-3 gap-10">
           <div className="col-span-2">
             <header className="mb-5">
               <div className="mb-2 font-serif text-lg text-gray-700">
-                02 Jan 2022
+                {convertDate(post.created)}
               </div>
 
               <h1 className="text-4xl font-black text-blue-400">
-                Natural Essential Oil Lavender
+                {post.title}
               </h1>
 
               <div className="my-2 flex gap-3 font-serif text-lg">
                 <div>
-                  <img src="/assets/images/FEMALE01.png" alt="" />
+                  <img
+                    src="/assets/images/FEMALE01.png"
+                    alt=""
+                    style={{ maxWidth: '100%' }}
+                  />
                 </div>
 
                 <div>Rebeca</div>
@@ -32,46 +101,17 @@ const ArticleDetail = () => {
             </header>
 
             <figure>
-              <img src="/assets/images/article-thumb.jpg" alt="" />
+              <img
+                src={`${process.env.NEXT_PUBLIC_API_URL}/files/${post?.collectionId}/${post?.id}/${post?.banner_image}`}
+                alt=""
+              />
             </figure>
 
             <div className="my-10">
-              <p>
-                Menjelang Lebaran nanti, salah satu kebiasaan masyarakat
-                Indonesia adalah membeli baju baru. Padahal, Idul Fitri tidak
-                mengharuskan kita untuk memakai yang serba baru, namun
-                gunakanlah pakaian terbaik. Kita tetap bisa memakai pakaian lama
-                yang terawat dengan baik. Agar kita tidak terjebak dalam sifat
-                boros, ada baiknya jika kita mulai belajar merawat pakaian agar
-                tetap terjaga dengan baik ketimbang membeli baju baru. Lalu
-                bagaimana cara untuk memelihara pakaian agar tetap menjadi yang
-                terbaik untuk Idul Fitri?
-              </p>
-              <p>
-                1. Simpan di tempat yang baik. Untuk menghindari jamur, debu,
-                kotoran, dan ngengat, sebaiknya simpan pakaian dalam kotak
-                penyimpanan di tempat yang sejuk.
-              </p>
-              <p>
-                2. Gunakan pengharum pakaian. Agar pakaian tetap berbau segar,
-                taruhlah pengharum di dalam kotak penyimpanan.
-              </p>
-              <p>
-                3. Cek petunjuk perawatan. Di bagian dalam pakaian biasanya ada
-                petunjuk untuk mencuci atau menyetrikanya. Selalu ikuti aturan
-                untuk menjaga kualitas pakaian.
-              </p>
-              <p>
-                4. Pisahkan pakaian yang berbeda warna. Ketika mencuci,
-                pisahkanlah pakaian putih dan berwarna agar tidak luntur serta
-                menjaga warna baju tetap awet.
-              </p>
-              <p>
-                5. Perhatikan jenis kain. Setiap kain memiliki perawatan yang
-                berbeda. Pakaian dari katun dengan pakaian dari sutra tentu
-                berbeda pemeliharaannya. Cari tahu bagaimana merawat pakaian
-                sesuai dengan jenis kainnya.
-              </p>
+              <div
+                className="content"
+                dangerouslySetInnerHTML={{ __html: post.content }}
+              ></div>
             </div>
           </div>
 
@@ -107,72 +147,30 @@ const ArticleDetail = () => {
               </div>
               <div>
                 {/* item */}
-                <div className="flex items-center border-b border-gray-300">
-                  <div>
-                    <img
-                      src="/assets/images/article-widget.jpg"
-                      loading="lazy"
-                      width="100"
-                      height="100"
-                      alt=""
-                    />
-                  </div>
+                {related.map((relpost: any) => (
+                  <div
+                    key={`related-${relpost.id}`}
+                    className="flex items-center border-b border-gray-300"
+                  >
+                    <div className="w-3/12">
+                      <Link href={`/updates/${relpost.id}`}>
+                        <img
+                          src={`${process.env.NEXT_PUBLIC_API_URL}/files/${relpost?.collectionId}/${relpost?.id}/${relpost?.banner_image}?thumb=100x100`}
+                          loading="lazy"
+                          width="100"
+                          height="100"
+                          alt=""
+                        />
+                      </Link>
+                    </div>
 
-                  <div className="pl-5">
-                    Tricks for washing your knitted fabrics
+                    <div className="w-9/12 pl-5">
+                      <Link href={`/updates/${relpost.id}`}>
+                        {relpost.title}
+                      </Link>
+                    </div>
                   </div>
-                </div>
-
-                {/* item */}
-                <div className="flex items-center border-b border-gray-300">
-                  <div>
-                    <img
-                      src="/assets/images/article-widget.jpg"
-                      loading="lazy"
-                      width="100"
-                      height="100"
-                      alt=""
-                    />
-                  </div>
-
-                  <div className="pl-5">
-                    Tricks for washing your knitted fabrics
-                  </div>
-                </div>
-
-                {/* item */}
-                <div className="flex items-center border-b border-gray-300">
-                  <div>
-                    <img
-                      src="/assets/images/article-widget.jpg"
-                      loading="lazy"
-                      width="100"
-                      height="100"
-                      alt=""
-                    />
-                  </div>
-
-                  <div className="pl-5">
-                    Tricks for washing your knitted fabrics
-                  </div>
-                </div>
-
-                {/* item */}
-                <div className="flex items-center border-b border-gray-300">
-                  <div>
-                    <img
-                      src="/assets/images/article-widget.jpg"
-                      loading="lazy"
-                      width="100"
-                      height="100"
-                      alt=""
-                    />
-                  </div>
-
-                  <div className="pl-5">
-                    Tricks for washing your knitted fabrics
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
