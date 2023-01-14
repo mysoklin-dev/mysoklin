@@ -39,13 +39,15 @@ const Updates = () => {
 
   return (
     <Main>
-      {posts[0] && (
-        <img
-          src={`${process.env.NEXT_PUBLIC_API_URL}/files/${posts[0].collectionId}/${posts[0].id}/${posts[0]?.banner_image}`}
-          alt={posts[0]?.title}
-          style={{ zIndex: '-1', position: 'relative', width: '100%' }}
-        />
-      )}
+      <div className="banner_image">
+        {posts[0] && (
+          <img
+            src={`${process.env.NEXT_PUBLIC_API_URL}/files/${posts[0].collectionId}/${posts[0].id}/${posts[0]?.banner_image}`}
+            alt={posts[0]?.title}
+            style={{ zIndex: '-1', position: 'relative', width: '100%' }}
+          />
+        )}
+      </div>
 
       <Container className="px-5">
         {posts[0] && (
@@ -93,6 +95,17 @@ const Updates = () => {
           />
         </div>
       </Container>
+
+      <style jsx>{`
+        .banner_image {
+          height: 500px;
+          overflow: hidden;
+        }
+
+        .banner_image img {
+          object-fit: cover;
+        }
+      `}</style>
     </Main>
   );
 };
