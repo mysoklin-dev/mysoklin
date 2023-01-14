@@ -1,9 +1,17 @@
 import Link from 'next/link';
+import useSWR from 'swr';
 
 import ArticleCard from '../ArticleCard';
 import Button from '../Button';
 
 const LatestUpdates = () => {
+  const { data, error } = useSWR(
+    `${process.env.NEXT_PUBLIC_PB_URL}/api/collections/updates/records?page=1&perPage=3`
+  );
+
+  const loading = !data && !error;
+  const posts = data && data.items;
+
   return (
     <section className="pt-20 pb-10">
       <div className="container mx-auto mb-20 max-w-6xl">
@@ -28,30 +36,21 @@ const LatestUpdates = () => {
 
       <div className="container mx-auto mb-20 max-w-6xl">
         <div className="grid grid-cols-3 gap-10">
-          <div className="col-span-1">
-            <ArticleCard
-              title="Kahitna Britama Presents Tabungan BRI"
-              text="Agar kita tidak terjebak dalam sifat boros, ada baiknya jika kita mulai belajar merawat pakaian agar tetap terjaga dengan baik ketimbang membeli"
-              link="#"
-              thumbnail="/assets/images/blog-thumb.jpg"
-            />
-          </div>
-          <div className="col-span-1">
-            <ArticleCard
-              title="Kahitna Britama Presents Tabungan BRI"
-              text="Agar kita tidak terjebak dalam sifat boros, ada baiknya jika kita mulai belajar merawat pakaian agar tetap terjaga dengan baik ketimbang membeli"
-              link="#"
-              thumbnail="/assets/images/blog-thumb.jpg"
-            />
-          </div>
-          <div className="col-span-1">
-            <ArticleCard
-              title="Kahitna Britama Presents Tabungan BRI"
-              text="Agar kita tidak terjebak dalam sifat boros, ada baiknya jika kita mulai belajar merawat pakaian agar tetap terjaga dengan baik ketimbang membeli"
-              link="#"
-              thumbnail="/assets/images/blog-thumb.jpg"
-            />
-          </div>
+          {loading && <>Loading...</>}
+
+          {!loading &&
+            posts.map((item: any) => (
+              <div className="col-span-1" key={`article-${item.id}`}>
+                <ArticleCard
+                  title={item.title}
+                  text={item.content.substring(0, 50)}
+                  link={`/articles/${item.id}`}
+                  thumbnail={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item?.image}`}
+                />
+              </div>
+            ))}
+
+          {/* {posts.length === 0 && <div>No Content Available</div>} */}
         </div>
       </div>
 
