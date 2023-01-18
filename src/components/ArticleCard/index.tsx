@@ -27,7 +27,9 @@ const ArticleCard = ({
       </div>
 
       <div className="card-background pt-20 pb-10">
-        <h4 className="mb-3">{title}</h4>
+        <h4 className="mb-3" title={title}>
+          {title}
+        </h4>
 
         <p className="mb-3">{text}</p>
 
@@ -46,6 +48,10 @@ const ArticleCard = ({
           font-weight: 700;
           font-size: 16px;
           line-height: 150%;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
         }
 
         .thumbnail {
