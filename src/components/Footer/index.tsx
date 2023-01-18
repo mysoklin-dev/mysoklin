@@ -1,11 +1,32 @@
 import Link from 'next/link';
-import React from 'react';
+import PocketBase from 'pocketbase';
+import React, { useEffect, useState } from 'react';
 
 export type IFooterProps = {
   showBanner?: boolean;
 };
 
 export default function Footer({ showBanner = true }: IFooterProps) {
+  const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
+  const [socials, setSocial] = useState<any>([]);
+
+  useEffect(() => {
+    const getPosts = async () => {
+      try {
+        const resultList = await pb.collection('social_main').getList(1, 6, {
+          filter: `status = true`,
+          sort: '+sequence',
+        });
+        setSocial(resultList.items);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        if (error) console.log(error);
+      }
+    };
+
+    getPosts();
+  }, []);
+
   return (
     <footer>
       {/* big fucking banner */}
@@ -94,7 +115,7 @@ export default function Footer({ showBanner = true }: IFooterProps) {
 
             <ul>
               <li>
-                <Link href="#">History</Link>
+                <Link href="/company-history">History</Link>
               </li>
             </ul>
           </div>
@@ -103,10 +124,13 @@ export default function Footer({ showBanner = true }: IFooterProps) {
 
             <ul>
               <li>
-                <Link href="#">Detergent</Link>
+                <Link href="#">Powder Detergent</Link>
               </li>
               <li>
-                <Link href="#">Conditioner</Link>
+                <Link href="#">Liquid Detergent</Link>
+              </li>
+              <li>
+                <Link href="#">Fabric Conditioner</Link>
               </li>
               <li>
                 <Link href="#">Ironing Aid</Link>
@@ -115,7 +139,7 @@ export default function Footer({ showBanner = true }: IFooterProps) {
                 <Link href="#">Bleach</Link>
               </li>
               <li>
-                <Link href="#">Floor</Link>
+                <Link href="#">Floor Cleaner</Link>
               </li>
             </ul>
           </div>
@@ -124,13 +148,13 @@ export default function Footer({ showBanner = true }: IFooterProps) {
 
             <ul>
               <li>
-                <Link href="#">Events</Link>
+                <Link href="/updates">Events</Link>
               </li>
               <li>
-                <Link href="#">Products</Link>
+                <Link href="/products">Products</Link>
               </li>
               <li>
-                <Link href="#">Promotions</Link>
+                <Link href="/updates">Promotions</Link>
               </li>
             </ul>
           </div>
@@ -139,10 +163,10 @@ export default function Footer({ showBanner = true }: IFooterProps) {
 
             <ul>
               <li>
-                <Link href="#"> Tips</Link>
+                <Link href="/articles"> Tips</Link>
               </li>
               <li>
-                <Link href="#">Tricks</Link>
+                <Link href="/articles">Tricks</Link>
               </li>
             </ul>
           </div>
@@ -150,48 +174,64 @@ export default function Footer({ showBanner = true }: IFooterProps) {
           <div className="col-span-2">
             <h4 className="font-bold">Contact</h4>
 
-            <p>PT Sayap Mas Utama</p>
-            <p>Jl. Tipar cakung Kav. F 5-7 East Jakarta 13910 Indonesia</p>
-
             <p className="mt-4">
               <strong>Head Office</strong>
+              <p>PT Sayap Mas Utama</p>
+              <p>
+                <a
+                  href="https://goo.gl/maps/g3PMDKNxyfAynHR47"
+                  target="_BLANK"
+                  rel="noreferrer"
+                >
+                  Jl. Tipar cakung Kav. F 5-7 East Jakarta 13910 Indonesia
+                </a>
+              </p>
+              <a href="tel:62214602696">+62-21-4602696</a>
               <br />
-              +62-21-4602696
+              <a href="tel:62214602698">+62-21-4602698</a>
               <br />
-              +62-21-4602698
-              <br />
-              <a href="mailto:hrd@wingscorp.com">hrd@wingscorp.com</a>
             </p>
 
             <p className="mt-4">
               <strong>Consumer Voice</strong> <br />
-              0800-1818818 <br />
-              +62-31-5325005 <br />
-              (Toll Free Phone Call Service)
+              Toll Free Phone Call Service <br />
+              <a href="tel:628001818818">0800-1818818</a> <br />
+              <a href="tel:62315325005">+62-31-5325005</a> <br />
             </p>
           </div>
         </div>
 
         {/* Copyright */}
-        <div className="mt-16 grid grid-cols-2">
+        <div className="mt-16 grid grid-cols-3">
           <div className="col-span-1">&copy; 2022 PT Sayap Mas Utama</div>
 
-          <div className="col-span-1 text-right">
+          <div className="col-span-2 text-right">
             <div className="grow-1 mr-0 flex w-full shrink-0 justify-end gap-4">
-              <div className="flex gap-3">
-                <img src="/assets/images/ig.svg" alt="" />
-                SoKlinDetergent
-              </div>
-
-              <div className="flex gap-3">
-                <img src="/assets/images/fb.svg" alt="" />
-                SoKlinDetergent
-              </div>
-
-              <div className="flex gap-3">
-                <img src="/assets/images/yt.svg" alt="" />
-                SoKlinDetergent
-              </div>
+              {socials &&
+                socials.length > 0 &&
+                socials.map((social: any) => (
+                  <div className="flex gap-3" key={`social-${social.id}`}>
+                    <div>
+                      <a href={social.platform_url}>
+                        <img
+                          src={`${process.env.NEXT_PUBLIC_API_URL}/files/${social.collectionId}/${social.id}/${social?.platform_icon}`}
+                          alt={social.platform_name}
+                          width={
+                            social.platform_name !==
+                            'Wings Group Official Website'
+                              ? 30
+                              : 80
+                          }
+                          height={30}
+                          style={{ height: 'auto!important' }}
+                        />
+                      </a>
+                    </div>
+                    <div>
+                      <a href={social.platform_url}>{social.platform_name}</a>
+                    </div>
+                  </div>
+                ))}
             </div>
           </div>
         </div>
