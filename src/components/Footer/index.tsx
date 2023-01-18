@@ -231,7 +231,12 @@ export default function Footer({ showBanner = true }: IFooterProps) {
                       </a>
                     </div>
                     <div>
-                      <a href={social.platform_url}>{social.platform_name}</a>
+                      <a
+                        style={{ color: '#071789' }}
+                        href={social.platform_url}
+                      >
+                        {social.platform_name}
+                      </a>
                     </div>
                   </div>
                 ))}

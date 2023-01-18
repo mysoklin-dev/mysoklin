@@ -79,7 +79,12 @@ const Header = () => {
                             </a>
                           </div>
                           <div>
-                            <a href={social.platform_url}>
+                            <a
+                              style={{ color: '#071789' }}
+                              href={social.platform_url}
+                              target="_BLANK"
+                              rel="noreferrer"
+                            >
                               {social.platform_name}
                             </a>
                           </div>
@@ -114,6 +119,8 @@ const Header = () => {
                         <a
                           href={social.platform_url}
                           key={`inactive-${social.id}`}
+                          target="_BLANK"
+                          rel="noreferrer"
                         >
                           <img
                             src={`${process.env.NEXT_PUBLIC_API_URL}/files/${social.collectionId}/${social.id}/${social?.platform_icon}`}
