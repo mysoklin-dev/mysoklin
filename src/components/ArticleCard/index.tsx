@@ -76,7 +76,7 @@ const ArticleCard = ({
           position: relative;
           z-index: 1;
           text-align: center;
-          width: 80%;
+          width: 90%;
           transition: all 0.15s ease-in;
           transform: translateY(-40px);
         }

@@ -44,7 +44,7 @@ const LatestUpdates = () => {
                 <ArticleCard
                   title={item.title}
                   text={item.content.substring(0, 50)}
-                  link={`/articles/${item.id}`}
+                  link={`/updates/${item.id}`}
                   thumbnail={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item?.image}`}
                 />
               </div>
