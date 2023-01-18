@@ -105,7 +105,7 @@ const Header = () => {
 
               {/* Register */}
               <div>
-                <a href="#">
+                <a href="#" className="text-blue-400">
                   <strong>Register</strong>
                 </a>
               </div>
