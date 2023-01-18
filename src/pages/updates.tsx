@@ -53,13 +53,15 @@ const Updates = () => {
         {posts[0] && (
           <div className="-mt-32 rounded-md border-2 border-gray-200 bg-white p-20 text-center">
             <h1 className="text-2xl font-black text-blue-400">
-              {posts[0]?.title}
+              {posts[0]?.title.substring(0, 150)}...
             </h1>
 
             <div className="mt-10">
               <div
                 className="mb-10 font-sans text-xl"
-                dangerouslySetInnerHTML={{ __html: posts[0]?.content }}
+                dangerouslySetInnerHTML={{
+                  __html: `${posts[0]?.content.substring(0, 200)}...`,
+                }}
               ></div>
 
               <div className="flex justify-center">

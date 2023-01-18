@@ -37,8 +37,9 @@ const Contact = () => {
               <div className="mr-20 mt-6 grid grid-cols-2 gap-4">
                 <Button variant="elevated">021-4602696</Button>
                 <Button variant="elevated">021-4602698</Button>
+              </div>
+              <div className="mr-20 mt-4 grid grid-cols-1 gap-4">
                 <Button variant="elevated">Directions</Button>
-                <Button variant="elevated">E-Mail</Button>
               </div>
             </Card>
 
