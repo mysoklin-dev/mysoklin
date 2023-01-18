@@ -62,8 +62,12 @@ const Contact = () => {
               </div>
 
               <div className="mr-20 mt-6 grid grid-cols-2 gap-4">
-                <Button variant="elevated">0800-1818818</Button>
-                <Button variant="elevated">031-5325005</Button>
+                <a href="tel:628001818818">
+                  <Button variant="elevated">0800-1818818</Button>
+                </a>
+                <a href="tel:62315325005">
+                  <Button variant="elevated">031-5325005</Button>
+                </a>
               </div>
             </Card>
           </div>
