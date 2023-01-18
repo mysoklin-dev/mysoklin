@@ -78,7 +78,7 @@ const Updates = () => {
             <div className="col-span-1" key={`article-${item.id}`}>
               <ArticleCard
                 title={item.title}
-                text={item.content.substring(0, 50)}
+                text={item.content}
                 link={`/updates/${item.id}`}
                 thumbnail={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item?.image}`}
               />
