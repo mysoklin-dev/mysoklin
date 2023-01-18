@@ -35,11 +35,17 @@ const Contact = () => {
               </div>
 
               <div className="mr-20 mt-6 grid grid-cols-2 gap-4">
-                <Button variant="elevated">021-4602696</Button>
-                <Button variant="elevated">021-4602698</Button>
+                <a href="tel:62214602696">
+                  <Button variant="elevated">021-4602696</Button>
+                </a>
+                <a href="tel:62214602698">
+                  <Button variant="elevated">021-4602698</Button>
+                </a>
               </div>
               <div className="mr-20 mt-4 grid grid-cols-1 gap-4">
-                <Button variant="elevated">Directions</Button>
+                <a href="https://goo.gl/maps/r4UbWbFMVVvGgD73A">
+                  <Button variant="elevated">Directions</Button>
+                </a>
               </div>
             </Card>
 
