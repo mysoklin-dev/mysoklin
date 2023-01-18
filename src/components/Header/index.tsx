@@ -4,9 +4,10 @@ import PocketBase from 'pocketbase';
 import { useEffect, useState } from 'react';
 
 const Header = () => {
+  const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const [isShowMega, setShowMega] = useState<boolean>(false);
   const [menu, setMenu] = useState<any>(null);
-  const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
+  const [socials, setSocial] = useState<any>([]);
 
   const showMegamenu = () => {
     setShowMega(true);
@@ -25,6 +26,20 @@ const Header = () => {
       setMenu(record?.items);
     };
 
+    const getSocials = async () => {
+      try {
+        const resultList = await pb.collection('social_main').getList(1, 6, {
+          sort: '+sequence',
+        });
+        setSocial(resultList.items);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        if (error) console.log(error);
+      }
+    };
+
+    getSocials();
+
     fetchMenu();
   }, []);
 
@@ -38,32 +53,40 @@ const Header = () => {
                 className="grow-1 mr-0 flex w-full shrink-0 gap-4"
                 style={{ fontSize: 10 }}
               >
-                <div className="flex items-center gap-3">
-                  <img src="/assets/images/ig.svg" alt="" />
-                  <div>
-                    <a href="https://www.instagram.com/soklindetergent/">
-                      SoKlinDetergent
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <img src="/assets/images/fb.svg" alt="" />
-                  <div>
-                    <a href="https://www.facebook.com/SoKlinDetergent/">
-                      SoKlinDetergent
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <img src="/assets/images/yt.svg" alt="" />
-                  <div>
-                    <a href="https://www.youtube.com/channel/UC70wBrqBB3diQ6YaVO309YA">
-                      SoKlinDetergent
-                    </a>
-                  </div>
-                </div>
+                {socials &&
+                  socials.length > 0 &&
+                  socials.map((social: any) => (
+                    <>
+                      {social.status !== false && (
+                        <div
+                          className="flex items-center gap-3"
+                          key={`social-${social.id}`}
+                        >
+                          <div>
+                            <a href={social.platform_url}>
+                              <img
+                                src={`${process.env.NEXT_PUBLIC_API_URL}/files/${social.collectionId}/${social.id}/${social?.platform_icon}`}
+                                alt={social.platform_name}
+                                width={
+                                  social.platform_name !==
+                                  'Wings Group Official Website'
+                                    ? 20
+                                    : 80
+                                }
+                                height={20}
+                                style={{ height: 'auto!important' }}
+                              />
+                            </a>
+                          </div>
+                          <div>
+                            <a href={social.platform_url}>
+                              {social.platform_name}
+                            </a>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  ))}
               </div>
             </div>
 
@@ -83,9 +106,26 @@ const Header = () => {
               </div>
 
               <div>
-                <a href="https://wingscorp.com/">
-                  <img src="/assets/images/lgo-wings-care-gede 1.png" alt="" />
-                </a>
+                {socials &&
+                  socials.length > 0 &&
+                  socials.map((social: any) => (
+                    <>
+                      {social.status === false && (
+                        <a
+                          href={social.platform_url}
+                          key={`inactive-${social.id}`}
+                        >
+                          <img
+                            src={`${process.env.NEXT_PUBLIC_API_URL}/files/${social.collectionId}/${social.id}/${social?.platform_icon}`}
+                            alt={social.platform_name}
+                            width={120}
+                            height={40}
+                            style={{ height: 'auto!important' }}
+                          />
+                        </a>
+                      )}
+                    </>
+                  ))}
               </div>
             </div>
           </div>

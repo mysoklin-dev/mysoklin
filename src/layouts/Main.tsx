@@ -1,8 +1,13 @@
+import dynamic from 'next/dynamic';
 import type { ReactNode } from 'react';
+import { Suspense } from 'react';
 
 import type { IFooterProps } from '@/components/Footer';
-import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+
+const Footer = dynamic(() => import('@/components/Footer'), {
+  ssr: false,
+});
 
 type IMainLayout = {
   children: ReactNode;
@@ -16,7 +21,9 @@ const Main = (props: IMainLayout) => {
 
       {props.children}
 
-      <Footer {...props.footerProps} />
+      <Suspense>
+        <Footer {...props.footerProps} />
+      </Suspense>
     </>
   );
 };

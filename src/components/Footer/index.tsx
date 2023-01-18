@@ -210,7 +210,10 @@ export default function Footer({ showBanner = true }: IFooterProps) {
               {socials &&
                 socials.length > 0 &&
                 socials.map((social: any) => (
-                  <div className="flex gap-3" key={`social-${social.id}`}>
+                  <div
+                    className="flex items-center gap-3"
+                    key={`social-${social.id}`}
+                  >
                     <div>
                       <a href={social.platform_url}>
                         <img
