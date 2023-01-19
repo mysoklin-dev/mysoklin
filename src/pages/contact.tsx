@@ -43,7 +43,11 @@ const Contact = () => {
                 </a>
               </div>
               <div className="mr-20 mt-4 grid grid-cols-1 gap-4">
-                <a href="https://goo.gl/maps/r4UbWbFMVVvGgD73A">
+                <a
+                  href="https://goo.gl/maps/r4UbWbFMVVvGgD73A"
+                  target="_BLANK"
+                  rel="noreferrer"
+                >
                   <Button variant="elevated">Directions</Button>
                 </a>
               </div>

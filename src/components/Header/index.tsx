@@ -63,24 +63,23 @@ const Header = () => {
                           key={`social-${social.id}`}
                         >
                           <div>
-                            <a href={social.platform_url}>
+                            <a
+                              href={social.platform_url}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
                               <img
                                 src={`${process.env.NEXT_PUBLIC_API_URL}/files/${social.collectionId}/${social.id}/${social?.platform_icon}`}
                                 alt={social.platform_name}
-                                width={
-                                  social.platform_name !==
-                                  'Wings Group Official Website'
-                                    ? 20
-                                    : 80
-                                }
-                                height={20}
+                                width={28}
+                                height={28.56}
                                 style={{ height: 'auto!important' }}
                               />
                             </a>
                           </div>
                           <div>
                             <a
-                              style={{ color: '#071789' }}
+                              style={{ color: '#888', fontSize: 14 }}
                               href={social.platform_url}
                               target="_BLANK"
                               rel="noreferrer"
@@ -106,7 +105,7 @@ const Header = () => {
               {/* Register */}
               <div>
                 <a href="#" className="text-blue-400">
-                  <strong>Register</strong>
+                  Register
                 </a>
               </div>
 

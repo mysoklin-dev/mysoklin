@@ -9,9 +9,10 @@ export type IFooterProps = {
 export default function Footer({ showBanner = true }: IFooterProps) {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const [socials, setSocial] = useState<any>([]);
+  const [contacts, setContacts] = useState<any[]>([]);
 
   useEffect(() => {
-    const getPosts = async () => {
+    const getSocials = async () => {
       try {
         const resultList = await pb.collection('social_main').getList(1, 6, {
           filter: `status = true`,
@@ -24,7 +25,21 @@ export default function Footer({ showBanner = true }: IFooterProps) {
       }
     };
 
-    getPosts();
+    const getContact = async () => {
+      try {
+        const resultList = await pb.collection('contact_box').getList(1, 6, {
+          filter: `status = true`,
+          sort: '+sequence',
+        });
+        setContacts(resultList.items);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        if (error) console.log(error);
+      }
+    };
+
+    getSocials();
+    getContact();
   }, []);
 
   return (
@@ -124,22 +139,22 @@ export default function Footer({ showBanner = true }: IFooterProps) {
 
             <ul>
               <li>
-                <Link href="#">Powder Detergent</Link>
+                <Link href="/products">Powder Detergent</Link>
               </li>
               <li>
-                <Link href="#">Liquid Detergent</Link>
+                <Link href="/products">Liquid Detergent</Link>
               </li>
               <li>
-                <Link href="#">Fabric Conditioner</Link>
+                <Link href="/products">Fabric Conditioner</Link>
               </li>
               <li>
-                <Link href="#">Ironing Aid</Link>
+                <Link href="/products">Ironing Aid</Link>
               </li>
               <li>
-                <Link href="#">Bleach</Link>
+                <Link href="/products">Bleach</Link>
               </li>
               <li>
-                <Link href="#">Floor Cleaner</Link>
+                <Link href="/products">Floor Cleaner</Link>
               </li>
             </ul>
           </div>
@@ -151,7 +166,7 @@ export default function Footer({ showBanner = true }: IFooterProps) {
                 <Link href="/updates">Events</Link>
               </li>
               <li>
-                <Link href="/products">Products</Link>
+                <Link href="/updates">Products</Link>
               </li>
               <li>
                 <Link href="/updates">Promotions</Link>
@@ -174,30 +189,31 @@ export default function Footer({ showBanner = true }: IFooterProps) {
           <div className="col-span-2">
             <h4 className="font-bold">Contact</h4>
 
-            <p className="mt-4">
-              <strong>Head Office</strong>
-              <p>PT Sayap Mas Utama</p>
-              <p>
-                <a
-                  href="https://goo.gl/maps/g3PMDKNxyfAynHR47"
-                  target="_BLANK"
-                  rel="noreferrer"
-                >
-                  Jl. Tipar cakung Kav. F 5-7 East Jakarta 13910 Indonesia
-                </a>
-              </p>
-              <a href="tel:62214602696">+62-21-4602696</a>
-              <br />
-              <a href="tel:62214602698">+62-21-4602698</a>
-              <br />
-            </p>
-
-            <p className="mt-4">
-              <strong>Consumer Voice</strong> <br />
-              Toll Free Phone Call Service <br />
-              <a href="tel:628001818818">0800-1818818</a> <br />
-              <a href="tel:62315325005">+62-31-5325005</a> <br />
-            </p>
+            {contacts.map((contact) => (
+              <div className="mt-4" key={`contact-${contact.id}`}>
+                <strong>{contact.title}</strong>
+                <p>
+                  {contact.value_3 !== '' ? (
+                    <a
+                      href={`https://www.google.com/maps/place/${contact.value_3.replace(
+                        ' ',
+                        ''
+                      )}`}
+                      target="_BLANK"
+                      rel="noreferrer"
+                    >
+                      {contact.sub_title}
+                    </a>
+                  ) : (
+                    <>{contact.sub_title}</>
+                  )}
+                </p>
+                <a href={`tel:${contact.value_1}`}>{contact.value_1}</a>
+                <br />
+                <a href={`tel:${contact.value_2}`}>{contact.value_2}</a>
+                <br />
+              </div>
+            ))}
           </div>
         </div>
 
@@ -215,7 +231,11 @@ export default function Footer({ showBanner = true }: IFooterProps) {
                     key={`social-${social.id}`}
                   >
                     <div>
-                      <a href={social.platform_url}>
+                      <a
+                        href={social.platform_url}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         <img
                           src={`${process.env.NEXT_PUBLIC_API_URL}/files/${social.collectionId}/${social.id}/${social?.platform_icon}`}
                           alt={social.platform_name}
@@ -232,8 +252,10 @@ export default function Footer({ showBanner = true }: IFooterProps) {
                     </div>
                     <div>
                       <a
-                        style={{ color: '#071789' }}
+                        style={{ color: '#888' }}
                         href={social.platform_url}
+                        target="_blank"
+                        rel="noreferrer"
                       >
                         {social.platform_name}
                       </a>
@@ -244,6 +266,8 @@ export default function Footer({ showBanner = true }: IFooterProps) {
           </div>
         </div>
       </section>
+
+      {/* <pre>{JSON.stringify(contacts, null, 2)}</pre> */}
 
       <style jsx>{`
         footer {
