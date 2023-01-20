@@ -17,7 +17,7 @@ const Updates = () => {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const resultList = await pb.collection('articles').getList(current, 6, {
+        const resultList = await pb.collection('articles').getList(current, 7, {
           sort: '-created',
         });
         setPosts(resultList.items);
