@@ -8,14 +8,20 @@ type ITimeLineItemProps = {
   year?: string;
   description: string;
   img: string;
+  parentId?: string | undefined;
 };
 
-const TimeLineItem = ({ year, description, img }: ITimeLineItemProps) => {
+const TimeLineItem = ({
+  year,
+  description,
+  img,
+  parentId,
+}: ITimeLineItemProps) => {
   return (
     <div className="timeline-item mb-12 grid grid-cols-12 gap-7 pl-4">
       <div className="circle"></div>
       <div className="col-span-7">
-        {year && year !== '' && (
+        {year && year !== '' && parentId === '' && (
           <h3 className="mb-10 text-4xl font-black text-blue-400">{year}</h3>
         )}
 
@@ -23,7 +29,14 @@ const TimeLineItem = ({ year, description, img }: ITimeLineItemProps) => {
       </div>
       <div className="col-span-5">
         <div className="thumbnail flex items-center justify-center">
-          <img src={img} alt="" loading="lazy" className="block" />
+          <img
+            src={img}
+            alt=""
+            loading="lazy"
+            className="block"
+            height="256"
+            width="256"
+          />
         </div>
       </div>
 
@@ -53,6 +66,11 @@ const TimeLineItem = ({ year, description, img }: ITimeLineItemProps) => {
           background: #eef3f6;
           border-radius: 20px;
           padding: 20px;
+        }
+
+        .thumbnail img {
+          max-height: 256px;
+          width: auto;
         }
       `}</style>
     </div>
@@ -124,6 +142,7 @@ const CompanyHistory = () => {
                   year={item.title}
                   img={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item?.image}`}
                   description={item.sub_title}
+                  parentId={item.parent_id}
                 />
               )}
             </>
