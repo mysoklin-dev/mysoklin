@@ -17,7 +17,9 @@ const Updates = () => {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const resultList = await pb.collection('updates').getList(current, 6);
+        const resultList = await pb.collection('updates').getList(current, 6, {
+          sort: '-created',
+        });
         setPosts(resultList.items);
         setTotal(resultList.totalItems);
       } catch (error) {
