@@ -43,6 +43,18 @@ const Header = () => {
     fetchMenu();
   }, []);
 
+  const decideIcon = (platformType: string) => {
+    let icon;
+    if (platformType === 'Instagram') {
+      icon = 'ig.svg';
+    } else if (platformType === 'Facebook') {
+      icon = 'fb.svg';
+    } else if (platformType === 'Youtube') {
+      icon = 'yt.svg';
+    }
+    return icon;
+  };
+
   return (
     <>
       <header>
@@ -59,7 +71,7 @@ const Header = () => {
                     <>
                       {social.status !== false && (
                         <div
-                          className="flex items-center gap-3"
+                          className="flex items-center gap-3 text-blue-400"
                           key={`social-${social.id}`}
                         >
                           <div>
@@ -69,7 +81,9 @@ const Header = () => {
                               rel="noreferrer"
                             >
                               <img
-                                src={`${process.env.NEXT_PUBLIC_API_URL}/files/${social.collectionId}/${social.id}/${social?.platform_icon}`}
+                                src={`/assets/images/${decideIcon(
+                                  social.platform_type
+                                )}`}
                                 alt={social.platform_name}
                                 width={28}
                                 height={28.56}
@@ -79,10 +93,11 @@ const Header = () => {
                           </div>
                           <div>
                             <a
-                              style={{ color: '#888', fontSize: 14 }}
+                              style={{ fontSize: 14 }}
                               href={social.platform_url}
                               target="_BLANK"
                               rel="noreferrer"
+                              className="text-blue-400"
                             >
                               {social.platform_name}
                             </a>
