@@ -55,7 +55,12 @@ const Updates = () => {
         {posts[0] && (
           <div className="-mt-32 rounded-md border-2 border-gray-200 bg-white p-20 text-center">
             <h1 className="text-2xl font-black text-blue-400">
-              {posts[0]?.title.substring(0, 150)}...
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: posts[0]?.title.substring(0, 150),
+                }}
+              ></span>
+              {posts[0].title.length > 150 ? '...' : ''}
             </h1>
 
             <div className="mt-10">
