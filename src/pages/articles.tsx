@@ -67,7 +67,7 @@ const Updates = () => {
               ></div>
 
               <div className="flex justify-center">
-                <Link href={`/updates/${posts[0]?.id}`}>
+                <Link href={`/articles/${posts[0]?.id}`}>
                   <Button variant="elevated">Read</Button>
                 </Link>
               </div>
