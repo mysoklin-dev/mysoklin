@@ -45,7 +45,7 @@ const Header = () => {
 
   return (
     <>
-      <header>
+      <header className="hidden">
         <div className="container mx-auto max-w-6xl py-2">
           <div className="flex items-center justify-between">
             <div>
