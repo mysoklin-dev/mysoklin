@@ -17,7 +17,7 @@ const Updates = () => {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const resultList = await pb.collection('updates').getList(current, 6, {
+        const resultList = await pb.collection('updates').getList(current, 7, {
           sort: '-created',
         });
         setPosts(resultList.items);
@@ -78,15 +78,19 @@ const Updates = () => {
         {/* Blog */}
         {/* <pre>{JSON.stringify(posts, null, 2)}</pre> */}
         <div className="mt-20 grid grid-cols-3 gap-10">
-          {posts.map((item: any) => (
-            <div className="col-span-1" key={`article-${item.id}`}>
-              <ArticleCard
-                title={item.title}
-                text={item.content}
-                link={`/updates/${item.id}`}
-                thumbnail={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item?.image}`}
-              />
-            </div>
+          {posts.map((item: any, i: number) => (
+            <>
+              {i > 0 && (
+                <div className="col-span-1" key={`article-${item.id}`}>
+                  <ArticleCard
+                    title={item.title}
+                    text={item.content}
+                    link={`/updates/${item.id}`}
+                    thumbnail={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item?.image}`}
+                  />
+                </div>
+              )}
+            </>
           ))}
         </div>
 
