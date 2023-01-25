@@ -88,6 +88,7 @@ const ProductCard = ({
           border: 2px solid #071789;
           margin-top: 20px;
           border-radius: 90px;
+          color: #071789 !important;
         }
 
         .productButton:hover {
