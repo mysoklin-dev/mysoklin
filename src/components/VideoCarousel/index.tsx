@@ -5,51 +5,45 @@ import Link from 'next/link';
 import React from 'react';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import { Carousel as ReactCarousel } from 'react-responsive-carousel';
+import useSWR from 'swr';
 
 import Button from '@/components/Button';
 
 const VideoCarousel = () => {
-  const videos = [
-    {
-      title: 'SoKlin Experiences Sakura Series',
-      description:
-        'Detergent dengan keharuman sakura pertama di Indonesia! So Klin Sakura membawa suasana musim semi dari Negara Jepang yang menyegarkan untuk Moms dan keluarga.',
-      link: '#',
-      video: 'w-ZI5Kye_AA',
-    },
-    {
-      title: 'SoKlin Experiences Sakura Series',
-      description:
-        'Detergent dengan keharuman sakura pertama di Indonesia! So Klin Sakura membawa suasana musim semi dari Negara Jepang yang menyegarkan untuk Moms dan keluarga.',
-      link: '#',
-      video: 'w-ZI5Kye_AA',
-    },
-  ];
+  const { data, error } = useSWR(
+    `${process.env.NEXT_PUBLIC_PB_URL}/api/collections/hero_video/records?page=1&perPage=3&sort=+sequence`
+  );
+
+  const loading = !data && !error;
+  const rows = data && data.items;
 
   return (
     <div className="videoCarousel px-20 pt-20 pb-10">
       <ReactCarousel showThumbs={false} autoPlay swipeable>
-        {videos.map((item, i) => (
-          <div key={`video-${i}`} className="mx-auto max-w-6xl px-10 pb-20">
-            <div className="grid grid-cols-12 gap-10">
-              <div className="col-span-5">
-                <h3 className="mb-10">{item.title}</h3>
+        {!loading &&
+          rows &&
+          rows.length > 0 &&
+          rows.map((item: any, i: number) => (
+            <div key={`video-${i}`} className="mx-auto max-w-6xl px-10 pb-20">
+              <div className="grid grid-cols-12 gap-10">
+                <div className="col-span-5">
+                  <h3 className="mb-10">{item.title}</h3>
 
-                <p className="mb-10">{item.description}</p>
+                  <p className="mb-10">{item.sub_title}</p>
 
-                <Link href={item.link}>
-                  <Button style={{ width: '170px', height: 40 }}>
-                    {'Show More'}
-                  </Button>
-                </Link>
-              </div>
+                  <Link href={item.destination_url}>
+                    <Button style={{ width: '170px', height: 40 }}>
+                      {'Show More'}
+                    </Button>
+                  </Link>
+                </div>
 
-              <div className="col-span-7">
-                <LiteYouTubeEmbed id={item.video} title={item.title} />
+                <div className="col-span-7">
+                  <LiteYouTubeEmbed id={item.video_url} title={item.title} />
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
       </ReactCarousel>
 
       <style jsx>{`
