@@ -1,5 +1,4 @@
 import { FaFacebookF } from '@react-icons/all-files/fa/FaFacebookF';
-import { FaInstagram } from '@react-icons/all-files/fa/FaInstagram';
 import { FaLink } from '@react-icons/all-files/fa/FaLink';
 import { FaTwitter } from '@react-icons/all-files/fa/FaTwitter';
 import { FaWhatsapp } from '@react-icons/all-files/fa/FaWhatsapp';
@@ -7,7 +6,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
 import { useEffect, useState } from 'react';
-import { ShareSocial } from 'react-share-social';
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+} from 'react-share';
 
 import Container from '@/components/Container';
 import Main from '@/layouts/Main';
@@ -130,30 +133,24 @@ const ArticleDetail = () => {
             <div className="widget">
               <div className="widget-header font-bold text-blue-400">Share</div>
               <div className="widget-content">
-                <ShareSocial
-                  style={{
-                    root: {
-                      padding: 0,
-                    },
-                  }}
-                  url={URL}
-                  socialTypes={['facebook', 'twitter', 'whatsapp']}
-                />
-                <div className="hidden gap-4 text-blue-400">
+                <div className="flex gap-4 text-blue-400">
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-blue-400 text-center">
-                    <FaFacebookF fontSize={20} />
-                  </div>
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-blue-400 text-center">
-                    <FaInstagram fontSize={20} />
+                    <FacebookShareButton url={URL}>
+                      <FaFacebookF fontSize={20} />
+                    </FacebookShareButton>
                   </div>
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-blue-400 text-center">
                     <FaLink fontSize={20} />
                   </div>
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-blue-400 text-center">
-                    <FaTwitter fontSize={20} />
+                    <TwitterShareButton url={URL}>
+                      <FaTwitter fontSize={20} />
+                    </TwitterShareButton>
                   </div>
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-blue-400 text-center">
-                    <FaWhatsapp fontSize={20} />
+                    <WhatsappShareButton url={URL}>
+                      <FaWhatsapp fontSize={20} />
+                    </WhatsappShareButton>
                   </div>
                 </div>
               </div>

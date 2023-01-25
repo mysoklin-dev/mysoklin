@@ -33,7 +33,7 @@
     "react-dom": "^18.2.0",
     "react-lite-youtube-embed": "^2.3.52",
     "react-responsive-carousel": "^3.2.23",
-    "react-share-social": "^0.1.55",
+    "react-share": "^4.4.1",
     "swr": "^2.0.0"
   },
   "devDependencies": {

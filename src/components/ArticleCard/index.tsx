@@ -27,11 +27,16 @@ const ArticleCard = ({
       </div>
 
       <div className="card-background pt-20 pb-10">
-        <h4
-          className="mb-3"
-          title={title}
-          dangerouslySetInnerHTML={{ __html: title }}
-        ></h4>
+        <Link
+          href={link === '#' ? '/article-detail' : link}
+          style={{ color: '#000' }}
+        >
+          <h4
+            className="mb-3"
+            title={title}
+            dangerouslySetInnerHTML={{ __html: title }}
+          ></h4>
+        </Link>
 
         <p className="mb-3">{text}</p>
 
