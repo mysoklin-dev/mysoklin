@@ -406,7 +406,12 @@ const ProductDetail = () => {
               {/* Brands item */}
               <div className="mb-3">
                 {data.tokopedia !== '' && (
-                  <a className="d-block my-3 block" href={data.tokopedia}>
+                  <a
+                    target="_BLANK"
+                    className="d-block my-3 block"
+                    href={data.tokopedia}
+                    rel="noreferrer"
+                  >
                     <Button
                       variant="outlined"
                       fullWidth
@@ -431,7 +436,12 @@ const ProductDetail = () => {
                 )}
 
                 {data.shopee !== '' && (
-                  <a className="d-block my-3 block" href={data.shopee}>
+                  <a
+                    target="_BLANK"
+                    className="d-block my-3 block"
+                    href={data.shopee}
+                    rel="noreferrer"
+                  >
                     <Button
                       variant="outlined"
                       fullWidth
@@ -456,7 +466,12 @@ const ProductDetail = () => {
                 )}
 
                 {data.blibli !== '' && (
-                  <a className="d-block my-3 block" href={data.blibli}>
+                  <a
+                    target="_BLANK"
+                    className="d-block my-3 block"
+                    href={data.blibli}
+                    rel="noreferrer"
+                  >
                     <Button
                       variant="outlined"
                       fullWidth
@@ -481,7 +496,12 @@ const ProductDetail = () => {
                 )}
 
                 {data.jdid !== '' && (
-                  <a className="d-block my-3 block" href={data.jdid}>
+                  <a
+                    target="_BLANK"
+                    className="d-block my-3 block"
+                    href={data.jdid}
+                    rel="noreferrer"
+                  >
                     <Button
                       variant="outlined"
                       fullWidth
@@ -504,7 +524,12 @@ const ProductDetail = () => {
                 )}
 
                 {data.lazada !== '' && (
-                  <a className="d-block my-3 block" href={data.lazada}>
+                  <a
+                    target="_BLANK"
+                    className="d-block my-3 block"
+                    href={data.lazada}
+                    rel="noreferrer"
+                  >
                     <Button
                       variant="outlined"
                       fullWidth
@@ -533,7 +558,12 @@ const ProductDetail = () => {
                 )}
 
                 {data.astro !== '' && (
-                  <a className="d-block my-3 block" href={data.astro}>
+                  <a
+                    target="_BLANK"
+                    className="d-block my-3 block"
+                    href={data.astro}
+                    rel="noreferrer"
+                  >
                     <Button
                       variant="outlined"
                       fullWidth
