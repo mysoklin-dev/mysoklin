@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
 import { useEffect, useState } from 'react';
+import { ShareSocial } from 'react-share-social';
 
 import Container from '@/components/Container';
 import Main from '@/layouts/Main';
@@ -17,6 +18,7 @@ const ArticleDetail = () => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const [post, setPost] = useState<any>(null);
   const [related, setRelated] = useState<any>([]);
+  const { asPath } = useRouter();
 
   useEffect(() => {
     const getPosts = async () => {
@@ -72,6 +74,13 @@ const ArticleDetail = () => {
     return <>Loading...</>;
   }
 
+  const origin =
+    typeof window !== 'undefined' && window.location.origin
+      ? window.location.origin
+      : '';
+
+  const URL = `${origin}${asPath}`;
+
   return (
     <Main>
       <Container className="py-20">
@@ -121,7 +130,16 @@ const ArticleDetail = () => {
             <div className="widget">
               <div className="widget-header font-bold text-blue-400">Share</div>
               <div className="widget-content">
-                <div className="flex gap-4 text-blue-400">
+                <ShareSocial
+                  style={{
+                    root: {
+                      padding: 0,
+                    },
+                  }}
+                  url={URL}
+                  socialTypes={['facebook', 'twitter', 'whatsapp']}
+                />
+                <div className="hidden gap-4 text-blue-400">
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-blue-400 text-center">
                     <FaFacebookF fontSize={20} />
                   </div>
