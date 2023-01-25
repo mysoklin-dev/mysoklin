@@ -27,7 +27,14 @@ const VideoCarousel = () => {
             <div key={`video-${i}`} className="mx-auto max-w-6xl px-10 pb-20">
               <div className="grid grid-cols-12 gap-10">
                 <div className="col-span-5">
-                  <h3 className="mb-10">{item.title}</h3>
+                  <h3 className="mb-10">
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: item.title.substring(0, 50),
+                      }}
+                    ></span>
+                    {item.title.length > 50 ? '...' : ''}
+                  </h3>
 
                   <p className="mb-10">{item.sub_title}</p>
 
