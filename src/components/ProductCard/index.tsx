@@ -91,7 +91,7 @@ const ProductCard = ({
         }
 
         .productButton:hover {
-          color: #071789;
+          color: #071789 !important;
         }
       `}</style>
     </div>
