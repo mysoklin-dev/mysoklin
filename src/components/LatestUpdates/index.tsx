@@ -6,7 +6,7 @@ import Button from '../Button';
 
 const LatestUpdates = () => {
   const { data, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_PB_URL}/api/collections/updates/records?page=1&perPage=3`
+    `${process.env.NEXT_PUBLIC_PB_URL}/api/collections/updates/records?page=1&perPage=3&sort=-created`
   );
 
   const loading = !data && !error;

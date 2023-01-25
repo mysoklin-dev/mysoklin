@@ -27,9 +27,11 @@ const ArticleCard = ({
       </div>
 
       <div className="card-background pt-20 pb-10">
-        <h4 className="mb-3" title={title}>
-          {title}
-        </h4>
+        <h4
+          className="mb-3"
+          title={title}
+          dangerouslySetInnerHTML={{ __html: title }}
+        ></h4>
 
         <p className="mb-3">{text}</p>
 
