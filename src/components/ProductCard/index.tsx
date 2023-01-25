@@ -89,6 +89,10 @@ const ProductCard = ({
           margin-top: 20px;
           border-radius: 90px;
         }
+
+        .productButton:hover {
+          color: #071789;
+        }
       `}</style>
     </div>
   );
