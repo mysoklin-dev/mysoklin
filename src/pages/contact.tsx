@@ -1,5 +1,7 @@
 import { CgAttachment } from '@react-icons/all-files/cg/CgAttachment';
 import Head from 'next/head';
+import PocketBase from 'pocketbase';
+import { useEffect, useState } from 'react';
 
 import Button from '@/components/Button';
 import Card from '@/components/Card';
@@ -9,6 +11,26 @@ import ProductsCarousel from '@/components/ProductsCarousel';
 import Main from '@/layouts/Main';
 
 const Contact = () => {
+  const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
+  const [contacts, setContacts] = useState<any[]>([]);
+
+  useEffect(() => {
+    const getContact = async () => {
+      try {
+        const resultList = await pb.collection('contact_box').getList(1, 6, {
+          filter: `status = true`,
+          sort: '-sequence',
+        });
+        setContacts(resultList.items);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        if (error) console.log(error);
+      }
+    };
+
+    getContact();
+  }, []);
+
   return (
     <Main>
       <Head>
@@ -29,17 +51,17 @@ const Contact = () => {
                   '#fff url("/assets/images/contact-1.svg") no-repeat top right',
               }}
             >
-              <div className="mb-3 text-3xl font-black">Head Office</div>
-              <div className="text-xl">
-                Jl. Tipar cakung Kav. F 5-7 East Jakarta 13910 Indonesia
+              <div className="mb-3 text-3xl font-black">
+                {contacts[0]?.title}
               </div>
+              <div className="text-xl">{contacts[0].sub_title}</div>
 
               <div className="mr-20 mt-6 grid grid-cols-2 gap-4">
-                <a href="tel:62214602696">
-                  <Button variant="elevated">021-4602696</Button>
+                <a href={`tel:${contacts[0].value_1}`}>
+                  <Button variant="elevated">{contacts[0].value_1}</Button>
                 </a>
-                <a href="tel:62214602698">
-                  <Button variant="elevated">021-4602698</Button>
+                <a href={`tel:${contacts[0].value_2}`}>
+                  <Button variant="elevated">{contacts[0].value_2}</Button>
                 </a>
               </div>
               <div className="mr-20 mt-4 grid grid-cols-1 gap-4">
@@ -48,7 +70,9 @@ const Contact = () => {
                   target="_BLANK"
                   rel="noreferrer"
                 >
-                  <Button variant="elevated">Directions</Button>
+                  <a href={`tel:${contacts[0].value_3}`}>
+                    <Button variant="elevated">Direction</Button>
+                  </a>
                 </a>
               </div>
             </Card>
@@ -60,17 +84,17 @@ const Contact = () => {
                   '#fff url("/assets/images/contact-2.svg") no-repeat top right',
               }}
             >
-              <div className="mb-3 text-3xl font-black">Consumer Voice</div>
-              <div className="text-xl">
-                Toll Free Phone Call Service for Customer
+              <div className="mb-3 text-3xl font-black">
+                {contacts[1].title}
               </div>
+              <div className="text-xl">{contacts[1].sub_title}</div>
 
               <div className="mr-20 mt-6 grid grid-cols-2 gap-4">
-                <a href="tel:628001818818">
-                  <Button variant="elevated">0800-1818818</Button>
+                <a href={`tel:${contacts[1].value_1}`}>
+                  <Button variant="elevated">{contacts[0].value_1}</Button>
                 </a>
-                <a href="tel:62315325005">
-                  <Button variant="elevated">031-5325005</Button>
+                <a href={`tel:${contacts[1].value_2}`}>
+                  <Button variant="elevated">{contacts[0].value_2}</Button>
                 </a>
               </div>
             </Card>
