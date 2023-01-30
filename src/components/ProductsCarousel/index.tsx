@@ -3,7 +3,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a lo
 
 import Link from 'next/link';
 import PocketBase from 'pocketbase';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Carousel as ReactCarousel } from 'react-responsive-carousel';
 import useSWR from 'swr';
 
@@ -59,9 +59,9 @@ const ProductsCarousel = () => {
               !error &&
               data.items.length > 0 &&
               data.items.map((item: any, i: number) => (
-                <>
+                <React.Fragment key={`product-${item.id}`}>
                   {i <= 2 && (
-                    <div className="col-span-1" key={`product-${item.id}`}>
+                    <div className="col-span-1">
                       <ProductCard
                         onClick={() => {
                           getBrands(item.id);
@@ -72,7 +72,7 @@ const ProductsCarousel = () => {
                       />
                     </div>
                   )}
-                </>
+                </React.Fragment>
               ))}
           </div>
           <div className="mx-auto grid max-w-6xl grid-cols-3 gap-20 pb-20">
@@ -80,9 +80,9 @@ const ProductsCarousel = () => {
               !error &&
               data.items.length > 0 &&
               data.items.map((item: any, i: number) => (
-                <>
+                <React.Fragment key={`product-${item.id}-${i}`}>
                   {i > 2 && (
-                    <div className="col-span-1" key={`product-${i}`}>
+                    <div className="col-span-1">
                       <ProductCard
                         onClick={() => {
                           getBrands(item.id);
@@ -93,7 +93,7 @@ const ProductsCarousel = () => {
                       />
                     </div>
                   )}
-                </>
+                </React.Fragment>
               ))}
           </div>
         </ReactCarousel>

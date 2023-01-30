@@ -1,7 +1,7 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 import Link from 'next/link';
 import PocketBase from 'pocketbase';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Header = () => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
@@ -67,13 +67,10 @@ const Header = () => {
               >
                 {socials &&
                   socials.length > 0 &&
-                  socials.map((social: any) => (
-                    <>
+                  socials.map((social: any, i: number) => (
+                    <React.Fragment key={`inactive-${social.id}-${i}`}>
                       {social.status !== false && (
-                        <div
-                          className="flex items-center gap-3 text-blue-400"
-                          key={`social-${social.id}`}
-                        >
+                        <div className="flex items-center gap-3 text-blue-400">
                           <div>
                             <a
                               href={social.platform_url}
@@ -104,7 +101,7 @@ const Header = () => {
                           </div>
                         </div>
                       )}
-                    </>
+                    </React.Fragment>
                   ))}
               </div>
             </div>
@@ -127,12 +124,11 @@ const Header = () => {
               <div>
                 {socials &&
                   socials.length > 0 &&
-                  socials.map((social: any) => (
-                    <>
+                  socials.map((social: any, i: number) => (
+                    <React.Fragment key={`inactive-${social.id}+${i}`}>
                       {social.status === false && (
                         <a
                           href={social.platform_url}
-                          key={`inactive-${social.id}`}
                           target="_BLANK"
                           rel="noreferrer"
                         >
@@ -145,7 +141,7 @@ const Header = () => {
                           />
                         </a>
                       )}
-                    </>
+                    </React.Fragment>
                   ))}
               </div>
             </div>
@@ -201,8 +197,8 @@ const Header = () => {
               <div className="flex justify-between gap-4">
                 {menu &&
                   menu.length > 0 &&
-                  menu.map((item: any) => (
-                    <div key={`menu-${item.id}`}>
+                  menu.map((item: any, i: number) => (
+                    <div key={`asdfasdf-${item.id}-${i}`}>
                       <h4 className="text-md font-bold text-blue-400">
                         {item.title}
                       </h4>
@@ -214,7 +210,7 @@ const Header = () => {
                           item.expand[
                             'product_brands(product_category_id)'
                           ].map((submenu: any) => (
-                            <li key={`submenu-${submenu.id}`}>
+                            <li key={`submenu-${submenu.id}+${i}`}>
                               <Link
                                 href={`/products/brand/${
                                   submenu.id
