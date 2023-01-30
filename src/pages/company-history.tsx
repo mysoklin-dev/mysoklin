@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import PocketBase from 'pocketbase';
 import { useEffect, useState } from 'react';
 
@@ -99,6 +100,9 @@ const CompanyHistory = () => {
 
   return (
     <Main footerProps={{ showBanner: false }}>
+      <Head>
+        <title>Company History - MySoklin</title>
+      </Head>
       {/* <pre>{JSON.stringify(rows, null, 2)}</pre> */}
       <div className="hero py-30 pt-10 text-white">
         <Container>

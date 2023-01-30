@@ -216,7 +216,11 @@ const Header = () => {
                           ].map((submenu: any) => (
                             <li key={`submenu-${submenu.id}`}>
                               <Link
-                                href={`/products/brand/${submenu.id}`}
+                                href={`/products/brand/${
+                                  submenu.id
+                                }/${submenu.title
+                                  .replaceAll(' ', '-')
+                                  .toLowerCase()}`}
                                 className="hover:text-blue-400"
                               >
                                 {submenu.title}

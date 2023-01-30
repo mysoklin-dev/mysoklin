@@ -61,7 +61,7 @@ const ProductsCarousel = () => {
               data.items.map((item: any, i: number) => (
                 <>
                   {i <= 2 && (
-                    <div className="col-span-1" key={`product-${i}`}>
+                    <div className="col-span-1" key={`product-${item.id}`}>
                       <ProductCard
                         onClick={() => {
                           getBrands(item.id);

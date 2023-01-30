@@ -1,4 +1,5 @@
 import FsLightbox from 'fslightbox-react';
+import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
@@ -61,6 +62,20 @@ const ProductDetail = () => {
     <Main>
       {data && (
         <>
+          <Head>
+            <title>{data?.title}</title>
+            <meta property="og:title" content={data?.title} />
+            <meta name="description" content={data?.description} key="desc" />
+            <meta
+              property="og:description"
+              content={data?.description}
+              key="desc"
+            />
+            <meta
+              property="og:image"
+              content={`${process.env.NEXT_PUBLIC_API_URL}/files/${data.collectionId}/${data.id}/${data.image}`}
+            />
+          </Head>
           <section className="bg-white py-12">
             <Container>
               {/* Breadcrumbs */}

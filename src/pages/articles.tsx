@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import Link from 'next/link';
 import PocketBase from 'pocketbase';
 import Pagination from 'rc-pagination';
@@ -41,6 +42,9 @@ const Updates = () => {
 
   return (
     <Main>
+      <Head>
+        <title>Articles - MySoklin</title>
+      </Head>
       <div className="banner_image">
         {posts[0] && (
           <img

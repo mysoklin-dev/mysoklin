@@ -2,6 +2,7 @@ import { FaFacebookF } from '@react-icons/all-files/fa/FaFacebookF';
 import { FaLink } from '@react-icons/all-files/fa/FaLink';
 import { FaTwitter } from '@react-icons/all-files/fa/FaTwitter';
 import { FaWhatsapp } from '@react-icons/all-files/fa/FaWhatsapp';
+import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
@@ -108,6 +109,20 @@ const ArticleDetail = () => {
 
   return (
     <Main>
+      <Head>
+        <title>{post?.title}</title>
+        <meta property="og:title" content={post?.title} />
+        <meta name="description" content={post?.description} key="desc" />
+        <meta
+          property="og:description"
+          content={post?.description}
+          key="desc"
+        />
+        <meta
+          property="og:image"
+          content={`${process.env.NEXT_PUBLIC_API_URL}/files/${post.collectionId}/${post.id}/${post.banner_image}`}
+        />
+      </Head>
       <Container className="py-20">
         {/* <pre>{JSON.stringify(post, null, 2)}</pre> */}
         <article className="grid grid-cols-3 gap-10">

@@ -34,6 +34,7 @@ const Contact = () => {
   return (
     <Main>
       <Head>
+        <title>Contact - MySoklin</title>
         <style>{`
           body {
             background: #EEF3F6;
@@ -43,62 +44,64 @@ const Contact = () => {
       <Container className="my-20 py-20">
         <div className="grid grid-cols-2 gap-10">
           {/* Left */}
-          <div>
-            <Card
-              className="mb-8 py-16 px-14"
-              style={{
-                background:
-                  '#fff url("/assets/images/contact-1.svg") no-repeat top right',
-              }}
-            >
-              <div className="mb-3 text-3xl font-black">
-                {contacts[0]?.title}
-              </div>
-              <div className="text-xl">{contacts[0].sub_title}</div>
+          {contacts && contacts[0] && contacts[1] && (
+            <div>
+              <Card
+                className="mb-8 py-16 px-14"
+                style={{
+                  background:
+                    '#fff url("/assets/images/contact-1.svg") no-repeat top right',
+                }}
+              >
+                <div className="mb-3 text-3xl font-black">
+                  {contacts[0]?.title}
+                </div>
+                <div className="text-xl">{contacts[0]?.sub_title}</div>
 
-              <div className="mr-20 mt-6 grid grid-cols-2 gap-4">
-                <a href={`tel:${contacts[0].value_1}`}>
-                  <Button variant="elevated">{contacts[0].value_1}</Button>
-                </a>
-                <a href={`tel:${contacts[0].value_2}`}>
-                  <Button variant="elevated">{contacts[0].value_2}</Button>
-                </a>
-              </div>
-              <div className="mr-20 mt-4 grid grid-cols-1 gap-4">
-                <a
-                  href="https://goo.gl/maps/r4UbWbFMVVvGgD73A"
-                  target="_BLANK"
-                  rel="noreferrer"
-                >
-                  <a href={`tel:${contacts[0].value_3}`}>
-                    <Button variant="elevated">Direction</Button>
+                <div className="mr-20 mt-6 grid grid-cols-2 gap-4">
+                  <a href={`tel:${contacts[0]?.value_1}`}>
+                    <Button variant="elevated">{contacts[0]?.value_1}</Button>
                   </a>
-                </a>
-              </div>
-            </Card>
+                  <a href={`tel:${contacts[0]?.value_2}`}>
+                    <Button variant="elevated">{contacts[0]?.value_2}</Button>
+                  </a>
+                </div>
+                <div className="mr-20 mt-4 grid grid-cols-1 gap-4">
+                  <a
+                    href="https://goo.gl/maps/r4UbWbFMVVvGgD73A"
+                    target="_BLANK"
+                    rel="noreferrer"
+                  >
+                    <a href={`tel:${contacts[0]?.value_3}`}>
+                      <Button variant="elevated">Direction</Button>
+                    </a>
+                  </a>
+                </div>
+              </Card>
 
-            <Card
-              className="py-20 px-14"
-              style={{
-                background:
-                  '#fff url("/assets/images/contact-2.svg") no-repeat top right',
-              }}
-            >
-              <div className="mb-3 text-3xl font-black">
-                {contacts[1].title}
-              </div>
-              <div className="text-xl">{contacts[1].sub_title}</div>
+              <Card
+                className="py-20 px-14"
+                style={{
+                  background:
+                    '#fff url("/assets/images/contact-2.svg") no-repeat top right',
+                }}
+              >
+                <div className="mb-3 text-3xl font-black">
+                  {contacts[1].title}
+                </div>
+                <div className="text-xl">{contacts[1]?.sub_title}</div>
 
-              <div className="mr-20 mt-6 grid grid-cols-2 gap-4">
-                <a href={`tel:${contacts[1].value_1}`}>
-                  <Button variant="elevated">{contacts[0].value_1}</Button>
-                </a>
-                <a href={`tel:${contacts[1].value_2}`}>
-                  <Button variant="elevated">{contacts[0].value_2}</Button>
-                </a>
-              </div>
-            </Card>
-          </div>
+                <div className="mr-20 mt-6 grid grid-cols-2 gap-4">
+                  <a href={`tel:${contacts[1].value_1}`}>
+                    <Button variant="elevated">{contacts[1]?.value_1}</Button>
+                  </a>
+                  <a href={`tel:${contacts[1].value_2}`}>
+                    <Button variant="elevated">{contacts[1]?.value_2}</Button>
+                  </a>
+                </div>
+              </Card>
+            </div>
+          )}
 
           {/* Right */}
           <div>

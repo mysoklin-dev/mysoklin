@@ -2,6 +2,7 @@ import { FaFacebook } from '@react-icons/all-files/fa/FaFacebook';
 import { FaGlobe } from '@react-icons/all-files/fa/FaGlobe';
 import { FaInstagram } from '@react-icons/all-files/fa/FaInstagram';
 import { FaYoutube } from '@react-icons/all-files/fa/FaYoutube';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
 import { useEffect, useState } from 'react';
@@ -71,6 +72,20 @@ const ProductDetail = () => {
 
   return (
     <Main>
+      <Head>
+        <title>{brand?.title}</title>
+        <meta property="og:title" content={brand?.title} />
+        <meta name="description" content={brand?.description} key="desc" />
+        <meta
+          property="og:description"
+          content={brand?.description}
+          key="desc"
+        />
+        <meta
+          property="og:image"
+          content={`${process.env.NEXT_PUBLIC_API_URL}/files/${brand?.collectionId}/${brand?.id}/${brand?.logo}`}
+        />
+      </Head>
       {brand && (
         <div
           className="hero pt-56"
