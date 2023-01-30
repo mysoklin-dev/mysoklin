@@ -2,7 +2,11 @@ import Link from 'next/link';
 
 const ProductButton = (props: any) => {
   return (
-    <Link href={`/products/brand/${props.data.id}`}>
+    <Link
+      href={`/products/brand/${props.data.id}/${props.data.title
+        .replaceAll(' ', '-')
+        .toLowerCase()}`}
+    >
       <div className="product-opt flex items-center gap-4 px-10">
         <div>
           <img

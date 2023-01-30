@@ -72,7 +72,11 @@ const Updates = () => {
               ></div>
 
               <div className="flex justify-center">
-                <Link href={`/updates/${posts[0]?.id}`}>
+                <Link
+                  href={`/updates/${posts[0]?.id}/${posts[0].title
+                    .replaceAll(' ', '-')
+                    .toLowerCase()}`}
+                >
                   <Button variant="elevated">Read</Button>
                 </Link>
               </div>
@@ -90,7 +94,9 @@ const Updates = () => {
                   <ArticleCard
                     title={item.title}
                     text={item.content}
-                    link={`/updates/${item.id}`}
+                    link={`/updates/${item.id}/${item.title
+                      .replaceAll(' ', '-')
+                      .toLowerCase()}`}
                     thumbnail={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item?.image}`}
                   />
                 </div>

@@ -11,7 +11,7 @@ import Button from '@/components/Button';
 
 const VideoCarousel = () => {
   const { data, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_PB_URL}/api/collections/hero_video/records?page=1&perPage=3&sort=+sequence&filter=status%20%3D%20true`
+    `${process.env.NEXT_PUBLIC_PB_URL}/api/collections/hero_video/records?page=1&perPage=3&sort=-sequence&filter=status%20%3D%20true`
   );
 
   const loading = !data && !error;
@@ -19,7 +19,13 @@ const VideoCarousel = () => {
 
   return (
     <div className="videoCarousel px-20 pt-20 pb-10">
-      <ReactCarousel showThumbs={false} autoPlay swipeable>
+      <ReactCarousel
+        showThumbs={false}
+        autoPlay
+        swipeable
+        infiniteLoop
+        interval={5000}
+      >
         {!loading &&
           rows &&
           rows.length > 0 &&

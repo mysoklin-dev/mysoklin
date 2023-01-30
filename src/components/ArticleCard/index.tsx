@@ -16,14 +16,19 @@ const ArticleCard = ({
   return (
     <div className="cardWrapper">
       <div className="thumbnail">
-        <img
-          src={thumbnail}
-          alt={title}
-          width="337"
-          height="216"
-          loading="lazy"
-          style={{ height: 'auto' }}
-        />
+        <Link
+          href={link === '#' ? '/article-detail' : link}
+          style={{ color: '#000' }}
+        >
+          <img
+            src={thumbnail}
+            alt={title}
+            width="337"
+            height="216"
+            loading="lazy"
+            style={{ height: 'auto' }}
+          />
+        </Link>
       </div>
 
       <div className="card-background pt-20 pb-10">

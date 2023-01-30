@@ -22,6 +22,7 @@ const ArticleDetail = () => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const [post, setPost] = useState<any>(null);
   const [related, setRelated] = useState<any>([]);
+  const [isCopied, setIsCopied] = useState<boolean>(false);
 
   useEffect(() => {
     const getPosts = async () => {
@@ -84,6 +85,27 @@ const ArticleDetail = () => {
 
   const URL = `${origin}${asPath}`;
 
+  async function copyTextToClipboard(text: string) {
+    if ('clipboard' in navigator) {
+      return navigator.clipboard.writeText(text);
+    }
+    return document.execCommand('copy', true, text);
+  }
+
+  const copyUrl = () => {
+    const page = `${window.location.href}`;
+    // Asynchronously call copyTextToClipboard
+    copyTextToClipboard(page)
+      .then(() => {
+        // If successful, update the isCopied state value
+        setIsCopied(true);
+      })
+      .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.log(err);
+      });
+  };
+
   return (
     <Main>
       <Container className="py-20">
@@ -139,9 +161,14 @@ const ArticleDetail = () => {
                       <FaFacebookF fontSize={20} />
                     </FacebookShareButton>
                   </div>
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-blue-400 text-center">
+                  <button
+                    onClick={() => {
+                      copyUrl();
+                    }}
+                    className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-blue-400 text-center"
+                  >
                     <FaLink fontSize={20} />
-                  </div>
+                  </button>
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-blue-400 text-center">
                     <TwitterShareButton url={URL}>
                       <FaTwitter fontSize={20} />
@@ -168,7 +195,11 @@ const ArticleDetail = () => {
                     className="flex items-center border-b border-gray-300"
                   >
                     <div className="w-3/12">
-                      <Link href={`/updates/${relpost.id}`}>
+                      <Link
+                        href={`/updates/${relpost.id}/${relpost.title
+                          .replaceAll(' ', '-')
+                          .toLowerCase()}`}
+                      >
                         <img
                           src={`${process.env.NEXT_PUBLIC_API_URL}/files/${relpost?.collectionId}/${relpost?.id}/${relpost?.banner_image}?thumb=100x100`}
                           loading="lazy"
@@ -180,7 +211,11 @@ const ArticleDetail = () => {
                     </div>
 
                     <div className="w-9/12 pl-5">
-                      <Link href={`/updates/${relpost.id}`}>
+                      <Link
+                        href={`/updates/${relpost.id}/${relpost.title
+                          .replaceAll(' ', '-')
+                          .toLowerCase()}`}
+                      >
                         {relpost.title}
                       </Link>
                     </div>
@@ -192,7 +227,75 @@ const ArticleDetail = () => {
         </article>
       </Container>
 
+      {isCopied && (
+        <>
+          <div
+            onClick={() => {
+              setIsCopied(false);
+            }}
+            className="modal-overlay"
+          ></div>
+          <div className="modal-box rounded-md bg-white px-7 py-6 pb-10 text-center">
+            <div className="text-right">
+              <button
+                onClick={() => {
+                  setIsCopied(false);
+                }}
+              >
+                <img
+                  src="/assets/images/close__1.svg"
+                  alt="close"
+                  loading="lazy"
+                />
+              </button>
+            </div>
+
+            <div className="mt-5 mb-8 text-center">
+              <img
+                src="/assets/images/amico.svg"
+                style={{ display: 'inline-block' }}
+                alt=""
+              />
+
+              <div className="mt-4 text-2xl font-black">
+                URL successfully Copied
+              </div>
+            </div>
+
+            <button
+              onClick={() => {
+                setIsCopied(false);
+              }}
+              className="close"
+            >
+              Close
+            </button>
+          </div>
+        </>
+      )}
+
       <style jsx>{`
+        .modal-box {
+          position: fixed;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 400px;
+          margin: 0 auto;
+          left: 0;
+          right: 0;
+          background: #fff;
+          z-index: 99999;
+        }
+        .modal-overlay {
+          position: fixed;
+          width: 100%;
+          height: 100%;
+          margin: 0 auto;
+          left: 0;
+          top: 0;
+          background: rgba(0, 0, 0, 0.7);
+          z-index: 9999;
+        }
         .widget {
           background: #ffffff;
           border: 0.5px solid #aaaaaa;

@@ -9,7 +9,11 @@ type IProductCardCircleProps = {
 const ProductCardCircle = ({ id, img, title }: IProductCardCircleProps) => {
   return (
     <div className="text-center">
-      <Link href={`/products/${id}`}>
+      <Link
+        href={`/products/${id}/${title
+          .replaceAll(' ', '-')
+          .toLocaleLowerCase()}`}
+      >
         <div className="thumb mb-10">
           <div className="radial"></div>
           <img

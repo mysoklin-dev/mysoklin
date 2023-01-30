@@ -16,7 +16,11 @@ const ProductCard = ({
     onClick(e);
   };
   return (
-    <div className="cardWrapper" {...rest} onClick={handleOnClick}>
+    <div
+      className="cardWrapper cursor-pointer"
+      {...rest}
+      onClick={handleOnClick}
+    >
       <div className="thumbnail">
         <img
           src={thumbnail}
@@ -31,7 +35,7 @@ const ProductCard = ({
       <div className="card-background pt-20 pb-10">
         <h4>{title}</h4>
 
-        <div className="productButton">See Products</div>
+        <div className="productButton cursoir-pointer">See Products</div>
       </div>
 
       <style jsx>{`
