@@ -44,7 +44,9 @@ const LatestUpdates = () => {
                 <ArticleCard
                   title={item.title}
                   text={item.content}
-                  link={`/updates/${item.id}`}
+                  link={`/updates/${item.id}/${item.title
+                    .replaceAll(' ', '-')
+                    .toLowerCase()}`}
                   thumbnail={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item?.image}`}
                 />
               </div>
