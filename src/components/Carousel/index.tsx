@@ -6,7 +6,7 @@ import useSWR from 'swr';
 
 const Carousel = () => {
   const { data, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_PB_URL}/api/collections/hero_banner/records?page=1&perPage=3&sort=-sequence&filter=status%20%3D%20true`
+    `${process.env.NEXT_PUBLIC_PB_URL}/api/collections/hero_banner/records?page=1&perPage=3&sort=+sequence&filter=status%20%3D%20true`
   );
 
   const loading = !data && !error;
