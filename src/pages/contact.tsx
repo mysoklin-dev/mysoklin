@@ -14,7 +14,6 @@ const Contact = () => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const [contacts, setContacts] = useState<any[]>([]);
   const [isSent, setIsSent] = useState<boolean>(false);
-  const [file, setFile] = useState<any>(null);
   const [form, setForm] = useState<any>({
     first_name: '',
     last_name: '',
@@ -245,8 +244,6 @@ const Contact = () => {
                       ...prev,
                       attachment: e.target.value,
                     }));
-                    console.log(e.currentTarget.files);
-                    setFile(e.currentTarget.files);
                   }}
                 />
                 {form.attachment ? form.attachment : ''}
