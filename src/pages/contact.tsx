@@ -13,6 +13,16 @@ import Main from '@/layouts/Main';
 const Contact = () => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const [contacts, setContacts] = useState<any[]>([]);
+  const [isSent, setIsSent] = useState<boolean>(false);
+  const [file, setFile] = useState<any>(null);
+  const [form, setForm] = useState<any>({
+    first_name: '',
+    last_name: '',
+    email: '',
+    phone_number: '',
+    message: '',
+    attachment: '',
+  });
 
   useEffect(() => {
     const getContact = async () => {
@@ -30,6 +40,38 @@ const Contact = () => {
 
     getContact();
   }, []);
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('first_name', form.first_name);
+    formData.append('last_name', form.last_name);
+    formData.append('email', form.email);
+    formData.append('phone_number', form.phone_number);
+    formData.append('message', form.message);
+
+    const fileInput: any = document.getElementById('file');
+    if (fileInput !== null) {
+      formData.append('message', file);
+    }
+
+    try {
+      const record = await pb.collection('contact_form').create(formData);
+      setIsSent(true);
+      // eslint-disable-next-line no-console
+      console.log(record);
+      setForm(() => ({
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone_number: '',
+        message: '',
+      }));
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
+    }
+  };
 
   return (
     <Main>
@@ -111,37 +153,69 @@ const Contact = () => {
               from you
             </h3>
 
-            <form action="#">
+            <form onSubmit={handleSubmit}>
               <div className="grid grid-cols-2 gap-10">
                 <div>
                   <input
+                    required
                     type="text"
                     className="formControl"
                     placeholder="First Name"
+                    value={form.first_name}
+                    onChange={(e: any) => {
+                      setForm((prev: any) => ({
+                        ...prev,
+                        first_name: e.target.value,
+                      }));
+                    }}
                   />
                 </div>
                 <div>
                   <input
+                    required
                     type="text"
                     className="formControl"
                     placeholder="Last Name"
+                    value={form.last_name}
+                    onChange={(e: any) => {
+                      setForm((prev: any) => ({
+                        ...prev,
+                        last_name: e.target.value,
+                      }));
+                    }}
                   />
                 </div>
               </div>
 
               <div className="mt-8">
                 <input
+                  required
                   type="email"
                   className="formControl"
                   placeholder="Email"
+                  value={form.email}
+                  onChange={(e: any) => {
+                    setForm((prev: any) => ({
+                      ...prev,
+                      email: e.target.value,
+                    }));
+                  }}
                 />
               </div>
 
               <div className="mt-8">
                 <input
+                  required
                   type="text"
                   className="formControl"
                   placeholder="Phone Number"
+                  value={form.phone_number}
+                  onChange={(e: any) => {
+                    setForm((prev: any) => ({
+                      ...prev,
+                      phone_number: e.target.value,
+                    }));
+                  }}
                 />
               </div>
 
@@ -150,21 +224,46 @@ const Contact = () => {
                   className="formControl"
                   placeholder="Message"
                   rows={10}
+                  value={form.message}
+                  onChange={(e: any) => {
+                    setForm((prev: any) => ({
+                      ...prev,
+                      message: e.target.value,
+                    }));
+                  }}
                 />
               </div>
 
-              <div className="mt-8 flex justify-end">
-                <Button variant="elevated" icon={<CgAttachment />}>
-                  Attach File
-                </Button>
+              <div className="mt-8 flex items-center justify-end gap-3">
+                <input
+                  type="file"
+                  id="file"
+                  // value={form.attachment}
+                  style={{ width: 0, height: 0, opacity: 0 }}
+                  onChange={(e: any) => {
+                    setForm((prev: any) => ({
+                      ...prev,
+                      attachment: e.target.value,
+                    }));
+                    console.log(e.currentTarget.files);
+                    setFile(e.currentTarget.files);
+                  }}
+                />
+                {form.attachment ? form.attachment : ''}
+                <label htmlFor="file">
+                  <Button variant="elevated" icon={<CgAttachment />}>
+                    Attach File
+                  </Button>
+                </label>
               </div>
 
-              <Button
-                variant="elevated"
-                style={{ padding: '25px', marginTop: 20 }}
+              <button
+                type="submit"
+                className="elevated  text-md flex w-full items-center justify-center gap-2 rounded-full bg-blue-400 text-white"
+                style={{ padding: '20px 25px', marginTop: 20 }}
               >
                 SEND
-              </Button>
+              </button>
             </form>
           </div>
         </div>
@@ -172,6 +271,79 @@ const Contact = () => {
 
       <ProductsCarousel />
       <LatestUpdates />
+
+      {isSent && (
+        <>
+          <div
+            onClick={() => {
+              setIsSent(false);
+            }}
+            className="modal-overlay"
+          ></div>
+          <div className="modal-box rounded-md bg-white px-7 py-6 pb-10 text-center">
+            <div className="text-right">
+              <button
+                onClick={() => {
+                  setIsSent(false);
+                }}
+              >
+                <img
+                  src="/assets/images/close__1.svg"
+                  alt="close"
+                  loading="lazy"
+                />
+              </button>
+            </div>
+
+            <div className="mt-5 mb-8 text-center">
+              <img
+                src="/assets/images/amico.svg"
+                style={{ display: 'inline-block' }}
+                alt=""
+              />
+
+              <div className="mt-4 text-2xl font-black">
+                Message successfully Sent
+              </div>
+            </div>
+
+            <button
+              onClick={() => {
+                setIsSent(false);
+              }}
+              className="close"
+            >
+              Close
+            </button>
+          </div>
+        </>
+      )}
+
+      <style jsx>
+        {`
+          .modal-box {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 400px;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+            background: #fff;
+            z-index: 99999;
+          }
+          .modal-overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            left: 0;
+            top: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+          }
+        `}
+      </style>
     </Main>
   );
 };
