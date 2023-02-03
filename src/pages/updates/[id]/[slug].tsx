@@ -137,6 +137,10 @@ const ArticleDetail: NextPage<any> = ({ og }) => {
           property="og:image"
           content={`${process.env.NEXT_PUBLIC_API_URL}/files/${og.collectionId}/${og.id}/${og.banner_image}`}
         />
+        <meta
+          property="og:test"
+          content={`${process.env.NEXT_PUBLIC_API_URL}/files/${og.collectionId}/${og.id}/${og.banner_image}`}
+        />
       </Head>
       {post && (
         <Container className="py-20">
