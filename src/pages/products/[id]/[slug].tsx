@@ -1,4 +1,5 @@
 import FsLightbox from 'fslightbox-react';
+import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -11,8 +12,23 @@ import ProductCardCircle from '@/components/ProductCardCircle';
 import TipsAndTricks from '@/components/TipsAndTricks';
 import Main from '@/layouts/Main';
 
-const ProductDetail = () => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  return { paths: [], fallback: true };
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
+  const { id } = context.params as any; // no longer causes error
+  const record = await pb.collection('products').getOne(id as string);
+  return {
+    props: { og: JSON.parse(JSON.stringify(record)) },
+    revalidate: 60,
+  };
+};
+
+const ProductDetail: NextPage<any> = ({ og }) => {
   const router = useRouter();
+  const { isFallback } = useRouter();
   const { id } = router.query;
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const [data, setData] = useState<any>();
@@ -58,24 +74,24 @@ const ProductDetail = () => {
     }
   }, [data]);
 
+  if (isFallback && !data) {
+    return <>Loading...</>;
+  }
+
   return (
     <Main>
+      <Head>
+        <title>{og?.title}</title>
+        <meta property="og:title" content={og?.title} />
+        <meta name="description" content={og?.description} key="desc" />
+        <meta property="og:description" content={og?.description} key="desc" />
+        <meta
+          property="og:image"
+          content={`${process.env.NEXT_PUBLIC_API_URL}/files/${og.collectionId}/${og.id}/${og.image}`}
+        />
+      </Head>
       {data && (
         <>
-          <Head>
-            <title>{data?.title}</title>
-            <meta property="og:title" content={data?.title} />
-            <meta name="description" content={data?.description} key="desc" />
-            <meta
-              property="og:description"
-              content={data?.description}
-              key="desc"
-            />
-            <meta
-              property="og:image"
-              content={`${process.env.NEXT_PUBLIC_API_URL}/files/${data.collectionId}/${data.id}/${data.image}`}
-            />
-          </Head>
           <section className="bg-white py-12">
             <Container>
               {/* Breadcrumbs */}
