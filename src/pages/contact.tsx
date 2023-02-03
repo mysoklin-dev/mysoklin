@@ -52,7 +52,7 @@ const Contact = () => {
 
     const fileInput: any = document.getElementById('file');
     if (fileInput !== null) {
-      formData.append('message', file);
+      formData.append('attachment', fileInput.files[0]);
     }
 
     try {
