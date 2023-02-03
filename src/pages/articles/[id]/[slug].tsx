@@ -130,7 +130,6 @@ const ArticleDetail: NextPage<any> = ({ og }) => {
 
   return (
     <Main>
-      <pre>{JSON.stringify(og, null, 2)}</pre>
       <Head>
         <title>{og?.title}</title>
         <meta property="og:title" content={og?.title} />
