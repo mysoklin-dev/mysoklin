@@ -120,7 +120,7 @@ const ArticleDetail: NextPage<any> = ({ og }) => {
       });
   };
 
-  if (isFallback) {
+  if (isFallback && !og) {
     return <>Loading...</>;
   }
 

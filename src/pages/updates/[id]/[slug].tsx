@@ -91,10 +91,6 @@ const ArticleDetail: NextPage<any> = ({ og }) => {
     return formattedDate;
   };
 
-  if (post === null || related === null) {
-    return <>Loading...</>;
-  }
-
   const origin =
     typeof window !== 'undefined' && window.location.origin
       ? window.location.origin
@@ -123,7 +119,7 @@ const ArticleDetail: NextPage<any> = ({ og }) => {
       });
   };
 
-  if (isFallback) {
+  if (isFallback && !og) {
     return <>Loading...</>;
   }
 
