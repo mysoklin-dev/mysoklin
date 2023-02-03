@@ -2,6 +2,7 @@ import { FaFacebookF } from '@react-icons/all-files/fa/FaFacebookF';
 import { FaLink } from '@react-icons/all-files/fa/FaLink';
 import { FaTwitter } from '@react-icons/all-files/fa/FaTwitter';
 import { FaWhatsapp } from '@react-icons/all-files/fa/FaWhatsapp';
+import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -16,8 +17,24 @@ import {
 import Container from '@/components/Container';
 import Main from '@/layouts/Main';
 
-const ArticleDetail = () => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  return { paths: [], fallback: true };
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
+  const { id } = context.params as any; // no longer causes error
+  const record = await pb.collection('articles').getOne(`${id}`);
+  return {
+    props: { og: JSON.parse(JSON.stringify(record)) },
+    revalidate: 60,
+  };
+};
+
+const ArticleDetail: NextPage<any> = ({ og }) => {
   const router = useRouter();
+  const { isFallback } = useRouter();
+
   const { id } = router.query;
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const [post, setPost] = useState<any>(null);
@@ -75,10 +92,6 @@ const ArticleDetail = () => {
     return formattedDate;
   };
 
-  if (post === null || related === null) {
-    return <>Loading...</>;
-  }
-
   const origin =
     typeof window !== 'undefined' && window.location.origin
       ? window.location.origin
@@ -107,20 +120,28 @@ const ArticleDetail = () => {
       });
   };
 
+  if (isFallback && !post) {
+    return <>Loading...</>;
+  }
+
+  if (post === null || related === null) {
+    return <>Loading...</>;
+  }
+
   return (
     <Main>
+      <pre>{JSON.stringify(og, null, 2)}</pre>
       <Head>
-        <title>{post?.title}</title>
-        <meta property="og:title" content={post?.title} />
-        <meta name="description" content={post?.description} key="desc" />
+        <title>{og?.title}</title>
+        <meta property="og:title" content={og?.title} />
+        <meta name="description" content={og?.content.substring(0, 100)} />
         <meta
           property="og:description"
-          content={post?.description}
-          key="desc"
+          content={og?.content.substring(0, 100)}
         />
         <meta
           property="og:image"
-          content={`${process.env.NEXT_PUBLIC_API_URL}/files/${post.collectionId}/${post.id}/${post.banner_image}`}
+          content={`${process.env.NEXT_PUBLIC_API_URL}/files/${og.collectionId}/${og.id}/${og.banner_image}`}
         />
       </Head>
       <Container className="py-20">
