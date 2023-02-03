@@ -123,11 +123,7 @@ const ArticleDetail: NextPage<any> = ({ og }) => {
       });
   };
 
-  if (isFallback && !post) {
-    return <>Loading...</>;
-  }
-
-  if (post === null || related === null) {
+  if (isFallback) {
     return <>Loading...</>;
   }
 
@@ -146,124 +142,130 @@ const ArticleDetail: NextPage<any> = ({ og }) => {
           content={`${process.env.NEXT_PUBLIC_API_URL}/files/${og.collectionId}/${og.id}/${og.banner_image}`}
         />
       </Head>
-      <Container className="py-20">
-        {/* <pre>{JSON.stringify(post, null, 2)}</pre> */}
-        <article className="grid grid-cols-3 gap-10">
-          <div className="col-span-2">
-            <header className="mb-5">
-              <div className="mb-2 font-serif text-lg text-gray-700">
-                {convertDate(post.created)}
+      {post && (
+        <Container className="py-20">
+          {/* <pre>{JSON.stringify(post, null, 2)}</pre> */}
+          <article className="grid grid-cols-3 gap-10">
+            <div className="col-span-2">
+              <header className="mb-5">
+                <div className="mb-2 font-serif text-lg text-gray-700">
+                  {convertDate(post.created)}
+                </div>
+
+                <h1 className="text-4xl font-black text-blue-400">
+                  {post.title}
+                </h1>
+
+                <div className="my-2 flex gap-3 font-serif text-lg">
+                  <div>
+                    <img
+                      src="/assets/images/FEMALE01.png"
+                      alt=""
+                      style={{ maxWidth: '100%' }}
+                    />
+                  </div>
+
+                  <div>Rebeca</div>
+                </div>
+              </header>
+
+              <figure>
+                <img
+                  src={`${process.env.NEXT_PUBLIC_API_URL}/files/${post?.collectionId}/${post?.id}/${post?.banner_image}`}
+                  alt=""
+                />
+              </figure>
+
+              <div className="my-10">
+                <div
+                  className="content"
+                  dangerouslySetInnerHTML={{ __html: post.content }}
+                ></div>
+              </div>
+            </div>
+
+            {/* Sidebar */}
+            <div className="col-span-1">
+              {/* Widget */}
+              <div className="widget">
+                <div className="widget-header font-bold text-blue-400">
+                  Share
+                </div>
+                <div className="widget-content">
+                  <div className="flex gap-4 text-blue-400">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-blue-400 text-center">
+                      <FacebookShareButton url={URL}>
+                        <FaFacebookF fontSize={20} />
+                      </FacebookShareButton>
+                    </div>
+                    <button
+                      onClick={() => {
+                        copyUrl();
+                      }}
+                      className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-blue-400 text-center"
+                    >
+                      <FaLink fontSize={20} />
+                    </button>
+                    <div className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-blue-400 text-center">
+                      <TwitterShareButton url={URL}>
+                        <FaTwitter fontSize={20} />
+                      </TwitterShareButton>
+                    </div>
+                    <div className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-blue-400 text-center">
+                      <WhatsappShareButton url={URL}>
+                        <FaWhatsapp fontSize={20} />
+                      </WhatsappShareButton>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <h1 className="text-4xl font-black text-blue-400">
-                {post.title}
-              </h1>
-
-              <div className="my-2 flex gap-3 font-serif text-lg">
+              <div className="widget mt-5">
+                <div className="widget-header font-bold text-blue-400">
+                  Related Updates
+                </div>
                 <div>
-                  <img
-                    src="/assets/images/FEMALE01.png"
-                    alt=""
-                    style={{ maxWidth: '100%' }}
-                  />
-                </div>
+                  {/* item */}
+                  {related &&
+                    related.length > 0 &&
+                    related.map((relpost: any) => (
+                      <div
+                        key={`related-${relpost.id}`}
+                        className="flex items-center border-b border-gray-300"
+                      >
+                        <div className="w-3/12">
+                          <Link
+                            href={`/updates/${relpost.id}/${relpost.title
+                              .replaceAll(' ', '-')
+                              .toLowerCase()}`}
+                          >
+                            <img
+                              src={`${process.env.NEXT_PUBLIC_API_URL}/files/${relpost?.collectionId}/${relpost?.id}/${relpost?.banner_image}?thumb=100x100`}
+                              loading="lazy"
+                              width="100"
+                              height="100"
+                              alt=""
+                            />
+                          </Link>
+                        </div>
 
-                <div>Rebeca</div>
-              </div>
-            </header>
-
-            <figure>
-              <img
-                src={`${process.env.NEXT_PUBLIC_API_URL}/files/${post?.collectionId}/${post?.id}/${post?.banner_image}`}
-                alt=""
-              />
-            </figure>
-
-            <div className="my-10">
-              <div
-                className="content"
-                dangerouslySetInnerHTML={{ __html: post.content }}
-              ></div>
-            </div>
-          </div>
-
-          {/* Sidebar */}
-          <div className="col-span-1">
-            {/* Widget */}
-            <div className="widget">
-              <div className="widget-header font-bold text-blue-400">Share</div>
-              <div className="widget-content">
-                <div className="flex gap-4 text-blue-400">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-blue-400 text-center">
-                    <FacebookShareButton url={URL}>
-                      <FaFacebookF fontSize={20} />
-                    </FacebookShareButton>
-                  </div>
-                  <button
-                    onClick={() => {
-                      copyUrl();
-                    }}
-                    className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-blue-400 text-center"
-                  >
-                    <FaLink fontSize={20} />
-                  </button>
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-blue-400 text-center">
-                    <TwitterShareButton url={URL}>
-                      <FaTwitter fontSize={20} />
-                    </TwitterShareButton>
-                  </div>
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-blue-400 text-center">
-                    <WhatsappShareButton url={URL}>
-                      <FaWhatsapp fontSize={20} />
-                    </WhatsappShareButton>
-                  </div>
+                        <div className="w-9/12 pl-5">
+                          <Link
+                            href={`/updates/${relpost.id}/${relpost.title
+                              .replaceAll(' ', '-')
+                              .toLowerCase()}`}
+                          >
+                            {relpost.title}
+                          </Link>
+                        </div>
+                      </div>
+                    ))}
                 </div>
               </div>
             </div>
-
-            <div className="widget mt-5">
-              <div className="widget-header font-bold text-blue-400">
-                Related Updates
-              </div>
-              <div>
-                {/* item */}
-                {related.map((relpost: any) => (
-                  <div
-                    key={`related-${relpost.id}`}
-                    className="flex items-center border-b border-gray-300"
-                  >
-                    <div className="w-3/12">
-                      <Link
-                        href={`/updates/${relpost.id}/${relpost.title
-                          .replaceAll(' ', '-')
-                          .toLowerCase()}`}
-                      >
-                        <img
-                          src={`${process.env.NEXT_PUBLIC_API_URL}/files/${relpost?.collectionId}/${relpost?.id}/${relpost?.banner_image}?thumb=100x100`}
-                          loading="lazy"
-                          width="100"
-                          height="100"
-                          alt=""
-                        />
-                      </Link>
-                    </div>
-
-                    <div className="w-9/12 pl-5">
-                      <Link
-                        href={`/updates/${relpost.id}/${relpost.title
-                          .replaceAll(' ', '-')
-                          .toLowerCase()}`}
-                      >
-                        {relpost.title}
-                      </Link>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </article>
-      </Container>
+          </article>
+        </Container>
+      )}
 
       {isCopied && (
         <>
