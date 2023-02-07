@@ -82,7 +82,7 @@ const Contact = () => {
           }
         `}</style>
       </Head>
-      <Container className="my-20 py-20 px-8 md:px-0">
+      <Container className="my-4 p-8 md:my-20 md:py-20 md:px-0">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
           {/* Left */}
           {contacts && contacts[0] && contacts[1] && (

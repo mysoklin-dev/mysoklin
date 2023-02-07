@@ -193,7 +193,7 @@ const Header = () => {
 
           {/* Mobile */}
           <div
-            className="flex items-center px-4 md:hidden"
+            className="flex items-center justify-between px-4 md:hidden"
             style={{ height: 50 }}
           >
             <button
@@ -204,6 +204,30 @@ const Header = () => {
             >
               <HiMenuAlt4 color="white" size={24} />
             </button>
+
+            <div>
+              {socials &&
+                socials.length > 0 &&
+                socials.map((social: any, i: number) => (
+                  <React.Fragment key={`inactive-${social.id}+${i}`}>
+                    {social.status === false && (
+                      <a
+                        href={social.platform_url}
+                        target="_BLANK"
+                        rel="noreferrer"
+                      >
+                        <img
+                          src={`${process.env.NEXT_PUBLIC_API_URL}/files/${social.collectionId}/${social.id}/${social?.platform_icon}`}
+                          alt={social.platform_name}
+                          width={120}
+                          height={40}
+                          style={{ height: 'auto!important' }}
+                        />
+                      </a>
+                    )}
+                  </React.Fragment>
+                ))}
+            </div>
           </div>
         </div>
 
@@ -271,11 +295,7 @@ const Header = () => {
         <Link className="block py-3 px-8 text-white" href="/company-history">
           company
         </Link>
-        <Link
-          onMouseEnter={showMegamenu}
-          className="block py-3 px-8 text-white"
-          href="/products"
-        >
+        <Link className="block py-3 px-8 text-white" href="/products">
           products
         </Link>
         <Link className="block py-3 px-8 text-white" href="/updates">

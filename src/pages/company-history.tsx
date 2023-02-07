@@ -114,7 +114,7 @@ const CompanyHistory = () => {
       {/* <pre>{JSON.stringify(rows, null, 2)}</pre> */}
       <div className="hero py-30 px-8 pt-10 text-white md:px-0">
         <Container>
-          <div className="grid grid-cols-1 md:grid-cols-3">
+          <div className="position-relative z-50 grid grid-cols-1 md:grid-cols-3">
             {rows && rows.length > 0 ? (
               <div className="col-span-2">
                 <h1 className="text-3xl font-black md:text-6xl">
@@ -170,6 +170,22 @@ const CompanyHistory = () => {
           height: 650px;
           background: #001fff url('/assets/images/cloud.jpg') no-repeat center
             right;
+          position: relative;
+          z-index: 0;
+        }
+
+        @media screen and (max-width: 500px) {
+          .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            opacity: 0.5;
+            z-index: -1;
+          }
         }
 
         .timeline {

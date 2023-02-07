@@ -134,6 +134,16 @@ body {
   padding: 0 50px 50px;
 }
 
+@media screen and (max-width: 500px) {
+  .modal-content {
+    padding: 0 20px 20px;
+  }
+}
+
+.product-opt > div:nth-child(1) {
+  width: 30%;
+}
+
 .closer {
   position: absolute;
   top: 20px;
