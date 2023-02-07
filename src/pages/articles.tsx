@@ -57,7 +57,7 @@ const Updates = () => {
 
       <Container className="px-5">
         {posts[0] && (
-          <div className="-mt-32 rounded-md border-2 border-gray-200 bg-white p-20 text-center">
+          <div className="-mt-32 rounded-md border-2 border-gray-200 bg-white p-10 text-center md:p-20">
             <h1 className="text-2xl font-black text-blue-400">
               <span
                 dangerouslySetInnerHTML={{
@@ -90,7 +90,7 @@ const Updates = () => {
 
         {/* Blog */}
         {/* <pre>{JSON.stringify(posts, null, 2)}</pre> */}
-        <div className="mt-20 grid grid-cols-3 gap-10">
+        <div className="mt-20 grid grid-cols-1 gap-10 md:grid-cols-3">
           {posts.map((item: any, i: number) => (
             <>
               {i > 0 && (
@@ -123,6 +123,12 @@ const Updates = () => {
         .banner_image {
           height: 500px;
           overflow: hidden;
+        }
+
+        @media screen and (max-width: 500px) {
+          .banner_image {
+            height: 200px;
+          }
         }
 
         .banner_image img {

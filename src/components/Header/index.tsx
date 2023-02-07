@@ -1,4 +1,5 @@
 /* eslint-disable tailwindcss/no-custom-classname */
+import { HiMenuAlt4 } from '@react-icons/all-files/hi/HiMenuAlt4';
 import Link from 'next/link';
 import PocketBase from 'pocketbase';
 import React, { useEffect, useState } from 'react';
@@ -6,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 const Header = () => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const [isShowMega, setShowMega] = useState<boolean>(false);
+  const [mobileMenu, setMobileMenu] = useState<boolean>(false);
   const [menu, setMenu] = useState<any>(null);
   const [socials, setSocial] = useState<any>([]);
 
@@ -58,7 +60,7 @@ const Header = () => {
   return (
     <>
       <header>
-        <div className="container mx-auto max-w-6xl py-2">
+        <div className="container mx-auto hidden max-w-6xl py-2 md:block">
           <div className="flex items-center justify-between">
             <div>
               <div
@@ -159,7 +161,7 @@ const Header = () => {
           className="items-center bg-blue-400 uppercase"
           style={{ height: 50 }}
         >
-          <div className="container mx-auto max-w-6xl items-center">
+          <div className="container mx-auto hidden max-w-6xl items-center md:block">
             <nav
               className="menu flex items-center justify-between  text-white"
               style={{ height: 50 }}
@@ -187,6 +189,21 @@ const Header = () => {
                 contact
               </Link>
             </nav>
+          </div>
+
+          {/* Mobile */}
+          <div
+            className="flex items-center px-4 md:hidden"
+            style={{ height: 50 }}
+          >
+            <button
+              onClick={() => {
+                setMobileMenu(!mobileMenu);
+              }}
+              className="border-0 bg-transparent"
+            >
+              <HiMenuAlt4 color="white" size={24} />
+            </button>
           </div>
         </div>
 
@@ -231,6 +248,87 @@ const Header = () => {
           </div>
         )}
       </header>
+
+      {/* Mobile Menu */}
+      <div
+        className={`top-34 fixed left-0 z-50 h-full w-full bg-blue-300 py-10 uppercase text-white md:hidden ${
+          mobileMenu ? 'block' : 'hidden'
+        }`}
+      >
+        <div className="mb-5 px-8">
+          <div
+            className="block w-full overflow-hidden rounded-full bg-white px-8 text-black"
+            style={{
+              width: '100%!important',
+              background:
+                '#ffffff url(/assets/images/fa_search.svg) no-repeat 10px center',
+            }}
+          >
+            <input type="text" name="s" className="block w-full py-2" />
+          </div>
+        </div>
+
+        <Link className="block py-3 px-8 text-white" href="/company-history">
+          company
+        </Link>
+        <Link
+          onMouseEnter={showMegamenu}
+          className="block py-3 px-8 text-white"
+          href="/products"
+        >
+          products
+        </Link>
+        <Link className="block py-3 px-8 text-white" href="/updates">
+          updates
+        </Link>
+        <Link className="block py-3 px-8 text-white" href="/articles">
+          articles
+        </Link>
+        <Link className="block py-3 px-8 text-white" href="/contact">
+          contact
+        </Link>
+
+        {socials &&
+          socials.length > 0 &&
+          socials.map((social: any, i: number) => (
+            <React.Fragment key={`inactive-${social.id}-${i}`}>
+              {social.status !== false && (
+                <div className="flex gap-4 px-8 py-3 text-white">
+                  <div>
+                    <a
+                      href={social.platform_url}
+                      target="_blank"
+                      className="text-white"
+                      rel="noreferrer"
+                    >
+                      <img
+                        src={`${process.env.NEXT_PUBLIC_API_URL}/files/${social.collectionId}/${social.id}/${social?.platform_icon}`}
+                        alt={social.platform_name}
+                        width={28}
+                        height={28.56}
+                        style={{
+                          height: 'auto!important',
+                          filter: 'brightness(10)',
+                        }}
+                      />
+                    </a>
+                  </div>
+                  <div>
+                    <a
+                      style={{ fontSize: 14 }}
+                      href={social.platform_url}
+                      target="_BLANK"
+                      className="text-white"
+                      rel="noreferrer"
+                    >
+                      {social.platform_name}
+                    </a>
+                  </div>
+                </div>
+              )}
+            </React.Fragment>
+          ))}
+      </div>
 
       <style jsx>{`
         header {

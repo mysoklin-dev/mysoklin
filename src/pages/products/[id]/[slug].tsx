@@ -92,7 +92,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
       </Head>
       {data && (
         <>
-          <section className="bg-white py-12">
+          <section className="bg-white py-12 px-8 md:px-0">
             <Container>
               {/* Breadcrumbs */}
               <div className="flex items-center gap-2 text-gray-700">
@@ -123,9 +123,14 @@ const ProductDetail: NextPage<any> = ({ og }) => {
               </h1>
 
               {/* Socials */}
-              <div className="mt-6 flex items-center gap-3">
+              <div className="mt-6 items-center gap-3 md:flex">
                 {data.tokopedia !== '' && (
-                  <a href={data.tokopedia} target="_BLANK" rel="noreferrer">
+                  <a
+                    href={data.tokopedia}
+                    target="_BLANK"
+                    rel="noreferrer"
+                    className="mt-2 inline-block md:mt-0"
+                  >
                     <Button
                       variant="outlined"
                       style={{ height: 50, width: 200 }}
@@ -148,7 +153,12 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                 )}
 
                 {data.shopee !== '' && (
-                  <a href={data.shopee} target="_BLANK" rel="noreferrer">
+                  <a
+                    href={data.shopee}
+                    target="_BLANK"
+                    rel="noreferrer"
+                    className="mt-2 inline-block md:mt-0"
+                  >
                     <Button
                       variant="outlined"
                       style={{ height: 50, width: 200 }}
@@ -171,7 +181,12 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                 )}
 
                 {data.blibli !== '' && (
-                  <a href={data.blibli} target="_BLANK" rel="noreferrer">
+                  <a
+                    href={data.blibli}
+                    target="_BLANK"
+                    rel="noreferrer"
+                    className="mt-2 inline-block md:mt-0"
+                  >
                     <Button
                       variant="outlined"
                       style={{ height: 50, width: 200 }}
@@ -194,7 +209,12 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                 )}
 
                 {data.jdid !== '' && (
-                  <a href={data.jdid} target="_BLANK" rel="noreferrer">
+                  <a
+                    href={data.jdid}
+                    target="_BLANK"
+                    rel="noreferrer"
+                    className="mt-2 inline-block md:mt-0"
+                  >
                     <Button
                       variant="outlined"
                       style={{ height: 50, width: 200 }}
@@ -251,9 +271,12 @@ const ProductDetail: NextPage<any> = ({ og }) => {
           </section>
 
           {/* Description */}
-          <section className="py-12" style={{ background: '#EEF3F6' }}>
+          <section
+            className="py-12 px-8 md:px-0"
+            style={{ background: '#EEF3F6' }}
+          >
             <Container>
-              <div className="grid grid-cols-3">
+              <div className="grid grid-cols-1 md:grid-cols-3">
                 <div className="col-span-2">
                   {data && data.description ? (
                     <div
@@ -296,10 +319,10 @@ const ProductDetail: NextPage<any> = ({ og }) => {
           </section>
 
           {/* Gallery */}
-          <section className="bg-white py-12">
+          <section className="bg-white py-12 px-8 md:px-0">
             <Container>
-              <div className="grid grid-cols-12 gap-10">
-                <div className="col-span-5">
+              <div className="grid-cols-1 gap-4 md:grid md:grid-cols-12 md:gap-10">
+                <div className="col-span-1 mb-4 md:col-span-5 md:mb-0">
                   {data && data.gallery && data.gallery.length > 0 && (
                     <div
                       className="gallery"
@@ -329,7 +352,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                         {data?.gallery.length > 4 && (
                           <div
                             style={{ height: 69 }}
-                            className="flex items-center justify-center bg-blue-400 text-xs font-bold text-white"
+                            className="hidden items-center justify-center bg-blue-400 text-xs font-bold text-white md:flex"
                           >
                             <div style={{ width: 86 }} className="text-center">
                               Show All
@@ -395,11 +418,11 @@ const ProductDetail: NextPage<any> = ({ og }) => {
 
           {/* related */}
           {items && items.length > 1 && (
-            <Container className="py-20">
+            <Container className="py-20 px-8 md:px-0">
               <h2 className="mb-20 text-2xl font-black text-blue-400">
                 Related Products
               </h2>
-              <div className="grid grid-cols-3 gap-10">
+              <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
                 {items &&
                   items.length > 0 &&
                   items.map((item: any, i: any) => (

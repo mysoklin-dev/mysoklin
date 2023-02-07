@@ -82,13 +82,13 @@ const Contact = () => {
           }
         `}</style>
       </Head>
-      <Container className="my-20 py-20">
-        <div className="grid grid-cols-2 gap-10">
+      <Container className="my-20 py-20 px-8 md:px-0">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
           {/* Left */}
           {contacts && contacts[0] && contacts[1] && (
             <div>
               <Card
-                className="mb-8 py-16 px-14"
+                className="mb-8 py-16 px-6 md:px-14"
                 style={{
                   background:
                     '#fff url("/assets/images/contact-1.svg") no-repeat top right',
@@ -99,7 +99,7 @@ const Contact = () => {
                 </div>
                 <div className="text-xl">{contacts[0]?.sub_title}</div>
 
-                <div className="mr-20 mt-6 grid grid-cols-2 gap-4">
+                <div className="mt-6 grid grid-cols-2 gap-4 md:mr-20">
                   <a href={`tel:${contacts[0]?.value_1}`}>
                     <Button variant="elevated">{contacts[0]?.value_1}</Button>
                   </a>
@@ -107,7 +107,7 @@ const Contact = () => {
                     <Button variant="elevated">{contacts[0]?.value_2}</Button>
                   </a>
                 </div>
-                <div className="mr-20 mt-4 grid grid-cols-1 gap-4">
+                <div className="mt-4 grid grid-cols-1 gap-4 md:mr-20">
                   <a
                     href="https://goo.gl/maps/r4UbWbFMVVvGgD73A"
                     target="_BLANK"
@@ -132,7 +132,7 @@ const Contact = () => {
                 </div>
                 <div className="text-xl">{contacts[1]?.sub_title}</div>
 
-                <div className="mr-20 mt-6 grid grid-cols-2 gap-4">
+                <div className="mt-6 grid gap-4 md:mr-20 md:grid-cols-2">
                   <a href={`tel:${contacts[1].value_1}`}>
                     <Button variant="elevated">{contacts[1]?.value_1}</Button>
                   </a>

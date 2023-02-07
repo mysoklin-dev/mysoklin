@@ -31,19 +31,19 @@ const Products = () => {
 
   return (
     <Main>
-      <div className="hero py-24">
+      <div className="hero py-24 px-8 md:px-0">
         {/* Muqodimah */}
         <Container>
           <div className="grid grid-cols-2 justify-center">
             <div className="col-span-2 text-center">
-              <h1 className="text-6xl font-black text-white">
+              <h1 className="text-3xl font-black text-white md:text-6xl">
                 We have it all,
                 <br />
                 pick and choose.
               </h1>
 
               <p
-                className="mt-5 font-serif text-3xl"
+                className="mt-5 font-serif text-xl md:text-3xl"
                 style={{ color: '#071789' }}
               >
                 Select the category below and browse all of our products
@@ -54,7 +54,7 @@ const Products = () => {
 
         {/* Product Grid */}
         <Container className="mt-24">
-          <div className="grid grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
             {data &&
               !error &&
               data.items.length > 0 &&

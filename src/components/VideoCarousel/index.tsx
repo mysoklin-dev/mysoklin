@@ -18,7 +18,7 @@ const VideoCarousel = () => {
   const rows = data && data.items;
 
   return (
-    <div className="videoCarousel px-20 pt-20 pb-10">
+    <div className="videoCarousel pt-20 pb-10 md:px-20">
       <ReactCarousel
         showThumbs={false}
         autoPlay
@@ -31,7 +31,7 @@ const VideoCarousel = () => {
           rows.length > 0 &&
           rows.map((item: any, i: number) => (
             <div key={`video-${i}`} className="mx-auto max-w-6xl px-10 pb-20">
-              <div className="grid grid-cols-12 gap-10">
+              <div className="grid grid-cols-1 gap-10 md:grid-cols-12">
                 <div className="col-span-5">
                   <h3 className="mb-10">
                     <span

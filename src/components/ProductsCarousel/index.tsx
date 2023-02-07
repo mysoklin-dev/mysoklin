@@ -35,15 +35,24 @@ const ProductsCarousel = () => {
     <>
       <section className="pt-20 pb-10">
         <div className="container mx-auto mb-20 max-w-6xl">
-          <div className="grid grid-cols-4">
+          <div className="grid grid-cols-1 md:grid-cols-4">
             <div className="col-span-3">
-              <h2>Find the right SoKlin Products</h2>
+              <h2 className="text-center md:text-left">
+                Find the right SoKlin Products
+              </h2>
             </div>
             <div className="col-span-1">
-              <div className="mr-0 ml-auto text-right">
-                <Link href="/products">
+              <div className="mr-0 ml-auto mt-3 text-right md:mt-0">
+                <Link href="/products" className="hidden md:block">
                   <Button
                     style={{ width: '170px', height: 40, marginLeft: 'auto' }}
+                  >
+                    {'Show More'}
+                  </Button>
+                </Link>
+                <Link href="/products" className="md:hidden">
+                  <Button
+                    style={{ width: '170px', height: 40, margin: '0 auto' }}
                   >
                     {'Show More'}
                   </Button>
@@ -53,50 +62,77 @@ const ProductsCarousel = () => {
           </div>
         </div>
 
-        <ReactCarousel showThumbs={false} autoPlay swipeable>
-          <div className="mx-auto grid max-w-6xl grid-cols-3 gap-20 pb-20">
+        <div className="md:hidden">
+          <ReactCarousel showThumbs={false} autoPlay swipeable>
             {data &&
               !error &&
               data.items.length > 0 &&
-              data.items.map((item: any, i: number) => (
-                <React.Fragment key={`product-${item.id}`}>
-                  {i <= 2 && (
-                    <div className="col-span-1">
-                      <ProductCard
-                        onClick={() => {
-                          getBrands(item.id);
-                          setModalTitle(item.title);
-                        }}
-                        thumbnail={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item.image}`}
-                        title={item.title}
-                      />
-                    </div>
-                  )}
-                </React.Fragment>
+              data.items.map((item: any) => (
+                <div
+                  key={`product-${item.id}`}
+                  className="mx-auto grid max-w-6xl grid-cols-1 gap-20 pb-20 md:grid-cols-3"
+                >
+                  <div className="col-span-1 px-9">
+                    <ProductCard
+                      onClick={() => {
+                        getBrands(item.id);
+                        setModalTitle(item.title);
+                      }}
+                      thumbnail={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item.image}`}
+                      title={item.title}
+                    />
+                  </div>
+                </div>
               ))}
-          </div>
-          <div className="mx-auto grid max-w-6xl grid-cols-3 gap-20 pb-20">
-            {data &&
-              !error &&
-              data.items.length > 0 &&
-              data.items.map((item: any, i: number) => (
-                <React.Fragment key={`product-${item.id}-${i}`}>
-                  {i > 2 && (
-                    <div className="col-span-1">
-                      <ProductCard
-                        onClick={() => {
-                          getBrands(item.id);
-                          setModalTitle(item.title);
-                        }}
-                        thumbnail={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item.image}`}
-                        title={item.title}
-                      />
-                    </div>
-                  )}
-                </React.Fragment>
-              ))}
-          </div>
-        </ReactCarousel>
+          </ReactCarousel>
+        </div>
+
+        <div className="hidden md:block">
+          <ReactCarousel showThumbs={false} autoPlay swipeable>
+            <div className="mx-auto grid max-w-6xl grid-cols-1 gap-20 pb-20 md:grid-cols-3">
+              {data &&
+                !error &&
+                data.items.length > 0 &&
+                data.items.map((item: any, i: number) => (
+                  <React.Fragment key={`product-${item.id}`}>
+                    {i <= 2 && (
+                      <div className="col-span-1">
+                        <ProductCard
+                          onClick={() => {
+                            getBrands(item.id);
+                            setModalTitle(item.title);
+                          }}
+                          thumbnail={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item.image}`}
+                          title={item.title}
+                        />
+                      </div>
+                    )}
+                  </React.Fragment>
+                ))}
+            </div>
+            <div className="mx-auto grid max-w-6xl grid-cols-1 gap-20 pb-20 md:grid-cols-3">
+              {data &&
+                !error &&
+                data.items.length > 0 &&
+                data.items.map((item: any, i: number) => (
+                  <React.Fragment key={`product-${item.id}-${i}`}>
+                    {i > 2 && (
+                      <div className="col-span-1">
+                        <ProductCard
+                          onClick={() => {
+                            getBrands(item.id);
+                            setModalTitle(item.title);
+                          }}
+                          thumbnail={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item.image}`}
+                          title={item.title}
+                        />
+                      </div>
+                    )}
+                  </React.Fragment>
+                ))}
+            </div>
+          </ReactCarousel>
+        </div>
       </section>
 
       {/* Modal */}

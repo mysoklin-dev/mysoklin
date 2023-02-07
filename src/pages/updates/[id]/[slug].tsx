@@ -143,10 +143,10 @@ const ArticleDetail: NextPage<any> = ({ og }) => {
         />
       </Head>
       {post && (
-        <Container className="py-20">
+        <Container className="py-20 px-8 md:px-0">
           {/* <pre>{JSON.stringify(post, null, 2)}</pre> */}
-          <article className="grid grid-cols-3 gap-10">
-            <div className="col-span-2">
+          <article className="grid grid-cols-1 gap-10 md:grid-cols-3">
+            <div className="md:col-span-2">
               <header className="mb-5">
                 <div className="mb-2 font-serif text-lg text-gray-700">
                   {convertDate(post.created)}
@@ -185,7 +185,7 @@ const ArticleDetail: NextPage<any> = ({ og }) => {
             </div>
 
             {/* Sidebar */}
-            <div className="col-span-1">
+            <div className="md:col-span-1">
               {/* Widget */}
               <div className="widget">
                 <div className="widget-header font-bold text-blue-400">

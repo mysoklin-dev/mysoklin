@@ -123,12 +123,13 @@ const ProductDetail = () => {
 
                   {/* <pre>{JSON.stringify(socials, null, 2)}</pre> */}
                   {socials && socials.length > 0 && socials[0] && (
-                    <div className="mt-5 flex gap-3">
+                    <div className="mt-5 gap-3 md:flex">
                       {socials[0].instagram && socials[0].instagram !== '' && (
                         <a
                           href={socials[0].instagram}
                           target="_BLANK"
                           rel="noreferrer"
+                          className="mt-2 inline-block md:mt-0"
                         >
                           <Button icon={<FaInstagram />} variant="outlined">
                             {socials[0].instagram_label}
@@ -141,6 +142,7 @@ const ProductDetail = () => {
                           href={socials[0].facebook}
                           target="_BLANK"
                           rel="noreferrer"
+                          className="mt-2 inline-block md:mt-0"
                         >
                           <Button icon={<FaFacebook />} variant="outlined">
                             {socials[0].facebook_label}
@@ -153,6 +155,7 @@ const ProductDetail = () => {
                           href={socials[0].youtube}
                           target="_BLANK"
                           rel="noreferrer"
+                          className="mt-2 inline-block md:mt-0"
                         >
                           <Button icon={<FaYoutube />} variant="outlined">
                             {socials[0].youtube_label}
@@ -200,7 +203,7 @@ const ProductDetail = () => {
       )}
 
       <Container className="py-20">
-        <div className="grid grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
           {items &&
             items.length > 0 &&
             items.map((item: any, i: any) => (

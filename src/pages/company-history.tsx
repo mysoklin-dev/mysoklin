@@ -23,10 +23,12 @@ const TimeLineItem = ({
       <div className="circle"></div>
       <div className="col-span-7">
         {year && year !== '' && parentId === '' && (
-          <h3 className="mb-10 text-4xl font-black text-blue-400">{year}</h3>
+          <h3 className="mb-10 text-2xl font-black text-blue-400 md:text-4xl">
+            {year}
+          </h3>
         )}
 
-        <p className="mb-3 text-xl">{description}</p>
+        <p className="mb-3 text-lg md:text-xl">{description}</p>
       </div>
       <div className="col-span-5">
         <div className="thumbnail flex items-center justify-center">
@@ -69,6 +71,12 @@ const TimeLineItem = ({
           padding: 20px;
         }
 
+        @media screen and (max-width: 500px) {
+          .thumbnail {
+            height: 200px;
+          }
+        }
+
         .thumbnail img {
           max-height: 256px;
           width: auto;
@@ -104,15 +112,17 @@ const CompanyHistory = () => {
         <title>Company History - MySoklin</title>
       </Head>
       {/* <pre>{JSON.stringify(rows, null, 2)}</pre> */}
-      <div className="hero py-30 pt-10 text-white">
+      <div className="hero py-30 px-8 pt-10 text-white md:px-0">
         <Container>
-          <div className="grid grid-cols-3">
+          <div className="grid grid-cols-1 md:grid-cols-3">
             {rows && rows.length > 0 ? (
               <div className="col-span-2">
-                <h1 className="text-6xl font-black">{rows[0].title}</h1>
+                <h1 className="text-3xl font-black md:text-6xl">
+                  {rows[0].title}
+                </h1>
 
                 <div
-                  className="mt-5 text-3xl"
+                  className="mt-5 text-xl md:text-3xl"
                   dangerouslySetInnerHTML={{ __html: rows[0].sub_title }}
                 ></div>
               </div>
@@ -136,7 +146,7 @@ const CompanyHistory = () => {
         </Container>
       </div>
 
-      <Container className="py-16">
+      <Container className="py-16 px-4 md:px-0">
         <div className="timeline">
           {rows.map((item, i: number) => (
             <>

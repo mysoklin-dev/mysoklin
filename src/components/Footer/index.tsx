@@ -46,7 +46,7 @@ export default function Footer({ showBanner = true }: IFooterProps) {
     <footer>
       {/* big fucking banner */}
       {showBanner && (
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-1 md:grid-cols-2">
           <div className="left col-span-1">
             <div className="mb-10 flex w-full flex-1 flex-row content-between">
               <div>
@@ -123,8 +123,8 @@ export default function Footer({ showBanner = true }: IFooterProps) {
 
       {/* Footer Links */}
 
-      <section className="container mx-auto max-w-6xl pt-20 pb-16">
-        <div className="grid grid-cols-6">
+      <section className="container mx-auto max-w-6xl px-8 pt-20 pb-16 md:px-0">
+        <div className="grid grid-cols-2 md:grid-cols-6">
           <div className="col-span-1">
             <h4 className="font-bold">Company</h4>
 
@@ -218,16 +218,16 @@ export default function Footer({ showBanner = true }: IFooterProps) {
         </div>
 
         {/* Copyright */}
-        <div className="mt-16 grid grid-cols-3">
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3">
           <div className="col-span-1">&copy; 2022 PT Sayap Mas Utama</div>
 
           <div className="col-span-2 text-right">
-            <div className="grow-1 mr-0 flex w-full shrink-0 justify-end gap-4">
+            <div className="grow-1 mr-0 mt-4 w-full shrink-0 justify-end gap-4 md:mt-0 md:flex">
               {socials &&
                 socials.length > 0 &&
                 socials.map((social: any) => (
                   <div
-                    className="flex items-center gap-3"
+                    className="mt-2 flex items-center gap-3 md:mt-0"
                     key={`social-${social.id}`}
                   >
                     <div>
