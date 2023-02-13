@@ -2,6 +2,7 @@ import { FaFacebook } from '@react-icons/all-files/fa/FaFacebook';
 import { FaGlobe } from '@react-icons/all-files/fa/FaGlobe';
 import { FaInstagram } from '@react-icons/all-files/fa/FaInstagram';
 import { FaYoutube } from '@react-icons/all-files/fa/FaYoutube';
+import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
@@ -13,11 +14,31 @@ import ProductCardCircle from '@/components/ProductCardCircle';
 import TipsAndTricks from '@/components/TipsAndTricks';
 import Main from '@/layouts/Main';
 
-const ProductDetail = () => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  return { paths: [], fallback: true };
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  const { category_id } = context.params as any; // no longer causes error
+  const record = await pb
+    .collection('product_brands')
+    .getOne(category_id as string);
+  return {
+    props: { og: JSON.parse(JSON.stringify(record)) },
+    revalidate: 60,
+  };
+};
+
+const ProductDetail: NextPage<any> = ({ og }) => {
+  const router = useRouter();
+  const { isFallback } = useRouter();
+
   const [brand, setBrand] = useState<any>();
   const [items, setProducts] = useState<any>();
   const [socials, setSocials] = useState<any[]>([]);
-  const router = useRouter();
+
   // eslint-disable-next-line @typescript-eslint/naming-convention
   const { category_id } = router.query;
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
@@ -70,20 +91,20 @@ const ProductDetail = () => {
     }
   }, [category_id]);
 
+  if (isFallback) {
+    return <>Loading...</>;
+  }
+
   return (
     <Main>
       <Head>
-        <title>{brand?.title}</title>
-        <meta property="og:title" content={brand?.title} />
-        <meta name="description" content={brand?.description} key="desc" />
-        <meta
-          property="og:description"
-          content={brand?.description}
-          key="desc"
-        />
+        <title>{og?.title}</title>
+        <meta property="og:title" content={og?.title} />
+        <meta name="description" content={og?.description} key="desc" />
+        <meta property="og:description" content={og?.description} key="desc" />
         <meta
           property="og:image"
-          content={`${process.env.NEXT_PUBLIC_API_URL}/files/${brand?.collectionId}/${brand?.id}/${brand?.logo}`}
+          content={`${process.env.NEXT_PUBLIC_API_URL}/files/${og?.collectionId}/${og?.id}/${og?.logo}`}
         />
       </Head>
       {brand && (
