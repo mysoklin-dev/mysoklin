@@ -22,7 +22,7 @@ const Search: NextPage<any> = () => {
     const getProducts = async () => {
       try {
         const resultList = await pb.collection('products').getList(1, 12, {
-          filter: `title ~ "%${keyword}%"`,
+          filter: `title ~ "%${keyword}%" || description ~ "%${keyword}%"`,
         });
         setProducts(resultList.items);
       } catch (error) {
