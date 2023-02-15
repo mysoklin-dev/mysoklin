@@ -18,7 +18,6 @@ const Search: NextPage<any> = () => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
 
   useEffect(() => {
-    console.log(keyword);
     const getProducts = async () => {
       try {
         const resultList = await pb.collection('products').getList(1, 12, {

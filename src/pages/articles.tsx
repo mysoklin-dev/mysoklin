@@ -1,3 +1,4 @@
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import PocketBase from 'pocketbase';
@@ -9,7 +10,17 @@ import Button from '@/components/Button';
 import Container from '@/components/Container';
 import Main from '@/layouts/Main';
 
-const Updates = () => {
+export const getServerSideProps: GetServerSideProps = async () => {
+  const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
+  const record = await pb.collection('pages').getOne('j8tbtaznrqnb1f2');
+  return {
+    props: {
+      og: JSON.parse(JSON.stringify(record)),
+    },
+  };
+};
+
+const Articles: NextPage<any> = ({ og }) => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const [posts, setPosts] = useState<any>([]);
   const [current, setCurrent] = useState(1);
@@ -43,7 +54,24 @@ const Updates = () => {
   return (
     <Main>
       <Head>
-        <title>Articles - MySoklin</title>
+        <title>{og?.og_title}</title>
+        <meta property="og:title" content={og?.og_title} />
+        <meta
+          name="description"
+          content={og?.og_description.substring(0, 100)}
+        />
+        <meta
+          property="og:description"
+          content={og?.og_description.substring(0, 100)}
+        />
+        <meta
+          property="og:image"
+          content={`${process.env.NEXT_PUBLIC_API_URL}/files/${og.collectionId}/${og.id}/${og.og_image}`}
+        />
+        <meta
+          property="og:test"
+          content={`${process.env.NEXT_PUBLIC_API_URL}/files/${og.collectionId}/${og.id}/${og.og_image}`}
+        />
       </Head>
       <div className="banner_image">
         {posts[0] && (
@@ -139,4 +167,4 @@ const Updates = () => {
   );
 };
 
-export default Updates;
+export default Articles;

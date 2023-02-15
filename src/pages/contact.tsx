@@ -1,4 +1,5 @@
 import { CgAttachment } from '@react-icons/all-files/cg/CgAttachment';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import PocketBase from 'pocketbase';
 import { useEffect, useState } from 'react';
@@ -10,7 +11,7 @@ import LatestUpdates from '@/components/LatestUpdates';
 import ProductsCarousel from '@/components/ProductsCarousel';
 import Main from '@/layouts/Main';
 
-const Contact = () => {
+const Contact: NextPage<any> = ({ og }) => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const [contacts, setContacts] = useState<any[]>([]);
   const [isSent, setIsSent] = useState<boolean>(false);
@@ -75,13 +76,31 @@ const Contact = () => {
   return (
     <Main>
       <Head>
-        <title>Contact - MySoklin</title>
+        <title>{og?.og_title}</title>
+        <meta property="og:title" content={og?.og_title} />
+        <meta
+          name="description"
+          content={og?.og_description.substring(0, 100)}
+        />
+        <meta
+          property="og:description"
+          content={og?.og_description.substring(0, 100)}
+        />
+        <meta
+          property="og:image"
+          content={`${process.env.NEXT_PUBLIC_API_URL}/files/${og.collectionId}/${og.id}/${og.og_image}`}
+        />
+        <meta
+          property="og:test"
+          content={`${process.env.NEXT_PUBLIC_API_URL}/files/${og.collectionId}/${og.id}/${og.og_image}`}
+        />
         <style>{`
           body {
             background: #EEF3F6;
           }
         `}</style>
       </Head>
+
       <Container className="my-4 p-8 md:my-20 md:py-20 md:px-0">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
           {/* Left */}
@@ -343,6 +362,16 @@ const Contact = () => {
       </style>
     </Main>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
+  const record = await pb.collection('pages').getOne('z1h8bo6aojlh0vz');
+  return {
+    props: {
+      og: JSON.parse(JSON.stringify(record)),
+    },
+  };
 };
 
 export default Contact;

@@ -1,3 +1,4 @@
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import PocketBase from 'pocketbase';
 import { useEffect, useState } from 'react';
@@ -86,7 +87,7 @@ const TimeLineItem = ({
   );
 };
 
-const CompanyHistory = () => {
+const CompanyHistory: NextPage<any> = ({ og }) => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const [rows, setRows] = useState<any[]>([]);
 
@@ -109,7 +110,24 @@ const CompanyHistory = () => {
   return (
     <Main footerProps={{ showBanner: false }}>
       <Head>
-        <title>Company History - MySoklin</title>
+        <title>{og?.og_title}</title>
+        <meta property="og:title" content={og?.og_title} />
+        <meta
+          name="description"
+          content={og?.og_description.substring(0, 100)}
+        />
+        <meta
+          property="og:description"
+          content={og?.og_description.substring(0, 100)}
+        />
+        <meta
+          property="og:image"
+          content={`${process.env.NEXT_PUBLIC_API_URL}/files/${og.collectionId}/${og.id}/${og.og_image}`}
+        />
+        <meta
+          property="og:test"
+          content={`${process.env.NEXT_PUBLIC_API_URL}/files/${og.collectionId}/${og.id}/${og.og_image}`}
+        />
       </Head>
       {/* <pre>{JSON.stringify(rows, null, 2)}</pre> */}
       <div className="hero py-30 px-8 pt-10 text-white md:px-0">
@@ -201,6 +219,16 @@ const CompanyHistory = () => {
       `}</style>
     </Main>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
+  const record = await pb.collection('pages').getOne('0f10h5org1cpzse');
+  return {
+    props: {
+      og: JSON.parse(JSON.stringify(record)),
+    },
+  };
 };
 
 export default CompanyHistory;
