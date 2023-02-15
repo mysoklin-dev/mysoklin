@@ -1,11 +1,13 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 import { HiMenuAlt4 } from '@react-icons/all-files/hi/HiMenuAlt4';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
 import React, { useEffect, useState } from 'react';
 
 const Header = () => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
+  const router = useRouter();
   const [isShowMega, setShowMega] = useState<boolean>(false);
   const [mobileMenu, setMobileMenu] = useState<boolean>(false);
   const [menu, setMenu] = useState<any>(null);
@@ -55,6 +57,15 @@ const Header = () => {
       icon = 'yt.svg';
     }
     return icon;
+  };
+
+  const handleEnter = (e: any) => {
+    if (e.key === 'Enter') {
+      router.push({
+        pathname: '/search',
+        query: { keyword: e.target.value },
+      });
+    }
   };
 
   return (
@@ -112,7 +123,7 @@ const Header = () => {
               {/* Search */}
               <div>
                 <div className="search">
-                  <input type="text" name="s" />
+                  <input type="text" name="s" onKeyDown={handleEnter} />
                 </div>
               </div>
 
