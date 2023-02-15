@@ -176,7 +176,7 @@ const Search: NextPage<any> = ({ og }) => {
                 />
               </div>
             ))}
-          {tab === 'updates' && items.length === 0 && (
+          {tab === 'updates' && updates.length === 0 && (
             <div>Item not found, please recheck the keyword</div>
           )}
 
@@ -195,7 +195,7 @@ const Search: NextPage<any> = ({ og }) => {
                 />
               </div>
             ))}
-          {tab === 'articles' && items.length === 0 && (
+          {tab === 'articles' && articles.length === 0 && (
             <div>Item not found, please recheck the keyword</div>
           )}
         </div>
