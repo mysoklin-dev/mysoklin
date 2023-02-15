@@ -23,9 +23,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
 const Search: NextPage<any> = ({ og }) => {
   const router = useRouter();
 
-  const [items, setProducts] = useState<any>();
-  const [updates, setUpdates] = useState<any>();
-  const [articles, setArticles] = useState<any>();
+  const [items, setProducts] = useState<any>([]);
+  const [updates, setUpdates] = useState<any>([]);
+  const [articles, setArticles] = useState<any>([]);
   const [tab, setTab] = useState<string>('products');
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -117,7 +117,7 @@ const Search: NextPage<any> = ({ og }) => {
                 setTab('products');
               }}
             >
-              products ({items.length.toString()})
+              products ({items?.length.toString()})
             </button>
             <button
               className={`block border-0 border-b-2 py-2 px-3 capitalize ${
@@ -127,7 +127,7 @@ const Search: NextPage<any> = ({ og }) => {
                 setTab('updates');
               }}
             >
-              updates ({updates.length.toString()})
+              updates ({updates?.length.toString()})
             </button>
             <button
               className={`block border-0 border-b-2 py-2 px-3 capitalize ${
@@ -137,7 +137,7 @@ const Search: NextPage<any> = ({ og }) => {
                 setTab('articles');
               }}
             >
-              articles ({articles.length.toString()})
+              articles ({articles?.length.toString()})
             </button>
           </div>
         </Container>
