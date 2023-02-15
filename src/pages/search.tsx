@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
@@ -9,7 +9,17 @@ import ProductCardCircle from '@/components/ProductCardCircle';
 import TipsAndTricks from '@/components/TipsAndTricks';
 import Main from '@/layouts/Main';
 
-const Search: NextPage<any> = () => {
+export const getServerSideProps: GetServerSideProps = async () => {
+  const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
+  const record = await pb.collection('pages').getOne('jcr07ajn17hdouj');
+  return {
+    props: {
+      og: JSON.parse(JSON.stringify(record)),
+    },
+  };
+};
+
+const Search: NextPage<any> = ({ og }) => {
   const router = useRouter();
   const [items, setProducts] = useState<any>();
 
@@ -36,8 +46,20 @@ const Search: NextPage<any> = () => {
   return (
     <Main>
       <Head>
-        <title>Search | MySoklin</title>
-        <meta property="og:title" content="Search" />
+        <title>{og?.og_title}</title>
+        <meta property="og:title" content={og?.og_title} />
+        <meta
+          name="description"
+          content={og?.og_description.substring(0, 100)}
+        />
+        <meta
+          property="og:description"
+          content={og?.og_description.substring(0, 100)}
+        />
+        <meta
+          property="og:image"
+          content={`${process.env.NEXT_PUBLIC_API_URL}/files/${og.collectionId}/${og.id}/${og.og_image}`}
+        />
       </Head>
 
       <div className="bg-gray-200">

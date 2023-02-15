@@ -1,3 +1,5 @@
+import type { GetServerSideProps, NextPage } from 'next';
+import Head from 'next/head';
 import PocketBase from 'pocketbase';
 import process from 'process';
 import { useState } from 'react';
@@ -9,7 +11,17 @@ import ProductCard from '@/components/ProductCard';
 import TipsAndTricks from '@/components/TipsAndTricks';
 import Main from '@/layouts/Main';
 
-const Products = () => {
+export const getServerSideProps: GetServerSideProps = async () => {
+  const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
+  const record = await pb.collection('pages').getOne('jcr07ajn17hdouj');
+  return {
+    props: {
+      og: JSON.parse(JSON.stringify(record)),
+    },
+  };
+};
+
+const Products: NextPage<any> = ({ og }) => {
   const [modal, setModal] = useState(false);
   const [brands, setBrands] = useState<[]>([]);
   const [modaltitle, setModaltitle] = useState('');
@@ -31,6 +43,27 @@ const Products = () => {
 
   return (
     <Main>
+      <Head>
+        <title>{og?.og_title}</title>
+        <meta property="og:title" content={og?.og_title} />
+        <meta
+          name="description"
+          content={og?.og_description.substring(0, 100)}
+        />
+        <meta
+          property="og:description"
+          content={og?.og_description.substring(0, 100)}
+        />
+        <meta
+          property="og:image"
+          content={`${process.env.NEXT_PUBLIC_API_URL}/files/${og.collectionId}/${og.id}/${og.og_image}`}
+        />
+        <meta
+          property="og:test"
+          content={`${process.env.NEXT_PUBLIC_API_URL}/files/${og.collectionId}/${og.id}/${og.og_image}`}
+        />
+      </Head>
+
       <div className="hero py-24 px-8 md:px-0">
         {/* Muqodimah */}
         <Container>

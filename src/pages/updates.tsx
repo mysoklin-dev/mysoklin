@@ -12,7 +12,7 @@ import Main from '@/layouts/Main';
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
-  const record = await pb.collection('pages').getOne('j8tbtaznrqnb1f2');
+  const record = await pb.collection('pages').getOne('9j5log3tfy4ai2q');
   return {
     props: {
       og: JSON.parse(JSON.stringify(record)),
