@@ -7,7 +7,6 @@ import { SWRConfig } from 'swr';
 const MyApp = ({ Component, pageProps }: AppProps) => (
   <>
     <Head>
-      <title>MySoklin</title>
       <link
         rel="apple-touch-icon"
         sizes="180x180"
