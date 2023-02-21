@@ -129,9 +129,9 @@ const Header = () => {
 
               {/* Register */}
               <div>
-                <a href="#" className="text-blue-400">
+                <Link href="/register" className="text-blue-400">
                   Register
-                </a>
+                </Link>
               </div>
 
               <div>
