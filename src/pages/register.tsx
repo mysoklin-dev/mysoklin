@@ -133,7 +133,7 @@ const Register: NextPage<any> = ({ og }) => {
               <a
                 href={provider.authUrl + redirectUrl}
                 key={`provider-${provider.codeChallenge}`}
-                className="flex items-center gap-2 rounded-xl bg-white p-4 text-center text-lg shadow-lg hover:bg-gray-50"
+                className="mb-3 flex items-center gap-2 rounded-xl bg-white p-4 text-center text-lg shadow-lg hover:bg-gray-50"
                 onClick={() => {
                   handleLocalStorage(provider);
                 }}
