@@ -41,10 +41,12 @@ const RedirectAuth = () => {
         }
       )
       .then((authData: any) => {
-        console.log(authData)
+        console.log(authData);
         pb.collection('users')
           .update(authData.record.id as string, {
-            ...(authData.record.name === "" ? {name: authData.meta.name} : {}),
+            ...(authData.record.name === ''
+              ? { name: authData.meta.name }
+              : {}),
             avatarUrl: authData.meta.avatarUrl,
           })
           .then((res) => {
