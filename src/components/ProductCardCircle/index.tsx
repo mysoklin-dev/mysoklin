@@ -27,7 +27,9 @@ const ProductCardCircle = ({ id, img, title }: IProductCardCircleProps) => {
       </Link>
 
       <div className="text-xl font-bold text-blue-400">
-        <Link href={`/products/${id}`}>
+        <Link href={`/products/${id}/${title
+          .replaceAll(' ', '-')
+          .toLocaleLowerCase()}`}>
           <span className="text-blue-400">{title}</span>
         </Link>
       </div>
