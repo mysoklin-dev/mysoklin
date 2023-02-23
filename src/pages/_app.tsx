@@ -3,7 +3,7 @@ import '../styles/global.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { SWRConfig } from 'swr';
-
+import { Analytics } from '@vercel/analytics/react';
 import Main from '@/layouts/Main';
 
 // eslint-disable-next-line no-return-assign
@@ -40,6 +40,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
     >
       <div className="position-relative">
         <Component {...pageProps} />
+        <Analytics />
       </div>
     </SWRConfig>
   </Main>
