@@ -7,7 +7,6 @@ import LatestUpdates from '@/components/LatestUpdates';
 import ProductsCarousel from '@/components/ProductsCarousel';
 import TipsAndTricks from '@/components/TipsAndTricks';
 import VideoCarousel from '@/components/VideoCarousel';
-import Main from '@/layouts/Main';
 
 const Index: NextPage<any> = ({ og }) => {
   if (!og) {
@@ -15,7 +14,7 @@ const Index: NextPage<any> = ({ og }) => {
   }
 
   return (
-    <Main>
+    <>
       <Head>
         <title>{og?.og_title}</title>
         <meta property="og:title" content={og?.og_title} />
@@ -46,7 +45,7 @@ const Index: NextPage<any> = ({ og }) => {
       <LatestUpdates />
 
       <TipsAndTricks />
-    </Main>
+    </>
   );
 };
 

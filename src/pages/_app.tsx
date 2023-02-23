@@ -4,8 +4,11 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { SWRConfig } from 'swr';
 
+import Main from '@/layouts/Main';
+
+// eslint-disable-next-line no-return-assign
 const MyApp = ({ Component, pageProps }: AppProps) => (
-  <>
+  <Main>
     <Head>
       <link
         rel="apple-touch-icon"
@@ -27,7 +30,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
       <link rel="manifest" href="/site.webmanifest" />
       <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#a8a8a8" />
       <meta name="msapplication-TileColor" content="#ffffff" />
-      <meta name="theme-color" content="#ffffff"></meta>
+      <meta name="theme-color" content="#ffffff" />
     </Head>
     <SWRConfig
       value={{
@@ -39,7 +42,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
         <Component {...pageProps} />
       </div>
     </SWRConfig>
-  </>
+  </Main>
 );
 
 export default MyApp;

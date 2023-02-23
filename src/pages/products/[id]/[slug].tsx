@@ -4,13 +4,12 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 import ProductCardCircle from '@/components/ProductCardCircle';
 import TipsAndTricks from '@/components/TipsAndTricks';
-import Main from '@/layouts/Main';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return { paths: [], fallback: true };
@@ -79,7 +78,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
   }
 
   return (
-    <Main>
+    <>
       <Head>
         <title>{og?.title}</title>
         <meta property="og:title" content={og?.title} />
@@ -338,16 +337,18 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                       <div className="mt-1 flex justify-between gap-1">
                         {data.gallery.length > 0 &&
                           data.gallery.map((img: string, i: number) => (
-                            <>
-                              {i > 0 && (
-                                <div key={`gallery-${img}`}>
-                                  <img
-                                    src={`${process.env.NEXT_PUBLIC_API_URL}/files/${data?.collectionId}/${data?.id}/${data.gallery[i]}?thumb=384x300`}
-                                    alt=""
-                                  />
-                                </div>
-                              )}
-                            </>
+                            <React.Fragment key={`gallery-${img}--${i + 1}`}>
+                              <>
+                                {i > 0 && (
+                                  <div>
+                                    <img
+                                      src={`${process.env.NEXT_PUBLIC_API_URL}/files/${data?.collectionId}/${data?.id}/${data.gallery[i]}?thumb=384x300`}
+                                      alt=""
+                                    />
+                                  </div>
+                                )}
+                              </>
+                            </React.Fragment>
                           ))}
                         {data?.gallery.length > 4 && (
                           <div
@@ -692,7 +693,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
       `}</style>
 
       <TipsAndTricks />
-    </Main>
+    </>
   );
 };
 

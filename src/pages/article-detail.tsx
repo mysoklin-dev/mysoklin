@@ -5,11 +5,10 @@ import { FaTwitter } from '@react-icons/all-files/fa/FaTwitter';
 import { FaWhatsapp } from '@react-icons/all-files/fa/FaWhatsapp';
 
 import Container from '@/components/Container';
-import Main from '@/layouts/Main';
 
 const ArticleDetail = () => {
   return (
-    <Main>
+    <>
       <Container className="py-20">
         <article className="grid grid-cols-3">
           <div className="col-span-2">
@@ -195,7 +194,7 @@ const ArticleDetail = () => {
           padding: 15px;
         }
       `}</style>
-    </Main>
+    </>
   );
 };
 

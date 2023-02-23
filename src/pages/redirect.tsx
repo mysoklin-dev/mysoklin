@@ -1,17 +1,14 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
 import { useEffect } from 'react';
 
 import Container from '@/components/Container';
-import Main from '@/layouts/Main';
 
 const RedirectAuth = () => {
   // load the previously stored provider's data
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
-  const router = useRouter();
   const redirectUrl =
     process.env.NODE_ENV === 'production'
       ? 'https://mysoklin.com/redirect'
@@ -28,7 +25,7 @@ const RedirectAuth = () => {
       throw "State parameters don't match.";
     }
 
-    console.log(params.get('code'));
+    // console.log(params.get('code'));
 
     pb.collection('users')
       .authWithOAuth2(
@@ -49,7 +46,8 @@ const RedirectAuth = () => {
           })
           .then((res) => {
             console.log(' successfully updated profile', res);
-            router.push('/profile');
+            // router.push('/profile');
+            window.location.href = '/profile';
           })
           .catch((e) => {
             console.log('error updating profile  == ', e);
@@ -61,12 +59,12 @@ const RedirectAuth = () => {
   }, []);
 
   return (
-    <Main>
+    <>
       <Head>
         <title>Signing In...</title>
       </Head>
       <Container>Redirecting...</Container>
-    </Main>
+    </>
   );
 };
 

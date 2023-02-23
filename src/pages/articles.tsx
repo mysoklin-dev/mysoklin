@@ -3,12 +3,11 @@ import Head from 'next/head';
 import Link from 'next/link';
 import PocketBase from 'pocketbase';
 import Pagination from 'rc-pagination';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import ArticleCard from '@/components/ArticleCard';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
-import Main from '@/layouts/Main';
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
@@ -52,7 +51,7 @@ const Articles: NextPage<any> = ({ og }) => {
   }
 
   return (
-    <Main>
+    <>
       <Head>
         <title>{og?.og_title}</title>
         <meta property="og:title" content={og?.og_title} />
@@ -120,9 +119,9 @@ const Articles: NextPage<any> = ({ og }) => {
         {/* <pre>{JSON.stringify(posts, null, 2)}</pre> */}
         <div className="mt-20 grid grid-cols-1 gap-10 md:grid-cols-3">
           {posts.map((item: any, i: number) => (
-            <>
+            <React.Fragment key={`article-${item.id}-${i + 1}`}>
               {i > 0 && (
-                <div className="col-span-1" key={`article-${item.id}`}>
+                <div className="col-span-1">
                   <ArticleCard
                     title={item.title}
                     text={item.content}
@@ -133,7 +132,7 @@ const Articles: NextPage<any> = ({ og }) => {
                   />
                 </div>
               )}
-            </>
+            </React.Fragment>
           ))}
         </div>
 
@@ -163,7 +162,7 @@ const Articles: NextPage<any> = ({ og }) => {
           object-fit: cover;
         }
       `}</style>
-    </Main>
+    </>
   );
 };
 

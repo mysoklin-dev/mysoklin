@@ -9,7 +9,6 @@ import Container from '@/components/Container';
 import ProductButton from '@/components/ProductButton';
 import ProductCard from '@/components/ProductCard';
 import TipsAndTricks from '@/components/TipsAndTricks';
-import Main from '@/layouts/Main';
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
@@ -42,7 +41,7 @@ const Products: NextPage<any> = ({ og }) => {
   };
 
   return (
-    <Main>
+    <>
       <Head>
         <title>{og?.og_title}</title>
         <meta property="og:title" content={og?.og_title} />
@@ -204,7 +203,7 @@ const Products: NextPage<any> = ({ og }) => {
           cursor: pointer;
         }
       `}</style>
-    </Main>
+    </>
   );
 };
 

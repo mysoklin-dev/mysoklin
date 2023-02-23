@@ -15,7 +15,6 @@ import {
 } from 'react-share';
 
 import Container from '@/components/Container';
-import Main from '@/layouts/Main';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return { paths: [], fallback: true };
@@ -124,7 +123,7 @@ const ArticleDetail: NextPage<any> = ({ og }) => {
   }
 
   return (
-    <Main>
+    <>
       <Head>
         <title>{og?.title}</title>
         <meta property="og:title" content={og?.title} />
@@ -351,7 +350,7 @@ const ArticleDetail: NextPage<any> = ({ og }) => {
           padding: 15px;
         }
       `}</style>
-    </Main>
+    </>
   );
 };
 

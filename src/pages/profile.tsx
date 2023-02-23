@@ -9,7 +9,6 @@ import { useCallback, useEffect, useState } from 'react';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 import usePocketBaseAuth from '@/hooks/usePocketBaseAuth';
-import Main from '@/layouts/Main';
 
 interface IUser {
   address: string;
@@ -55,7 +54,6 @@ const Profile = () => {
         .getOne((user as any).model.id as string)
         .then((res: any) => {
           setUserData(res);
-          pb.authStore.exportToCookie();
         })
         .catch((err: any) => {
           console.log(err);
@@ -103,7 +101,6 @@ const Profile = () => {
         .update((user as any).model.id as string, data);
       if (record) {
         setIsSent(true);
-        pb.authStore.exportToCookie();
       }
     } catch {
       // ignore catch
@@ -124,7 +121,6 @@ const Profile = () => {
         .collection('users')
         .update((user as any).model.id as string, formData);
       setUserData(record as any);
-      pb.authStore.exportToCookie();
     } catch {
       // ignore catch
     }
@@ -132,11 +128,11 @@ const Profile = () => {
 
   const logout = useCallback(() => {
     pb.authStore.clear();
-    router.push('/');
+    window.location.href = '/';
   }, []);
 
   return (
-    <Main>
+    <>
       <Head>
         <title>Profile</title>
 
@@ -146,23 +142,25 @@ const Profile = () => {
           }
         `}</style>
       </Head>
-      <Container className="py-10 md:py-20">
-        <div className="grid grid-cols-4 gap-3">
+      <Container className="px-4 py-10 md:px-0 md:py-20">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-4">
           {/* Menu */}
-          <div className="col-span-1">
-            <button className="mb-2 block w-full rounded-full bg-sky-300 py-3 px-10 text-left hover:bg-blue-100 hover:text-white">
-              Account
-            </button>
-            <button
-              onClick={logout}
-              className="block w-full rounded-full py-3 px-10 text-left hover:bg-blue-100 hover:text-white"
-            >
-              Sign Out
-            </button>
+          <div className="md:col-span-1">
+            <div className="flex md:block">
+              <button className="mb-2 block w-full rounded-full bg-sky-300 py-3 px-10 text-center hover:bg-blue-100 hover:text-white md:text-left">
+                Account
+              </button>
+              <button
+                onClick={logout}
+                className="block w-full rounded-full py-3 px-10 text-center hover:bg-blue-100 hover:text-white md:text-left"
+              >
+                Sign Out
+              </button>
+            </div>
           </div>
 
           {/* Profile */}
-          <div className="col-span-3">
+          <div className="md:col-span-3">
             {domLoaded && user !== null && userData && (
               <form
                 onSubmit={handleSubmit}
@@ -218,7 +216,7 @@ const Profile = () => {
 
                 <div className="mt-4 flex flex-col gap-6">
                   {/* Name */}
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div className="col-span-2">
                       <label>Full Name</label>
 
@@ -231,7 +229,7 @@ const Profile = () => {
                   </div>
 
                   {/* Email | Phone */}
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div>
                       <label>Email</label>
 
@@ -257,7 +255,7 @@ const Profile = () => {
                   </div>
 
                   {/* Location | City */}
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div>
                       <label>Province</label>
 
@@ -281,7 +279,7 @@ const Profile = () => {
                   </div>
 
                   {/* Address | Post Code */}
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div>
                       <label>Address</label>
 
@@ -311,7 +309,7 @@ const Profile = () => {
                         <span className="text-red-600">*</span>
                       </h2>
 
-                      <div className="flex gap-4">
+                      <div className="gap-4 md:flex">
                         {[
                           'social media',
                           'tv',
@@ -453,7 +451,7 @@ const Profile = () => {
           z-index: 9999;
         }
       `}</style>
-    </Main>
+    </>
   );
 };
 

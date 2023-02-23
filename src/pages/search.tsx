@@ -8,7 +8,6 @@ import ArticleCard from '@/components/ArticleCard';
 import Container from '@/components/Container';
 import ProductCardCircle from '@/components/ProductCardCircle';
 import TipsAndTricks from '@/components/TipsAndTricks';
-import Main from '@/layouts/Main';
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
@@ -84,7 +83,7 @@ const Search: NextPage<any> = ({ og }) => {
   }, [keyword]);
 
   return (
-    <Main>
+    <>
       <Head>
         <title>{og?.og_title}</title>
         <meta property="og:title" content={og?.og_title} />
@@ -202,7 +201,7 @@ const Search: NextPage<any> = ({ og }) => {
       </Container>
 
       <TipsAndTricks />
-    </Main>
+    </>
   );
 };
 

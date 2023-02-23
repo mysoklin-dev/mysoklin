@@ -1,10 +1,9 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import PocketBase from 'pocketbase';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Container from '@/components/Container';
-import Main from '@/layouts/Main';
 
 type ITimeLineItemProps = {
   year?: string;
@@ -108,7 +107,7 @@ const CompanyHistory: NextPage<any> = ({ og }) => {
   }, []);
 
   return (
-    <Main footerProps={{ showBanner: false }}>
+    <>
       <Head>
         <title>{og?.og_title}</title>
         <meta property="og:title" content={og?.og_title} />
@@ -122,10 +121,6 @@ const CompanyHistory: NextPage<any> = ({ og }) => {
         />
         <meta
           property="og:image"
-          content={`${process.env.NEXT_PUBLIC_API_URL}/files/${og.collectionId}/${og.id}/${og.og_image}`}
-        />
-        <meta
-          property="og:test"
           content={`${process.env.NEXT_PUBLIC_API_URL}/files/${og.collectionId}/${og.id}/${og.og_image}`}
         />
       </Head>
@@ -167,17 +162,18 @@ const CompanyHistory: NextPage<any> = ({ og }) => {
       <Container className="py-16 px-4 md:px-0">
         <div className="timeline">
           {rows.map((item, i: number) => (
-            <>
-              {i !== 0 && (
-                <TimeLineItem
-                  key={`item-${i}`}
-                  year={item.title}
-                  img={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item?.image}`}
-                  description={item.sub_title}
-                  parentId={item.parent_id}
-                />
-              )}
-            </>
+            <React.Fragment key={`item-${item.id}-${i + 1}`}>
+              <>
+                {i !== 0 && (
+                  <TimeLineItem
+                    year={item.title}
+                    img={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item?.image}`}
+                    description={item.sub_title}
+                    parentId={item.parent_id}
+                  />
+                )}
+              </>
+            </React.Fragment>
           ))}
         </div>
       </Container>
@@ -217,7 +213,7 @@ const CompanyHistory: NextPage<any> = ({ og }) => {
           white-space: pre-wrap;
         }
       `}</style>
-    </Main>
+    </>
   );
 };
 

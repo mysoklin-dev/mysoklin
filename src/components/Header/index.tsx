@@ -3,7 +3,7 @@ import { HiMenuAlt4 } from '@react-icons/all-files/hi/HiMenuAlt4';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 
 import usePocketBaseAuth from '@/hooks/usePocketBaseAuth';
 
@@ -11,8 +11,9 @@ const Header = () => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const router = useRouter();
   const [pocketBaseAuth] = usePocketBaseAuth();
-  const userData =
-    pocketBaseAuth !== null ? (pocketBaseAuth as any).model : null;
+  const [userData, setUserData] = useState(
+    pocketBaseAuth !== null ? (pocketBaseAuth as any).model : null
+  );
   const [isShowMega, setShowMega] = useState<boolean>(false);
   const [mobileMenu, setMobileMenu] = useState<boolean>(false);
   const [menu, setMenu] = useState<any>(null);
@@ -77,6 +78,18 @@ const Header = () => {
       });
     }
   };
+
+  useLayoutEffect(() => {
+    const fetchUser = async () => {
+      const record = await pb
+        .collection('users')
+        .getOne((userData as any).id as string);
+      setUserData(record);
+    };
+    if (userData?.id) {
+      fetchUser();
+    }
+  }, [router, router.asPath]);
 
   return (
     <>
@@ -144,7 +157,7 @@ const Header = () => {
                     href="/profile"
                     className="flex items-center gap-2 capitalize text-blue-400"
                   >
-                    <div>
+                    <span>
                       <img
                         src={
                           userData.avatar !== ''
@@ -157,8 +170,8 @@ const Header = () => {
                         height={30}
                         className="rounded-full"
                       />
-                    </div>
-                    <div>{(pocketBaseAuth as any).model.name}</div>
+                    </span>
+                    <span>{(pocketBaseAuth as any).model.name}</span>
                   </Link>
                 ) : (
                   <Link href="/register" className="text-blue-400">
@@ -182,8 +195,7 @@ const Header = () => {
                             src={`${process.env.NEXT_PUBLIC_API_URL}/files/${social.collectionId}/${social.id}/${social?.platform_icon}`}
                             alt={social.platform_name}
                             width={120}
-                            height={40}
-                            style={{ height: 'auto!important' }}
+                            height={31}
                           />
                         </a>
                       )}
@@ -220,6 +232,9 @@ const Header = () => {
                 onMouseEnter={showMegamenu}
                 className="d-block py-2 px-3 text-white"
                 href="/products"
+                onClick={() => {
+                  hideMegaMenu();
+                }}
               >
                 products
               </Link>
@@ -297,6 +312,9 @@ const Header = () => {
                           ].map((submenu: any) => (
                             <li key={`submenu-${submenu.id}+${i}`}>
                               <Link
+                                onClick={() => {
+                                  hideMegaMenu();
+                                }}
                                 href={`/products/brand/${
                                   submenu.id
                                 }/${submenu.title
@@ -332,7 +350,12 @@ const Header = () => {
                 '#ffffff url(/assets/images/fa_search.svg) no-repeat 10px center',
             }}
           >
-            <input type="text" name="s" className="block w-full py-2" />
+            <input
+              type="text"
+              name="s"
+              className="block w-full py-2"
+              onKeyDown={handleEnter}
+            />
           </div>
         </div>
 
@@ -351,6 +374,33 @@ const Header = () => {
         <Link className="block py-3 px-8 text-white" href="/contact">
           contact
         </Link>
+
+        {pocketBaseAuth !== null ? (
+          <Link
+            href="/profile"
+            className="flex items-center gap-2 px-8 py-3 capitalize text-white"
+          >
+            <span>
+              <img
+                src={
+                  userData.avatar !== ''
+                    ? `${process.env.NEXT_PUBLIC_API_URL}/files/${userData.collectionId}/${userData.id}/${userData.avatar}?thumb=80x80`
+                    : userData.avatarUrl
+                }
+                alt=""
+                referrerPolicy="no-referrer"
+                width={30}
+                height={30}
+                className="rounded-full"
+              />
+            </span>
+            <span>{(pocketBaseAuth as any).model.name}</span>
+          </Link>
+        ) : (
+          <Link href="/register" className="block px-8 py-3 text-white">
+            Register
+          </Link>
+        )}
 
         {socials &&
           socials.length > 0 &&

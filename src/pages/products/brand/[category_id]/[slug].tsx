@@ -12,7 +12,6 @@ import Button from '@/components/Button';
 import Container from '@/components/Container';
 import ProductCardCircle from '@/components/ProductCardCircle';
 import TipsAndTricks from '@/components/TipsAndTricks';
-import Main from '@/layouts/Main';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return { paths: [], fallback: true };
@@ -96,7 +95,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
   }
 
   return (
-    <Main>
+    <>
       <Head>
         <title>{og?.title}</title>
         <meta property="og:title" content={og?.title} />
@@ -240,7 +239,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
       </Container>
 
       <TipsAndTricks />
-    </Main>
+    </>
   );
 };
 

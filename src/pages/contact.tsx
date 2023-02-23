@@ -9,7 +9,6 @@ import Card from '@/components/Card';
 import Container from '@/components/Container';
 import LatestUpdates from '@/components/LatestUpdates';
 import ProductsCarousel from '@/components/ProductsCarousel';
-import Main from '@/layouts/Main';
 
 const Contact: NextPage<any> = ({ og }) => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
@@ -74,7 +73,7 @@ const Contact: NextPage<any> = ({ og }) => {
   };
 
   return (
-    <Main>
+    <>
       <Head>
         <title>{og?.og_title}</title>
         <meta property="og:title" content={og?.og_title} />
@@ -132,9 +131,7 @@ const Contact: NextPage<any> = ({ og }) => {
                     target="_BLANK"
                     rel="noreferrer"
                   >
-                    <a href={`tel:${contacts[0]?.value_3}`}>
-                      <Button variant="elevated">Direction</Button>
-                    </a>
+                    <Button variant="elevated">Direction</Button>
                   </a>
                 </div>
               </Card>
@@ -360,7 +357,7 @@ const Contact: NextPage<any> = ({ og }) => {
           }
         `}
       </style>
-    </Main>
+    </>
   );
 };
 

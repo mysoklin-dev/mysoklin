@@ -98,7 +98,7 @@ export default function Footer({ showBanner = true }: IFooterProps) {
               </div>
 
               <div className="ml-auto">
-                <Link href="#">
+                <Link href="/register">
                   <img
                     src="/assets/images/right-arrow.svg"
                     width="70"

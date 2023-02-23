@@ -3,6 +3,7 @@ import { CgFacebook } from '@react-icons/all-files/cg/CgFacebook';
 import { CgGoogle } from '@react-icons/all-files/cg/CgGoogle';
 import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
 import { useEffect, useState } from 'react';
 
@@ -10,12 +11,14 @@ import Button from '@/components/Button';
 import Container from '@/components/Container';
 import LatestUpdates from '@/components/LatestUpdates';
 import ProductsCarousel from '@/components/ProductsCarousel';
-import Main from '@/layouts/Main';
+import usePocketBaseAuth from '@/hooks/usePocketBaseAuth';
 
 const Register: NextPage<any> = ({ og }) => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   // States
+  const router = useRouter();
   const [isSent, setIsSent] = useState<boolean>(false);
+  const [user]: any = usePocketBaseAuth();
   const [authList, setAuthList] = useState<any>([]);
   const redirectUrl =
     process.env.NODE_ENV === 'production'
@@ -29,6 +32,12 @@ const Register: NextPage<any> = ({ og }) => {
     passwordConfirm: '',
     name: '',
   });
+
+  useEffect(() => {
+    if (user !== null && typeof window !== 'undefined') {
+      router.push('/profile');
+    }
+  }, [user]);
 
   useEffect(() => {
     const fetchAuthMethods = async () => {
@@ -83,7 +92,7 @@ const Register: NextPage<any> = ({ og }) => {
   };
 
   return (
-    <Main>
+    <>
       <Head>
         <title>{og?.og_title}</title>
         <meta property="og:title" content={og?.og_title} />
@@ -143,7 +152,9 @@ const Register: NextPage<any> = ({ og }) => {
                 ) : (
                   <CgFacebook size={20} />
                 )}{' '}
-                <div className="ml-10">Continue with {provider.name}</div>
+                <div className="ml-3 md:ml-10">
+                  Continue with {provider.name}
+                </div>
               </a>
             ))}
 
@@ -338,7 +349,7 @@ const Register: NextPage<any> = ({ og }) => {
           }
         `}
       </style>
-    </Main>
+    </>
   );
 };
 
