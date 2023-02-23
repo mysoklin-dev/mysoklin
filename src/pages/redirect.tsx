@@ -1,6 +1,7 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
 import Head from 'next/head';
+// import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
 import { useEffect } from 'react';
 
@@ -8,6 +9,7 @@ import Container from '@/components/Container';
 
 const RedirectAuth = () => {
   // load the previously stored provider's data
+  // const router = useRouter();
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const redirectUrl =
     process.env.NODE_ENV === 'production'
@@ -39,9 +41,10 @@ const RedirectAuth = () => {
         }
       )
       .then((authData: any) => {
+        console.log(authData)
         pb.collection('users')
           .update(authData.record.id as string, {
-            name: authData.meta.name,
+            ...(authData.record.name === "" ? {name: authData.meta.name} : {}),
             avatarUrl: authData.meta.avatarUrl,
           })
           .then((res) => {
@@ -63,7 +66,7 @@ const RedirectAuth = () => {
       <Head>
         <title>Signing In...</title>
       </Head>
-      <Container>Redirecting...</Container>
+      <Container className="py-52">Redirecting...</Container>
     </>
   );
 };
