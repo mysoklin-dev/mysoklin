@@ -1,8 +1,10 @@
 import { CgAttachment } from '@react-icons/all-files/cg/CgAttachment';
+import { CgFacebook } from '@react-icons/all-files/cg/CgFacebook';
+import { CgGoogle } from '@react-icons/all-files/cg/CgGoogle';
 import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import PocketBase from 'pocketbase';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Button from '@/components/Button';
 import Container from '@/components/Container';
@@ -12,7 +14,13 @@ import Main from '@/layouts/Main';
 
 const Register: NextPage<any> = ({ og }) => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
+  // States
   const [isSent, setIsSent] = useState<boolean>(false);
+  const [authList, setAuthList] = useState<any>([]);
+  const redirectUrl =
+    process.env.NODE_ENV === 'production'
+      ? 'https://mysoklin.com/redirect'
+      : 'http://localhost:3000/redirect';
   const [form, setForm] = useState<any>({
     username: '',
     email: '',
@@ -21,6 +29,20 @@ const Register: NextPage<any> = ({ og }) => {
     passwordConfirm: '',
     name: '',
   });
+
+  useEffect(() => {
+    const fetchAuthMethods = async () => {
+      try {
+        const result = await pb.collection('users').listAuthMethods();
+        setAuthList(result.authProviders);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      }
+    };
+
+    fetchAuthMethods();
+  }, []);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -56,6 +78,10 @@ const Register: NextPage<any> = ({ og }) => {
     }
   };
 
+  const handleLocalStorage = (provider: any) => {
+    localStorage.setItem('provider', JSON.stringify(provider));
+  };
+
   return (
     <Main>
       <Head>
@@ -79,20 +105,49 @@ const Register: NextPage<any> = ({ og }) => {
         />
         <style>{`
           body {
-            background: #EEF3F6;
+            background: #fff;
           }
         `}</style>
       </Head>
 
-      <Container className="my-4 p-8 md:my-20 md:py-20 md:px-0">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
+      <Container className="my-4 p-8 md:my-10 md:py-10 md:px-0">
+        <div className="flex justify-center gap-10">
           {/* Right */}
-          <div>
-            <h3 className="mb-10 text-3xl font-black text-blue-400">
-              Registration
+          <div
+            className="rounded-xl py-14 px-10 text-center"
+            style={{ background: '#EEF3F6', width: '100%', maxWidth: '500px' }}
+          >
+            <div className="mb-4 text-center">
+              <img
+                src="/assets/images/register.svg"
+                className="inline-block"
+                alt=""
+              />
+            </div>
+
+            <h3 className="mb-10 text-3xl font-black text-gray-800">
+              Sign In or Sign Up
             </h3>
 
-            <form onSubmit={handleSubmit}>
+            {authList.map((provider: any) => (
+              <a
+                href={provider.authUrl + redirectUrl}
+                key={`provider-${provider.codeChallenge}`}
+                className="flex items-center gap-2 rounded-xl bg-white p-4 text-center text-lg shadow-lg hover:bg-gray-50"
+                onClick={() => {
+                  handleLocalStorage(provider);
+                }}
+              >
+                {provider.name === 'google' ? (
+                  <CgGoogle size={20} />
+                ) : (
+                  <CgFacebook size={20} />
+                )}{' '}
+                <div className="ml-10">Continue with {provider.name}</div>
+              </a>
+            ))}
+
+            <form onSubmit={handleSubmit} className="hidden">
               <div className="mt-8">
                 <input
                   required
@@ -204,6 +259,8 @@ const Register: NextPage<any> = ({ og }) => {
             </form>
           </div>
         </div>
+
+        {/* <pre>{JSON.stringify(authList, null, 2)}</pre> */}
       </Container>
 
       <ProductsCarousel />

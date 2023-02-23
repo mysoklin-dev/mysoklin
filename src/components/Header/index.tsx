@@ -5,13 +5,23 @@ import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
 import React, { useEffect, useState } from 'react';
 
+import usePocketBaseAuth from '@/hooks/usePocketBaseAuth';
+
 const Header = () => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const router = useRouter();
+  const [pocketBaseAuth] = usePocketBaseAuth();
+  const userData =
+    pocketBaseAuth !== null ? (pocketBaseAuth as any).model : null;
   const [isShowMega, setShowMega] = useState<boolean>(false);
   const [mobileMenu, setMobileMenu] = useState<boolean>(false);
   const [menu, setMenu] = useState<any>(null);
   const [socials, setSocial] = useState<any>([]);
+  const [domLoaded, setDomLoaded] = useState(false);
+
+  useEffect(() => {
+    setDomLoaded(true);
+  }, []);
 
   const showMegamenu = () => {
     setShowMega(true);
@@ -129,9 +139,32 @@ const Header = () => {
 
               {/* Register */}
               <div>
-                <Link href="/register" className="text-blue-400">
-                  Register
-                </Link>
+                {pocketBaseAuth !== null && domLoaded ? (
+                  <Link
+                    href="/profile"
+                    className="flex items-center gap-2 capitalize text-blue-400"
+                  >
+                    <div>
+                      <img
+                        src={
+                          userData.avatar !== ''
+                            ? `${process.env.NEXT_PUBLIC_API_URL}/files/${userData.collectionId}/${userData.id}/${userData.avatar}?thumb=80x80`
+                            : userData.avatarUrl
+                        }
+                        alt=""
+                        referrerPolicy="no-referrer"
+                        width={30}
+                        height={30}
+                        className="rounded-full"
+                      />
+                    </div>
+                    <div>{(pocketBaseAuth as any).model.name}</div>
+                  </Link>
+                ) : (
+                  <Link href="/register" className="text-blue-400">
+                    Register
+                  </Link>
+                )}
               </div>
 
               <div>
