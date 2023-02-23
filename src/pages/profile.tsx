@@ -4,7 +4,7 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
-import { useCallback,useEffect, useState  } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import Button from '@/components/Button';
 import Container from '@/components/Container';
