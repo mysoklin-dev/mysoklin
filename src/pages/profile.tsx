@@ -131,6 +131,22 @@ const Profile = () => {
     window.location.href = '/';
   }, []);
 
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  const isInComplete = (userData: IUser) => {
+    if (
+      userData.address === '' ||
+      userData.city === '' ||
+      userData.phone === '' ||
+      userData.post_code === '' ||
+      userData.province === '' ||
+      userData.referrer.length === 0
+    ) {
+      return 'Incomplete';
+    }
+
+    return '';
+  };
+
   return (
     <>
       <Head>
@@ -166,7 +182,15 @@ const Profile = () => {
                 onSubmit={handleSubmit}
                 className="block rounded-xl bg-white p-10"
               >
-                <h1 className="text-3xl">Account</h1>
+                <div className="flex items-center justify-between">
+                  <h1 className="text-3xl">Account</h1>
+
+                  <div>
+                    <div className="rounded-md bg-orange-300 px-2 text-white">
+                      {isInComplete(userData)}
+                    </div>
+                  </div>
+                </div>
 
                 <h2 className="mt-8 text-xl">Avatar</h2>
 
@@ -254,6 +278,8 @@ const Profile = () => {
                     </div>
                   </div>
 
+                  <h2 className="mt-8 text-xl">Location</h2>
+
                   {/* Location | City */}
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div>
@@ -305,7 +331,7 @@ const Profile = () => {
                   <div className="mt-3 grid grid-cols-1 gap-4">
                     <div>
                       <h2 className=" text-xl">
-                        Personal Contact How did you know about us?{' '}
+                        How did you know about us?{' '}
                         <span className="text-red-600">*</span>
                       </h2>
 

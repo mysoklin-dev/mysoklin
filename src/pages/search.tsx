@@ -103,7 +103,7 @@ const Search: NextPage<any> = ({ og }) => {
 
       <div className="bg-gray-200">
         <Container className="pt-10">
-          <h3 className="text-2xl font-bold text-blue-300">
+          <h3 className="px-4 text-2xl font-bold text-blue-300 md:px-0">
             Keyword: &quot;{keyword ?? ''}&quot;
           </h3>
 

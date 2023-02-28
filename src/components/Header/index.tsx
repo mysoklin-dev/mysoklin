@@ -76,6 +76,7 @@ const Header = () => {
         pathname: '/search',
         query: { keyword: e.target.value },
       });
+      setMobileMenu(() => false);
     }
   };
 
@@ -90,6 +91,10 @@ const Header = () => {
       fetchUser();
     }
   }, [router, router.asPath]);
+
+  const handleCloseMenu = () => {
+    setMobileMenu(() => false);
+  };
 
   return (
     <>
@@ -359,24 +364,45 @@ const Header = () => {
           </div>
         </div>
 
-        <Link className="block py-3 px-8 text-white" href="/company-history">
+        <Link
+          onClick={handleCloseMenu}
+          className="block py-3 px-8 text-white"
+          href="/company-history"
+        >
           company
         </Link>
-        <Link className="block py-3 px-8 text-white" href="/products">
+        <Link
+          onClick={handleCloseMenu}
+          className="block py-3 px-8 text-white"
+          href="/products"
+        >
           products
         </Link>
-        <Link className="block py-3 px-8 text-white" href="/updates">
+        <Link
+          onClick={handleCloseMenu}
+          className="block py-3 px-8 text-white"
+          href="/updates"
+        >
           updates
         </Link>
-        <Link className="block py-3 px-8 text-white" href="/articles">
+        <Link
+          onClick={handleCloseMenu}
+          className="block py-3 px-8 text-white"
+          href="/articles"
+        >
           articles
         </Link>
-        <Link className="block py-3 px-8 text-white" href="/contact">
+        <Link
+          onClick={handleCloseMenu}
+          className="block py-3 px-8 text-white"
+          href="/contact"
+        >
           contact
         </Link>
 
         {pocketBaseAuth !== null ? (
           <Link
+            onClick={handleCloseMenu}
             href="/profile"
             className="flex items-center gap-2 px-8 py-3 capitalize text-white"
           >
