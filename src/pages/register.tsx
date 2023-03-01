@@ -152,7 +152,7 @@ const Register: NextPage<any> = ({ og }) => {
                 ) : (
                   <CgFacebook size={20} />
                 )}{' '}
-                <div className="ml-3 md:ml-10">
+                <div className="ml-3 text-sm md:ml-10 md:text-lg">
                   Continue with {provider.name}
                 </div>
               </a>
