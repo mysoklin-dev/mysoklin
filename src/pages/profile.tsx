@@ -260,7 +260,7 @@ const Profile = () => {
                       <input
                         type="email"
                         name="email"
-                        disabled
+                        disabled={userData.email !== ''}
                         className="disabled:bg-gray-500"
                         defaultValue={userData.email}
                       />
