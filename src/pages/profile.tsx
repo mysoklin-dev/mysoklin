@@ -107,6 +107,14 @@ const Profile = () => {
         .update((user as any).model.id as string, data);
       if (record) {
         setIsSent(true);
+        pb.collection('users')
+          .getOne((user as any).model.id as string)
+          .then((res: any) => {
+            setUserData(res);
+          })
+          .catch((err: any) => {
+            console.log(err);
+          });
       }
     } catch {
       // ignore catch
