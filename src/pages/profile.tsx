@@ -77,6 +77,7 @@ const Profile = () => {
     // console.log(referrers);
 
     const target = e.target as typeof e.target & {
+      email: { value: string };
       name: { value: string };
       phone: { value: string };
       province: { value: string };
@@ -86,6 +87,7 @@ const Profile = () => {
     };
 
     const data = {
+      email: target.email.value,
       name: target.name.value,
       phone: target.phone.value,
       province: target.province.value,
@@ -134,6 +136,7 @@ const Profile = () => {
   // eslint-disable-next-line @typescript-eslint/no-shadow
   const isInComplete = (userData: IUser) => {
     if (
+      userData.email === '' ||
       userData.address === '' ||
       userData.city === '' ||
       userData.phone === '' ||
