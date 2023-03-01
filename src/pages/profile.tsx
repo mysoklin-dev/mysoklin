@@ -159,7 +159,7 @@ const Profile = () => {
       return 'Incomplete';
     }
 
-    return '';
+    return 'Completed';
   };
 
   return (
@@ -201,7 +201,13 @@ const Profile = () => {
                   <h1 className="text-3xl">Account</h1>
 
                   <div>
-                    <div className="rounded-md bg-orange-300 px-2 text-white">
+                    <div
+                      className={`rounded-md ${
+                        isInComplete(userData) === 'Incomplete'
+                          ? 'bg-orange-300'
+                          : 'bg-green-600'
+                      } px-2 text-white`}
+                    >
                       {isInComplete(userData)}
                     </div>
                   </div>
