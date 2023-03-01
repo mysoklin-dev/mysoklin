@@ -76,8 +76,10 @@ const Profile = () => {
 
     // console.log(referrers);
 
+    console.log(e.target);
+
     const target = e.target as typeof e.target & {
-      email: { value: string };
+      surel: { value: string };
       name: { value: string };
       phone: { value: string };
       province: { value: string };
@@ -87,7 +89,7 @@ const Profile = () => {
     };
 
     const data = {
-      email: target.email.value,
+      email: target.surel.value,
       name: target.name.value,
       phone: target.phone.value,
       province: target.province.value,
@@ -96,6 +98,8 @@ const Profile = () => {
       post_code: target.post_code.value,
       referrer: referrers,
     };
+
+    console.log(data);
 
     try {
       const record = await pb
@@ -261,8 +265,8 @@ const Profile = () => {
                       <label>Email</label>
 
                       <input
-                        type="email"
-                        name="email"
+                        type="text"
+                        name="surel"
                         disabled={userData.email !== ''}
                         className="disabled:bg-gray-500"
                         defaultValue={userData.email}
