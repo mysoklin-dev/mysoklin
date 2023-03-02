@@ -5,8 +5,6 @@ import Head from 'next/head';
 import PocketBase from 'pocketbase';
 import { useEffect } from 'react';
 
-import Container from '@/components/Container';
-
 const RedirectAuth = () => {
   // load the previously stored provider's data
   // const router = useRouter();
@@ -68,7 +66,7 @@ const RedirectAuth = () => {
       <Head>
         <title>Signing In...</title>
       </Head>
-      <Container className="py-52">Redirecting...</Container>
+      Redirecting...
     </>
   );
 };

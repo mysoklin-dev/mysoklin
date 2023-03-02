@@ -5,11 +5,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
 import React, { useEffect, useState } from 'react';
+import StarRatings from 'react-star-ratings';
 
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 import ProductCardCircle from '@/components/ProductCardCircle';
 import TipsAndTricks from '@/components/TipsAndTricks';
+import usePocketBaseAuth from '@/hooks/usePocketBaseAuth';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return { paths: [], fallback: true };
@@ -35,6 +37,19 @@ const ProductDetail: NextPage<any> = ({ og }) => {
   const [items, setProducts] = useState<any>();
   const [sources, setSources] = useState<string[]>([]);
   const [modal, setModal] = useState(false);
+  const [rating, setRating] = useState(3);
+  const [reviewText, setReviewText] = useState<string>('');
+  const [reviews, setReviews] = useState<any[]>([]);
+  const [user]: any = usePocketBaseAuth();
+
+  const fetchReviews = async () => {
+    const record = await pb.collection('reviews').getList(1, 50, {
+      filter: `product_id = '${id}'`,
+      sort: `-created`,
+      expand: 'user_id',
+    });
+    setReviews(record.items);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,6 +67,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
 
     if (id) {
       fetchData();
+      fetchReviews();
     }
   }, [id, router]);
 
@@ -72,6 +88,32 @@ const ProductDetail: NextPage<any> = ({ og }) => {
       getProducts();
     }
   }, [data]);
+
+  const changeRating = (ratingNum: number) => {
+    setRating(ratingNum);
+  };
+
+  const sendReview = async () => {
+    try {
+      const reviewData = {
+        product_id: id,
+        user_id: user.model.id,
+        description: reviewText,
+        rating,
+      };
+
+      const r = await pb.collection('reviews').create(reviewData);
+      if (r.collectionId) {
+        // eslint-disable-next-line no-console
+        console.log('success');
+      }
+      fetchReviews();
+      setRating(0);
+      setReviewText('');
+    } catch {
+      // ignore
+    }
+  };
 
   if (isFallback && !data) {
     return <>Loading...</>;
@@ -412,6 +454,90 @@ const ProductDetail: NextPage<any> = ({ og }) => {
               </div>
             </Container>
           </section>
+
+          <Container>
+            <hr />
+          </Container>
+
+          <Container className="mt-10 px-4 pb-10 md:px-0">
+            <h2 className="mb-4 text-2xl font-black text-blue-400">Reviews</h2>
+
+            <div className="my-3">
+              <StarRatings
+                rating={rating}
+                starDimension="40px"
+                starSpacing="5px"
+                starRatedColor="#ffa904"
+                changeRating={changeRating}
+              />
+            </div>
+
+            <textarea
+              className="form-control block w-full rounded-md border-2 border-solid border-gray-300 p-4"
+              name="review_content"
+              id=""
+              cols={30}
+              rows={10}
+              value={reviewText}
+              onChange={(e: any) => setReviewText(e.target.value)}
+            ></textarea>
+
+            <div className="mt-3">
+              <Button
+                fullWidth={false}
+                variant="contained-blue"
+                onClick={sendReview}
+                style={{
+                  height: 40,
+                  display: 'inline-block',
+                  lineHeight: '20px',
+                }}
+              >
+                Submit Review
+              </Button>
+            </div>
+
+            <div className="mt-10">
+              {reviews &&
+                reviews.map((item: any) => (
+                  <div
+                    key={`review-${item.id}`}
+                    className=" grid grid-cols-12 gap-4 border-b-2 border-solid border-gray-300 py-8 md:grid-cols-10"
+                  >
+                    <div className="col-span-2 md:col-span-1">
+                      <img
+                        className="rounded-full"
+                        src={
+                          item?.expand?.user_id?.avatar !== ''
+                            ? item.expand.user_id.avatar
+                            : item.expand.user_id.avatarUrl
+                        }
+                        alt={item.expand.user_id.name}
+                      />
+                    </div>
+
+                    <div className="col-span-9 md:col-span-9">
+                      <h4 className="mb-2 text-lg">
+                        {item.expand.user_id.name}
+                      </h4>
+
+                      <StarRatings
+                        starRatedColor="#ffa904"
+                        rating={item.rating}
+                        starDimension="16px"
+                        starSpacing="2px"
+                      />
+
+                      <div
+                        className="textformat mt-2"
+                        dangerouslySetInnerHTML={{ __html: item.description }}
+                      ></div>
+                    </div>
+                  </div>
+                ))}
+              {/* <pre>{JSON.stringify(reviews, null, 2)}</pre> */}
+            </div>
+          </Container>
 
           <Container>
             <hr />
