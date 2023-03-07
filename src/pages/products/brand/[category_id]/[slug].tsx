@@ -98,9 +98,13 @@ const ProductDetail: NextPage<any> = ({ og }) => {
     <>
       <Head>
         <title>{og?.title}</title>
-        <meta property="og:title" content={og?.title} />
+        <meta property="og:title" content={og?.og_title} />
         <meta name="description" content={og?.description} key="desc" />
-        <meta property="og:description" content={og?.description} key="desc" />
+        <meta
+          property="og:description"
+          content={og?.og_description}
+          key="desc"
+        />
         <meta
           property="og:image"
           content={`${process.env.NEXT_PUBLIC_API_URL}/files/${og?.collectionId}/${og?.id}/${og?.logo}`}

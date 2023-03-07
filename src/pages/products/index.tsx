@@ -44,11 +44,11 @@ const Products: NextPage<any> = ({ og }) => {
     <>
       <Head>
         <title>{og?.og_title}</title>
-        <meta property="og:title" content={og?.og_title} />
         <meta
           name="description"
           content={og?.og_description.substring(0, 100)}
         />
+        <meta property="og:title" content={og?.og_title} />
         <meta
           property="og:description"
           content={og?.og_description.substring(0, 100)}
