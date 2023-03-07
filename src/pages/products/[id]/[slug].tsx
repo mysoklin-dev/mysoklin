@@ -1,4 +1,3 @@
-import { average, rate } from 'average-rating';
 import FsLightbox from 'fslightbox-react';
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
@@ -13,6 +12,8 @@ import Container from '@/components/Container';
 import ProductCardCircle from '@/components/ProductCardCircle';
 import TipsAndTricks from '@/components/TipsAndTricks';
 import usePocketBaseAuth from '@/hooks/usePocketBaseAuth';
+
+import { average } from '../../../helpers/average-rating';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return { paths: [], fallback: true };
@@ -54,10 +55,11 @@ const ProductDetail: NextPage<any> = ({ og }) => {
   const calculateRev = async () => {
     const record = await pb.collection('reviews').getList(1, 200, {
       filter: `product_id = '${id}' && status = true`,
+      sort: `-created`,
+      expand: 'user_id',
     });
     const rows = record.items;
     const ratings = rows.map((item: any) => item.rating);
-    rate(ratings);
     const result = average(ratings);
     setScore(result);
   };
