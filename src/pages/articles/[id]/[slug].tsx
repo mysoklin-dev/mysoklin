@@ -129,10 +129,7 @@ const ArticleDetail: NextPage<any> = ({ og }) => {
         <title>{og?.title}</title>
         <meta name="description" content={og?.content.substring(0, 100)} />
         <meta property="og:title" content={og?.og_title} />
-        <meta
-          property="og:description"
-          content={og?.og_description.substring(0, 100)}
-        />
+        <meta property="og:description" content={og?.og_description} />
         <meta
           property="og:image"
           content={`${process.env.NEXT_PUBLIC_API_URL}/files/${og.collectionId}/${og.id}/${og.banner_image}`}

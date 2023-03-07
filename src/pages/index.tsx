@@ -22,10 +22,7 @@ const Index: NextPage<any> = ({ og }) => {
           name="description"
           content={og?.og_description.substring(0, 100)}
         />
-        <meta
-          property="og:description"
-          content={og?.og_description.substring(0, 100)}
-        />
+        <meta property="og:description" content={og?.og_description} />
         <meta
           property="og:image"
           content={`${process.env.NEXT_PUBLIC_API_URL}/files/${og.collectionId}/${og.id}/${og.og_image}`}
