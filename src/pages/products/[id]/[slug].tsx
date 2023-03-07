@@ -571,7 +571,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                             className="rounded-full"
                             src={
                               item?.expand?.user_id?.avatar !== ''
-                                ? item.expand.user_id.avatar
+                                ? `${process.env.NEXT_PUBLIC_API_URL}/files/_pb_users_auth_/${item.user_id}/${item.expand.user_id.avatar}?thumb=100x100`
                                 : item.expand.user_id.avatarUrl
                             }
                             alt={item.expand.user_id.name}
