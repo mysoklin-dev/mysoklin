@@ -9,6 +9,7 @@ import StarRatings from 'react-star-ratings';
 
 import Button from '@/components/Button';
 import Container from '@/components/Container';
+import LoginForm from '@/components/LoginForm';
 import ProductCardCircle from '@/components/ProductCardCircle';
 import TipsAndTricks from '@/components/TipsAndTricks';
 import usePocketBaseAuth from '@/hooks/usePocketBaseAuth';
@@ -51,6 +52,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
   });
   const [isSent, setIsSent] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
+  const [loginModal, setLoginModal] = useState(false);
 
   const calculateRev = async () => {
     const record = await pb.collection('reviews').getList(1, 200, {
@@ -124,6 +126,12 @@ const ProductDetail: NextPage<any> = ({ og }) => {
   };
 
   const sendReview = async () => {
+    if (user === null) {
+      setLoginModal(true);
+
+      return;
+    }
+
     try {
       const reviewData = {
         product_id: id,
@@ -904,6 +912,39 @@ const ProductDetail: NextPage<any> = ({ og }) => {
             >
               Close
             </button>
+          </div>
+        </>
+      )}
+
+      {loginModal && (
+        <>
+          <div
+            onClick={() => {
+              setLoginModal(false);
+            }}
+            className="modal-overlay"
+          ></div>
+          <div
+            className="modal-box rounded-md bg-white px-7 py-6 pb-10 text-center"
+            style={{ maxWidth: 500 }}
+          >
+            <div className="text-right">
+              <button
+                onClick={() => {
+                  setLoginModal(false);
+                }}
+              >
+                <img
+                  src="/assets/images/close__1.svg"
+                  alt="close"
+                  loading="lazy"
+                />
+              </button>
+            </div>
+
+            <div className="mt-5 mb-8 text-center">
+              <LoginForm />
+            </div>
           </div>
         </>
       )}
