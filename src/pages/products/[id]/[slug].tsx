@@ -1,3 +1,4 @@
+import { average, rate } from 'average-rating';
 import FsLightbox from 'fslightbox-react';
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
@@ -41,14 +42,41 @@ const ProductDetail: NextPage<any> = ({ og }) => {
   const [reviewText, setReviewText] = useState<string>('');
   const [reviews, setReviews] = useState<any[]>([]);
   const [user]: any = usePocketBaseAuth();
+  const [revPages, setRevPages] = useState({
+    page: 1,
+    perPage: 3,
+    totalItems: 3,
+    totalPages: 1,
+  });
+  const [isSent, setIsSent] = useState<boolean>(false);
+  const [score, setScore] = useState<number>(0);
 
-  const fetchReviews = async () => {
-    const record = await pb.collection('reviews').getList(1, 50, {
-      filter: `product_id = '${id}'`,
+  const calculateRev = async () => {
+    const record = await pb.collection('reviews').getList(1, 200, {
+      filter: `product_id = '${id}' && status = true`,
+    });
+    const rows = record.items;
+    const ratings = rows.map((item: any) => item.rating);
+    rate(ratings);
+    const result = average(ratings);
+    setScore(result);
+  };
+
+  const fetchReviews = async (page: number = 1, perPage: number = 3) => {
+    const record = await pb.collection('reviews').getList(page, perPage, {
+      filter: `product_id = '${id}' && status = true`,
       sort: `-created`,
       expand: 'user_id',
     });
-    setReviews(record.items);
+    const combine = reviews.concat(record.items);
+    setReviews(() => combine);
+    setRevPages({
+      page: record.page,
+      perPage: record.perPage,
+      totalItems: record.totalItems,
+      totalPages: record.totalPages,
+    });
+    calculateRev();
   };
 
   useEffect(() => {
@@ -100,12 +128,14 @@ const ProductDetail: NextPage<any> = ({ og }) => {
         user_id: user.model.id,
         description: reviewText,
         rating,
+        status: false,
       };
 
       const r = await pb.collection('reviews').create(reviewData);
       if (r.collectionId) {
         // eslint-disable-next-line no-console
         console.log('success');
+        setIsSent(true);
       }
       fetchReviews();
       setRating(0);
@@ -155,7 +185,18 @@ const ProductDetail: NextPage<any> = ({ og }) => {
 
               {/* Rating */}
               <div className="mt-6">
-                <img src="/assets/images/rating.svg" alt="" />
+                <div className="flex gap-4">
+                  <div>
+                    <StarRatings
+                      starRatedColor="#ffa904"
+                      rating={score}
+                      starDimension="16px"
+                      starSpacing="2px"
+                    />
+                  </div>
+
+                  <div>{score}/5</div>
+                </div>
               </div>
 
               {/* HEADLINE */}
@@ -460,87 +501,127 @@ const ProductDetail: NextPage<any> = ({ og }) => {
           </Container>
 
           <Container className="mt-10 px-4 pb-10 md:px-0">
-            <h2 className="mb-4 text-2xl font-black text-blue-400">Reviews</h2>
+            <h2 className="mb-4 text-2xl font-black text-blue-400">Review</h2>
 
-            <div className="my-3">
-              <StarRatings
-                rating={rating}
-                starDimension="40px"
-                starSpacing="5px"
-                starRatedColor="#ffa904"
-                changeRating={changeRating}
-              />
-            </div>
+            <div>{revPages?.totalItems ?? '0'} Reviews</div>
 
-            <textarea
-              className="form-control block w-full rounded-md border-2 border-solid border-gray-300 p-4"
-              name="review_content"
-              id=""
-              cols={30}
-              rows={10}
-              value={reviewText}
-              onChange={(e: any) => setReviewText(e.target.value)}
-            ></textarea>
+            <div className="grid grid-cols-1 md:grid-cols-12">
+              <div className="col-span-2">
+                <h4 className="mt-6 text-5xl font-black text-orange-400">
+                  {score}/5
+                </h4>
+              </div>
 
-            <div className="mt-3">
-              <Button
-                fullWidth={false}
-                variant="contained-blue"
-                onClick={sendReview}
-                style={{
-                  height: 40,
-                  display: 'inline-block',
-                  lineHeight: '20px',
-                }}
-              >
-                Submit Review
-              </Button>
-            </div>
+              <div className="col-span-10">
+                <textarea
+                  className="form-control block w-full rounded-md border-2 border-solid border-gray-300 p-4"
+                  name="review_content"
+                  id=""
+                  cols={30}
+                  rows={10}
+                  value={reviewText}
+                  onChange={(e: any) => setReviewText(e.target.value)}
+                ></textarea>
 
-            <div className="mt-10">
-              {reviews &&
-                reviews.map((item: any) => (
-                  <div
-                    key={`review-${item.id}`}
-                    className=" grid grid-cols-12 gap-4 border-b-2 border-solid border-gray-300 py-8 md:grid-cols-10"
+                <div className="my-3">
+                  <StarRatings
+                    rating={rating}
+                    starDimension="40px"
+                    starSpacing="5px"
+                    starRatedColor="#ffa904"
+                    changeRating={changeRating}
+                  />
+                </div>
+
+                <div className="mt-3">
+                  <Button
+                    fullWidth={false}
+                    variant="contained-blue"
+                    onClick={sendReview}
+                    style={{
+                      height: 40,
+                      display: 'inline-block',
+                      lineHeight: '20px',
+                    }}
                   >
-                    <div className="col-span-2 md:col-span-1">
-                      <img
-                        className="rounded-full"
-                        src={
-                          item?.expand?.user_id?.avatar !== ''
-                            ? item.expand.user_id.avatar
-                            : item.expand.user_id.avatarUrl
-                        }
-                        alt={item.expand.user_id.name}
-                      />
-                    </div>
+                    Submit Review
+                  </Button>
+                </div>
 
-                    <div className="col-span-9 md:col-span-9">
-                      <h4 className="mb-2 text-lg">
-                        {item.expand.user_id.name}
-                      </h4>
-
-                      <StarRatings
-                        starRatedColor="#ffa904"
-                        rating={item.rating}
-                        starDimension="16px"
-                        starSpacing="2px"
-                      />
-
+                <div className="mt-10">
+                  {/* {JSON.stringify(revPages, null, 2)} */}
+                  {reviews &&
+                    reviews.map((item: any, i: number) => (
                       <div
-                        className="textformat mt-2"
-                        dangerouslySetInnerHTML={{ __html: item.description }}
-                      ></div>
-                    </div>
-                  </div>
-                ))}
-              {/* <pre>{JSON.stringify(reviews, null, 2)}</pre> */}
-            </div>
-          </Container>
+                        key={`review-${item.id}-${i}`}
+                        className=" grid grid-cols-12 gap-4 border-b-2 border-solid border-gray-300 py-8 md:grid-cols-10"
+                      >
+                        <div className="col-span-2 md:col-span-1">
+                          <img
+                            className="rounded-full"
+                            src={
+                              item?.expand?.user_id?.avatar !== ''
+                                ? item.expand.user_id.avatar
+                                : item.expand.user_id.avatarUrl
+                            }
+                            alt={item.expand.user_id.name}
+                          />
+                        </div>
 
-          <Container>
-            <hr />
+                        <div className="col-span-9 md:col-span-9">
+                          <h4 className="mb-2 text-lg">
+                            {item.expand.user_id.name}
+                          </h4>
+
+                          <div className="flex gap-4">
+                            <div>
+                              <StarRatings
+                                starRatedColor="#ffa904"
+                                rating={item.rating}
+                                starDimension="16px"
+                                starSpacing="2px"
+                              />
+                            </div>
+
+                            <div>{item.rating}/5</div>
+                          </div>
+
+                          <div
+                            className="textformat mt-2"
+                            dangerouslySetInnerHTML={{
+                              __html: item.description,
+                            }}
+                          ></div>
+                        </div>
+                      </div>
+                    ))}
+
+                  <div className="mt-8 flex justify-end">
+                    {revPages.totalItems > revPages.perPage &&
+                      revPages.totalPages > revPages.page && (
+                        <Button
+                          fullWidth={false}
+                          variant="contained-blue"
+                          onClick={() => {
+                            const next = revPages.page + 1;
+                            // eslint-disable-next-line radix
+                            fetchReviews(next);
+                          }}
+                          style={{
+                            height: 40,
+                            display: 'inline-block',
+                            lineHeight: '20px',
+                          }}
+                        >
+                          Show More
+                        </Button>
+                      )}
+                  </div>
+
+                  {/* <pre>{JSON.stringify(reviews, null, 2)}</pre> */}
+                </div>
+              </div>
+            </div>
           </Container>
 
           {/* related */}
@@ -777,9 +858,60 @@ const ProductDetail: NextPage<any> = ({ og }) => {
         </div>
       )}
 
+      {isSent && (
+        <>
+          <div
+            onClick={() => {
+              setIsSent(false);
+            }}
+            className="modal-overlay"
+          ></div>
+          <div className="modal-box rounded-md bg-white px-7 py-6 pb-10 text-center">
+            <div className="text-right">
+              <button
+                onClick={() => {
+                  setIsSent(false);
+                }}
+              >
+                <img
+                  src="/assets/images/close__1.svg"
+                  alt="close"
+                  loading="lazy"
+                />
+              </button>
+            </div>
+
+            <div className="mt-5 mb-8 text-center">
+              <img
+                src="/assets/images/amico.svg"
+                style={{ display: 'inline-block' }}
+                alt=""
+              />
+
+              <div className="mt-4 text-2xl font-black">
+                Your review has been submitted, it will be shown once our
+                moderator approve it.
+              </div>
+            </div>
+
+            <button
+              onClick={() => {
+                setIsSent(false);
+              }}
+              className="close"
+            >
+              Close
+            </button>
+          </div>
+        </>
+      )}
+
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
 
       <style jsx>{`
+        .modal-box {
+          position: fixed;
+        }
         p,
         .maindesc {
           font-family: 'Karma';
