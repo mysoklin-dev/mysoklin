@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { withCdn } from '@/helpers';
+
 interface ArticleCardProps {
   thumbnail: string;
   title: string;
@@ -21,7 +23,12 @@ const ArticleCard = ({
           style={{ color: '#000' }}
         >
           <img
-            src={thumbnail}
+            src={withCdn({
+              img: thumbnail,
+              w: 357,
+              h: 357,
+              q: 100,
+            })}
             alt={title}
             width="337"
             height="216"

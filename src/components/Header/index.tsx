@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 
+import { withCdn } from '@/helpers';
 import usePocketBaseAuth from '@/hooks/usePocketBaseAuth';
 
 const Header = () => {
@@ -197,7 +198,12 @@ const Header = () => {
                           rel="noreferrer"
                         >
                           <img
-                            src={`${process.env.NEXT_PUBLIC_API_URL}/files/${social.collectionId}/${social.id}/${social?.platform_icon}`}
+                            src={withCdn({
+                              img: `${process.env.NEXT_PUBLIC_API_URL}/files/${social.collectionId}/${social.id}/${social?.platform_icon}`,
+                              w: 120,
+                              h: 31,
+                              q: 100,
+                            })}
                             alt={social.platform_name}
                             width={120}
                             height={31}
@@ -214,7 +220,15 @@ const Header = () => {
         {/* logo */}
         <div className="middle flex items-center justify-center">
           <Link href="/">
-            <img src="/assets/images/logo.png" alt="My Soklin" />
+            <img
+              src={withCdn({
+                img: 'https://mysoklin.com/assets/images/logo.png',
+                w: 120,
+                h: 74,
+                q: 100,
+              })}
+              alt="My Soklin"
+            />
           </Link>
         </div>
 

@@ -1,3 +1,5 @@
+import { withCdn } from '@/helpers';
+
 interface ProductCardProps {
   thumbnail: string;
   title: string;
@@ -23,7 +25,12 @@ const ProductCard = ({
     >
       <div className="thumbnail">
         <img
-          src={thumbnail}
+          src={withCdn({
+            w: 162,
+            h: 196,
+            q: 100,
+            img: thumbnail,
+          })}
           alt={title}
           width="162"
           height="196"

@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react';
 import ArticleCard from '@/components/ArticleCard';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
+import { withCdn } from '@/helpers';
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
@@ -68,7 +69,12 @@ const Updates: NextPage<any> = ({ og }) => {
       <div className="banner_image">
         {posts[0] && (
           <img
-            src={`${process.env.NEXT_PUBLIC_API_URL}/files/${posts[0].collectionId}/${posts[0].id}/${posts[0]?.banner_image}`}
+            src={withCdn({
+              img: `${process.env.NEXT_PUBLIC_API_URL}/files/${posts[0].collectionId}/${posts[0].id}/${posts[0]?.banner_image}`,
+              w: 1440,
+              h: 535,
+              q: 100,
+            })}
             alt={posts[0]?.title}
             style={{ zIndex: '-1', position: 'relative', width: '100%' }}
           />

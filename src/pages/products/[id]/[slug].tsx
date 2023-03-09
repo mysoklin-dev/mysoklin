@@ -14,7 +14,7 @@ import ProductCardCircle from '@/components/ProductCardCircle';
 import TipsAndTricks from '@/components/TipsAndTricks';
 import usePocketBaseAuth from '@/hooks/usePocketBaseAuth';
 
-import { average } from '../../../helpers/average-rating';
+import { average, withCdn } from '../../../helpers';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return { paths: [], fallback: true };
@@ -397,7 +397,12 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                 <div className="text-center">
                   <div className="flex justify-center">
                     <img
-                      src={`${process.env.NEXT_PUBLIC_API_URL}/files/${data?.collectionId}/${data?.id}/${data?.image}`}
+                      src={withCdn({
+                        img: `${process.env.NEXT_PUBLIC_API_URL}/files/${data?.collectionId}/${data?.id}/${data?.image}`,
+                        w: 213,
+                        h: 424,
+                        q: 100,
+                      })}
                       width={213}
                       height={424}
                       style={{ width: 'auto!important', height: 424 }}
@@ -422,7 +427,12 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                     >
                       <div>
                         <img
-                          src={`${process.env.NEXT_PUBLIC_API_URL}/files/${data?.collectionId}/${data?.id}/${data?.gallery[0]}?thumb=456x350`}
+                          src={withCdn({
+                            img: `${process.env.NEXT_PUBLIC_API_URL}/files/${data?.collectionId}/${data?.id}/${data?.gallery[0]}?thumb=456x350`,
+                            w: 456,
+                            h: 350,
+                            q: 100,
+                          })}
                           alt=""
                         />
                       </div>
@@ -435,7 +445,12 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                                 {i > 0 && (
                                   <div>
                                     <img
-                                      src={`${process.env.NEXT_PUBLIC_API_URL}/files/${data?.collectionId}/${data?.id}/${data.gallery[i]}?thumb=384x300`}
+                                      src={withCdn({
+                                        img: `${process.env.NEXT_PUBLIC_API_URL}/files/${data?.collectionId}/${data?.id}/${data.gallery[i]}?thumb=384x300`,
+                                        w: 384,
+                                        h: 300,
+                                        q: 100,
+                                      })}
                                       alt=""
                                     />
                                   </div>
@@ -569,12 +584,18 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                         <div className="col-span-2 md:col-span-1">
                           <img
                             className="rounded-full"
-                            src={
-                              item?.expand?.user_id?.avatar !== ''
-                                ? `${process.env.NEXT_PUBLIC_API_URL}/files/_pb_users_auth_/${item.user_id}/${item.expand.user_id.avatar}?thumb=100x100`
-                                : item.expand.user_id.avatarUrl
-                            }
+                            src={withCdn({
+                              w: 100,
+                              h: 100,
+                              q: 100,
+                              img:
+                                item?.expand?.user_id?.avatar !== ''
+                                  ? `${process.env.NEXT_PUBLIC_API_URL}/files/_pb_users_auth_/${item.user_id}/${item.expand.user_id.avatar}?thumb=100x100`
+                                  : item.expand.user_id.avatarUrl,
+                            })}
                             alt={item.expand.user_id.name}
+                            width={100}
+                            height={100}
                           />
                         </div>
 

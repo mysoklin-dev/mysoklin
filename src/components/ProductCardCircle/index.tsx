@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { withCdn } from '@/helpers';
+
 type IProductCardCircleProps = {
   id: string;
   img: string;
@@ -17,7 +19,7 @@ const ProductCardCircle = ({ id, img, title }: IProductCardCircleProps) => {
         <div className="thumb mb-10">
           <div className="radial"></div>
           <img
-            src={img}
+            src={withCdn({ img, w: 130, h: 200, q: 100 })}
             style={{ width: 'auto', height: 200 }}
             width="130"
             height="200"

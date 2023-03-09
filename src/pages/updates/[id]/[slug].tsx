@@ -15,6 +15,7 @@ import {
 } from 'react-share';
 
 import Container from '@/components/Container';
+import { withCdn } from '@/helpers';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return { paths: [], fallback: true };
@@ -167,8 +168,16 @@ const ArticleDetail: NextPage<any> = ({ og }) => {
 
               <figure>
                 <img
-                  src={`${process.env.NEXT_PUBLIC_API_URL}/files/${post?.collectionId}/${post?.id}/${post?.banner_image}`}
+                  src={withCdn({
+                    img: `${process.env.NEXT_PUBLIC_API_URL}/files/${post?.collectionId}/${post?.id}/${post?.banner_image}`,
+                    w: 754,
+                    h: 453,
+                    q: 100,
+                  })}
                   alt=""
+                  width={754}
+                  height={453}
+                  style={{ width: '100%', height: 'auto!important' }}
                 />
               </figure>
 
@@ -236,7 +245,12 @@ const ArticleDetail: NextPage<any> = ({ og }) => {
                               .toLowerCase()}`}
                           >
                             <img
-                              src={`${process.env.NEXT_PUBLIC_API_URL}/files/${relpost?.collectionId}/${relpost?.id}/${relpost?.banner_image}?thumb=100x100`}
+                              src={withCdn({
+                                w: 100,
+                                h: 100,
+                                q: 100,
+                                img: `${process.env.NEXT_PUBLIC_API_URL}/files/${relpost?.collectionId}/${relpost?.id}/${relpost?.banner_image}?thumb=100x100`,
+                              })}
                               loading="lazy"
                               width="100"
                               height="100"

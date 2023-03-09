@@ -4,6 +4,8 @@ import React from 'react';
 import { Carousel as ReactCarousel } from 'react-responsive-carousel';
 import useSWR from 'swr';
 
+import { withCdn } from '@/helpers';
+
 const Carousel = () => {
   const { data, error } = useSWR(
     `${process.env.NEXT_PUBLIC_PB_URL}/api/collections/hero_banner/records?page=1&perPage=3&sort=+sequence&filter=status%20%3D%20true`
@@ -28,7 +30,12 @@ const Carousel = () => {
                 {' '}
               </a>
               <img
-                src={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item?.banner}`}
+                src={withCdn({
+                  w: 1440,
+                  h: 720,
+                  q: 100,
+                  img: `${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item?.banner}`,
+                })}
                 alt={item.title}
               />
             </div>

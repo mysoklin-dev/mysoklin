@@ -12,6 +12,7 @@ import Button from '@/components/Button';
 import Container from '@/components/Container';
 import ProductCardCircle from '@/components/ProductCardCircle';
 import TipsAndTricks from '@/components/TipsAndTricks';
+import { withCdn } from '@/helpers';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return { paths: [], fallback: true };
@@ -133,7 +134,12 @@ const ProductDetail: NextPage<any> = ({ og }) => {
               <div className="grid grid-cols-12 gap-7">
                 <div className="col-span-3">
                   <img
-                    src={`${process.env.NEXT_PUBLIC_API_URL}/files/${brand.collectionId}/${brand.id}/${brand.logo}`}
+                    src={withCdn({
+                      img: `${process.env.NEXT_PUBLIC_API_URL}/files/${brand.collectionId}/${brand.id}/${brand.logo}`,
+                      w: 200,
+                      h: 200,
+                      q: 100,
+                    })}
                     alt=""
                     loading="lazy"
                     width="200"
