@@ -2,23 +2,19 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a lo
 
 import React from 'react';
 import { Carousel as ReactCarousel } from 'react-responsive-carousel';
-import useSWR from 'swr';
 
 import { withCdn } from '@/helpers';
 
-const Carousel = () => {
-  const { data, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_PB_URL}/api/collections/hero_banner/records?page=1&perPage=3&sort=+sequence&filter=status%20%3D%20true`
-  );
-
-  const loading = !data && !error;
-  const posts = data && data.items;
+type ICarouselProps = {
+  data: any;
+};
+const Carousel = ({ data }: ICarouselProps) => {
+  const posts = data;
 
   return (
     <>
       <ReactCarousel showThumbs={false} autoPlay swipeable infiniteLoop>
-        {!loading &&
-          posts &&
+        {posts &&
           posts.length > 0 &&
           posts.map((item: any) => (
             <div key={`slide-${item.id}`} className="position-relative">

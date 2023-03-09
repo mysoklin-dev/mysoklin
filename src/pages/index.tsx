@@ -1,3 +1,4 @@
+import axios from 'axios';
 import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import PocketBase from 'pocketbase';
@@ -8,7 +9,7 @@ import ProductsCarousel from '@/components/ProductsCarousel';
 import TipsAndTricks from '@/components/TipsAndTricks';
 import VideoCarousel from '@/components/VideoCarousel';
 
-const Index: NextPage<any> = ({ og }) => {
+const Index: NextPage<any> = ({ og, slides }) => {
   if (!og) {
     return <div>Loading...</div>;
   }
@@ -33,7 +34,7 @@ const Index: NextPage<any> = ({ og }) => {
         />
       </Head>
 
-      <Carousel />
+      <Carousel data={slides} />
 
       <VideoCarousel />
 
@@ -49,9 +50,14 @@ const Index: NextPage<any> = ({ og }) => {
 export const getServerSideProps: GetServerSideProps = async () => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const record = await pb.collection('pages').getOne('7y4tkpyyemu5m08');
+  const slideRes = await axios.get(
+    `${process.env.NEXT_PUBLIC_PB_URL}/api/collections/hero_banner/records?page=1&perPage=3&sort=+sequence&filter=status%20%3D%20true`
+  );
+  const slides = await slideRes.data.items;
   return {
     props: {
       og: JSON.parse(JSON.stringify(record)),
+      slides,
     },
   };
 };
