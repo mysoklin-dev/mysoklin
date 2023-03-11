@@ -1,5 +1,6 @@
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 
+import Image from 'next/image';
 import React from 'react';
 import { Carousel as ReactCarousel } from 'react-responsive-carousel';
 
@@ -25,7 +26,7 @@ const Carousel = ({ data }: ICarouselProps) => {
               >
                 {' '}
               </a>
-              <img
+              <Image
                 src={withCdn({
                   w: 1440,
                   h: 720,
@@ -33,6 +34,9 @@ const Carousel = ({ data }: ICarouselProps) => {
                   img: `${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item?.banner}`,
                 })}
                 alt={item.title}
+                width={1440}
+                height={720}
+                style={{ width: '100%', height: 'auto' }}
               />
             </div>
           ))}

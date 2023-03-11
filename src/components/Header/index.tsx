@@ -240,6 +240,45 @@ const Header = () => {
             />
           </Link>
         </div>
+      </header>
+
+      {/* NAV */}
+      <div
+        className="items-center bg-blue-400 uppercase"
+        style={{ height: 50, position: 'sticky', top: 47, zIndex: 99999 }}
+      >
+        <div className="container mx-auto hidden max-w-6xl items-center md:block">
+          <nav
+            className="menu flex items-center justify-between  text-white"
+            style={{ height: 50 }}
+          >
+            <Link
+              className="d-block py-2 px-3 text-white"
+              href="/company-history"
+            >
+              company
+            </Link>
+            <Link
+              onMouseEnter={showMegamenu}
+              className="d-block py-2 px-3 text-white"
+              href="/products"
+              onClick={() => {
+                hideMegaMenu();
+              }}
+            >
+              products
+            </Link>
+            <Link className="d-block py-2 px-3 text-white" href="/updates">
+              updates
+            </Link>
+            <Link className="d-block py-2 px-3 text-white" href="/articles">
+              articles
+            </Link>
+            <Link className="d-block py-2 px-3 text-white" href="/contact">
+              contact
+            </Link>
+          </nav>
+        </div>
 
         {/* Mega menu */}
         {isShowMega && (
@@ -284,43 +323,6 @@ const Header = () => {
             </div>
           </div>
         )}
-      </header>
-      <div
-        className="items-center bg-blue-400 uppercase"
-        style={{ height: 50, position: 'sticky', top: 47, zIndex: 99999 }}
-      >
-        <div className="container mx-auto hidden max-w-6xl items-center md:block">
-          <nav
-            className="menu flex items-center justify-between  text-white"
-            style={{ height: 50 }}
-          >
-            <Link
-              className="d-block py-2 px-3 text-white"
-              href="/company-history"
-            >
-              company
-            </Link>
-            <Link
-              onMouseEnter={showMegamenu}
-              className="d-block py-2 px-3 text-white"
-              href="/products"
-              onClick={() => {
-                hideMegaMenu();
-              }}
-            >
-              products
-            </Link>
-            <Link className="d-block py-2 px-3 text-white" href="/updates">
-              updates
-            </Link>
-            <Link className="d-block py-2 px-3 text-white" href="/articles">
-              articles
-            </Link>
-            <Link className="d-block py-2 px-3 text-white" href="/contact">
-              contact
-            </Link>
-          </nav>
-        </div>
 
         {/* Mobile */}
         <div
@@ -510,6 +512,12 @@ const Header = () => {
               img: 'https://mysoklin.com/assets/images/wave.png',
             })}')
             no-repeat center center;
+        }
+
+        @media screen and (max-width: 500px) {
+          .middle {
+            margin-top: 0 !important;
+          }
         }
 
         .search {
