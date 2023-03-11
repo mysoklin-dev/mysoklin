@@ -3,10 +3,10 @@ import type { ReactNode } from 'react';
 import { Suspense } from 'react';
 
 import type { IFooterProps } from '@/components/Footer';
-
-const Header = dynamic(() => import('@/components/Header'), {
-  ssr: false,
-});
+import Header from '@/components/Header';
+// const Header = dynamic(() => import('@/components/Header'), {
+//   ssr: false,
+// });
 
 const Footer = dynamic(() => import('@/components/Footer'), {
   ssr: false,
@@ -20,11 +20,12 @@ type IMainLayout = {
 const Main = (props: IMainLayout) => {
   return (
     <>
-      <Suspense
+      {/* <Suspense
         fallback={<div style={{ background: '#fff', height: 197.36 }} />}
       >
-        <Header />
-      </Suspense>
+        
+      </Suspense> */}
+      <Header />
 
       {props.children}
 

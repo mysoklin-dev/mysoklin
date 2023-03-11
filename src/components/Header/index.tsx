@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { withCdn } from '@/helpers';
 import usePocketBaseAuth from '@/hooks/usePocketBaseAuth';
@@ -82,7 +82,7 @@ const Header = () => {
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const fetchUser = async () => {
       const record = await pb
         .collection('users')
