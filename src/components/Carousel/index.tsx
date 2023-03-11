@@ -14,33 +14,65 @@ const Carousel = ({ data }: ICarouselProps) => {
 
   return (
     <>
-      <ReactCarousel showThumbs={false} autoPlay swipeable infiniteLoop>
-        {posts &&
-          posts.length > 0 &&
-          posts.map((item: any) => (
-            <div key={`slide-${item.id}`} className="position-relative">
-              <a
-                href={item.destination_url}
-                target={item.tab === 'new' ? '_blank' : '_self'}
-                rel="noreferrer"
-              >
-                {' '}
-              </a>
-              <Image
-                src={withCdn({
-                  w: 1440,
-                  h: 720,
-                  q: 100,
-                  img: `${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item?.banner}`,
-                })}
-                alt={item.title}
-                width={1440}
-                height={720}
-                style={{ width: '100%', height: 'auto' }}
-              />
-            </div>
-          ))}
-      </ReactCarousel>
+      <div className="hidden md:block">
+        <ReactCarousel showThumbs={false} autoPlay swipeable infiniteLoop>
+          {posts &&
+            posts.length > 0 &&
+            posts.map((item: any) => (
+              <div key={`slide-${item.id}`} className="position-relative">
+                <a
+                  href={item.destination_url}
+                  target={item.tab === 'new' ? '_blank' : '_self'}
+                  rel="noreferrer"
+                >
+                  {' '}
+                </a>
+                <Image
+                  src={withCdn({
+                    w: 1440,
+                    h: 720,
+                    q: 100,
+                    img: `${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item?.banner}`,
+                  })}
+                  alt={item.title}
+                  width={1440}
+                  height={720}
+                  style={{ width: '100%', height: 'auto' }}
+                />
+              </div>
+            ))}
+        </ReactCarousel>
+      </div>
+
+      <div className="md:hidden">
+        <ReactCarousel showThumbs={false} autoPlay swipeable infiniteLoop>
+          {posts &&
+            posts.length > 0 &&
+            posts.map((item: any) => (
+              <div key={`m-slide-${item.id}`} className="position-relative">
+                <a
+                  href={item.destination_url}
+                  target={item.tab === 'new' ? '_blank' : '_self'}
+                  rel="noreferrer"
+                >
+                  {' '}
+                </a>
+                <Image
+                  src={withCdn({
+                    w: 414,
+                    h: 220,
+                    q: 70,
+                    img: `${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item?.banner}`,
+                  })}
+                  alt={item.title}
+                  width={414}
+                  height={220}
+                  style={{ width: '100%', height: 'auto' }}
+                />
+              </div>
+            ))}
+        </ReactCarousel>
+      </div>
       <style jsx>{`
         a {
           position: absolute;
