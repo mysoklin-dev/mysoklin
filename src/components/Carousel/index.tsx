@@ -37,6 +37,7 @@ const Carousel = ({ data }: ICarouselProps) => {
                   alt={item.title}
                   width={1440}
                   height={720}
+                  loading="eager"
                   style={{ width: '100%', height: 'auto' }}
                 />
               </div>
@@ -67,6 +68,7 @@ const Carousel = ({ data }: ICarouselProps) => {
                   alt={item.title}
                   width={414}
                   height={220}
+                  loading="eager"
                   style={{ width: '100%', height: 'auto' }}
                 />
               </div>
