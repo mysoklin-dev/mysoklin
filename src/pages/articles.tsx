@@ -88,14 +88,16 @@ const Articles: NextPage<any> = ({ og }) => {
       <Container className="px-5">
         {posts[0] && (
           <div className="-mt-32 rounded-md border-2 border-gray-200 bg-white p-10 text-center md:p-20">
-            <h1 className="text-2xl font-black text-blue-400">
+            <p className="mb-6 -mt-10 text-lg">Artike Tips dan Trik</p>
+
+            <h2 className="text-2xl font-black text-blue-400">
               <span
                 dangerouslySetInnerHTML={{
                   __html: posts[0]?.title.substring(0, 150),
                 }}
               ></span>
               {posts[0].title.length > 150 ? '...' : ''}
-            </h1>
+            </h2>
 
             <div className="mt-10">
               <div

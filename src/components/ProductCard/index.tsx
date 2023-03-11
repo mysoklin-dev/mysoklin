@@ -40,7 +40,7 @@ const ProductCard = ({
       </div>
 
       <div className="card-background pt-20 pb-10">
-        <h4>{title}</h4>
+        <p>{title}</p>
 
         <div className="productButton cursoir-pointer">See Products</div>
       </div>
@@ -77,7 +77,7 @@ const ProductCard = ({
           border-radius: 0 0 20px 20px;
         }
 
-        h4 {
+        p {
           font-style: normal;
           font-weight: 700;
           font-size: 25px;

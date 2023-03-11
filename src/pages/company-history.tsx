@@ -23,9 +23,9 @@ const TimeLineItem = ({
       <div className="circle"></div>
       <div className="col-span-7">
         {year && year !== '' && parentId === '' && (
-          <h3 className="mb-10 text-2xl font-black text-blue-400 md:text-4xl">
+          <h2 className="mb-10 text-2xl font-black text-blue-400 md:text-4xl">
             {year}
-          </h3>
+          </h2>
         )}
 
         <p className="mb-3 text-lg md:text-xl">{description}</p>

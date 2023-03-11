@@ -51,9 +51,9 @@ export default function Footer({ showBanner = true }: IFooterProps) {
           <div className="left col-span-1">
             <div className="mb-10 flex w-full flex-1 flex-row content-between">
               <div>
-                <h1 className="text-5xl font-bold text-white">
+                <p className="text-5xl font-bold text-white">
                   History of <br /> SoKlin
-                </h1>
+                </p>
               </div>
 
               <div className="ml-auto">
@@ -92,13 +92,13 @@ export default function Footer({ showBanner = true }: IFooterProps) {
           <div className="right col-span-1">
             <div className="mb-10 flex w-full flex-1 flex-row content-between">
               <div>
-                <h1 className="text-5xl font-bold text-blue-700">
+                <p className="text-5xl font-bold text-blue-700">
                   Create account and
                   <br />
                   get limited
                   <br />
                   offer.
-                </h1>
+                </p>
               </div>
 
               <div className="ml-auto">

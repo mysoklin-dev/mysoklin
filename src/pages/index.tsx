@@ -39,12 +39,12 @@ const Index: NextPage<any> = ({ og, slides }) => {
 
       <Carousel data={slides} />
 
-      <LazyLoad height={542} key="VideoCarousel">
-        <VideoCarousel />
-      </LazyLoad>
-
       <LazyLoad height={698} key="ProductsCarousel">
         <ProductsCarousel />
+      </LazyLoad>
+
+      <LazyLoad height={542} key="VideoCarousel">
+        <VideoCarousel />
       </LazyLoad>
 
       <LazyLoad height={904} key="LatestUpdates">

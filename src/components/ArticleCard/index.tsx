@@ -43,11 +43,11 @@ const ArticleCard = ({
           href={link === '#' ? '/article-detail' : link}
           style={{ color: '#000' }}
         >
-          <h4
-            className="mb-3"
+          <p
+            className="heading mb-3"
             title={title}
             dangerouslySetInnerHTML={{ __html: title }}
-          ></h4>
+          ></p>
         </Link>
 
         <p className="mb-3">{text}</p>
@@ -62,7 +62,7 @@ const ArticleCard = ({
           text-align: center;
         }
 
-        h4 {
+        p.heading {
           font-style: normal;
           font-weight: 700;
           font-size: 16px;

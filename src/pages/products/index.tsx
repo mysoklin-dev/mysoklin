@@ -66,9 +66,9 @@ const Products: NextPage<any> = ({ og }) => {
           <div className="grid grid-cols-2 justify-center">
             <div className="col-span-2 text-center">
               <h1 className="text-3xl font-black text-white md:text-6xl">
-                We have it all,
+                Produk SoKlin Pewangi,
                 <br />
-                pick and choose.
+                Deterjen, Pemutih Pakaian
               </h1>
 
               <p

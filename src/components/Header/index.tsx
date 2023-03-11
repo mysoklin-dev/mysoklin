@@ -100,126 +100,134 @@ const Header = () => {
 
   return (
     <>
-      <header>
-        <div className="container mx-auto hidden max-w-6xl py-2 md:block">
-          <div className="flex items-center justify-between">
-            <div>
-              <div
-                className="grow-1 mr-0 flex w-full shrink-0 gap-4"
-                style={{ fontSize: 10 }}
-              >
-                {socials &&
-                  socials.length > 0 &&
-                  socials.map((social: any, i: number) => (
-                    <React.Fragment key={`inactive-${social.id}-${i}`}>
-                      {social.status !== false && (
-                        <div className="flex items-center gap-3 text-blue-400">
-                          <div>
-                            <a
-                              href={social.platform_url}
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              <img
-                                src={`/assets/images/${decideIcon(
-                                  social.platform_type
-                                )}`}
-                                alt={social.platform_name}
-                                width={28}
-                                height={28.56}
-                                style={{ height: 'auto!important' }}
-                              />
-                            </a>
-                          </div>
-                          <div>
-                            <a
-                              style={{ fontSize: 14 }}
-                              href={social.platform_url}
-                              target="_BLANK"
-                              rel="noreferrer"
-                              className="text-blue-400"
-                            >
-                              {social.platform_name}
-                            </a>
-                          </div>
-                        </div>
-                      )}
-                    </React.Fragment>
-                  ))}
-              </div>
-            </div>
-
-            <div className="flex items-center justify-end gap-4">
-              {/* Search */}
+      <header style={{ position: 'static', zIndex: 9999 }}>
+        <div
+          className="top-0 bg-white"
+          style={{ position: 'fixed', top: 0, width: '100%', zIndex: 9999 }}
+        >
+          <div className="container mx-auto hidden max-w-6xl py-2 md:block">
+            <div className="flex items-center justify-between">
               <div>
-                <div className="search">
-                  <input type="text" name="s" onKeyDown={handleEnter} />
+                <div
+                  className="grow-1 mr-0 flex w-full shrink-0 gap-4"
+                  style={{ fontSize: 10 }}
+                >
+                  {socials &&
+                    socials.length > 0 &&
+                    socials.map((social: any, i: number) => (
+                      <React.Fragment key={`inactive-${social.id}-${i}`}>
+                        {social.status !== false && (
+                          <div className="flex items-center gap-3 text-blue-400">
+                            <div>
+                              <a
+                                href={social.platform_url}
+                                target="_blank"
+                                rel="noreferrer"
+                              >
+                                <img
+                                  src={`/assets/images/${decideIcon(
+                                    social.platform_type
+                                  )}`}
+                                  alt={social.platform_name}
+                                  width={28}
+                                  height={28.56}
+                                  style={{ height: 'auto!important' }}
+                                />
+                              </a>
+                            </div>
+                            <div>
+                              <a
+                                style={{ fontSize: 14 }}
+                                href={social.platform_url}
+                                target="_BLANK"
+                                rel="noreferrer"
+                                className="text-blue-400"
+                              >
+                                {social.platform_name}
+                              </a>
+                            </div>
+                          </div>
+                        )}
+                      </React.Fragment>
+                    ))}
                 </div>
               </div>
 
-              {/* Register */}
-              <div>
-                {pocketBaseAuth !== null && domLoaded ? (
-                  <Link
-                    href="/profile"
-                    className="flex items-center gap-2 capitalize text-blue-400"
-                  >
-                    <span>
-                      <img
-                        src={
-                          userData.avatar !== ''
-                            ? `${process.env.NEXT_PUBLIC_API_URL}/files/${userData.collectionId}/${userData.id}/${userData.avatar}?thumb=80x80`
-                            : userData.avatarUrl
-                        }
-                        alt=""
-                        referrerPolicy="no-referrer"
-                        width={30}
-                        height={30}
-                        className="rounded-full"
-                      />
-                    </span>
-                    <span>{(pocketBaseAuth as any).model.name}</span>
-                  </Link>
-                ) : (
-                  <Link href="/register" className="text-blue-400">
-                    Register
-                  </Link>
-                )}
-              </div>
+              <div className="flex items-center justify-end gap-4">
+                {/* Search */}
+                <div>
+                  <div className="search">
+                    <input type="text" name="s" onKeyDown={handleEnter} />
+                  </div>
+                </div>
 
-              <div>
-                {socials &&
-                  socials.length > 0 &&
-                  socials.map((social: any, i: number) => (
-                    <React.Fragment key={`inactive-${social.id}+${i}`}>
-                      {social.status === false && (
-                        <a
-                          href={social.platform_url}
-                          target="_BLANK"
-                          rel="noreferrer"
-                        >
-                          <Image
-                            src={withCdn({
-                              img: `${process.env.NEXT_PUBLIC_API_URL}/files/${social.collectionId}/${social.id}/${social?.platform_icon}`,
-                              w: 120,
-                              h: 31,
-                              q: 70,
-                            })}
-                            alt={social.platform_name}
-                            width={120}
-                            height={31}
-                          />
-                        </a>
-                      )}
-                    </React.Fragment>
-                  ))}
+                {/* Register */}
+                <div>
+                  {pocketBaseAuth !== null && domLoaded ? (
+                    <Link
+                      href="/profile"
+                      className="flex items-center gap-2 capitalize text-blue-400"
+                    >
+                      <span>
+                        <img
+                          src={
+                            userData.avatar !== ''
+                              ? `${process.env.NEXT_PUBLIC_API_URL}/files/${userData.collectionId}/${userData.id}/${userData.avatar}?thumb=80x80`
+                              : userData.avatarUrl
+                          }
+                          alt=""
+                          referrerPolicy="no-referrer"
+                          width={30}
+                          height={30}
+                          className="rounded-full"
+                        />
+                      </span>
+                      <span>{(pocketBaseAuth as any).model.name}</span>
+                    </Link>
+                  ) : (
+                    <Link href="/register" className="text-blue-400">
+                      Register
+                    </Link>
+                  )}
+                </div>
+
+                <div>
+                  {socials &&
+                    socials.length > 0 &&
+                    socials.map((social: any, i: number) => (
+                      <React.Fragment key={`inactive-${social.id}+${i}`}>
+                        {social.status === false && (
+                          <a
+                            href={social.platform_url}
+                            target="_BLANK"
+                            rel="noreferrer"
+                          >
+                            <Image
+                              src={withCdn({
+                                img: `${process.env.NEXT_PUBLIC_API_URL}/files/${social.collectionId}/${social.id}/${social?.platform_icon}`,
+                                w: 120,
+                                h: 31,
+                                q: 70,
+                              })}
+                              alt={social.platform_name}
+                              width={120}
+                              height={31}
+                            />
+                          </a>
+                        )}
+                      </React.Fragment>
+                    ))}
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         {/* logo */}
-        <div className="middle flex items-center justify-center">
+        <div
+          className="middle flex items-center justify-center"
+          style={{ marginTop: 47 }}
+        >
           <Link href="/">
             <img
               src={withCdn({
@@ -231,83 +239,6 @@ const Header = () => {
               alt="My Soklin"
             />
           </Link>
-        </div>
-
-        <div
-          className="items-center bg-blue-400 uppercase"
-          style={{ height: 50 }}
-        >
-          <div className="container mx-auto hidden max-w-6xl items-center md:block">
-            <nav
-              className="menu flex items-center justify-between  text-white"
-              style={{ height: 50 }}
-            >
-              <Link
-                className="d-block py-2 px-3 text-white"
-                href="/company-history"
-              >
-                company
-              </Link>
-              <Link
-                onMouseEnter={showMegamenu}
-                className="d-block py-2 px-3 text-white"
-                href="/products"
-                onClick={() => {
-                  hideMegaMenu();
-                }}
-              >
-                products
-              </Link>
-              <Link className="d-block py-2 px-3 text-white" href="/updates">
-                updates
-              </Link>
-              <Link className="d-block py-2 px-3 text-white" href="/articles">
-                articles
-              </Link>
-              <Link className="d-block py-2 px-3 text-white" href="/contact">
-                contact
-              </Link>
-            </nav>
-          </div>
-
-          {/* Mobile */}
-          <div
-            className="flex items-center justify-between px-4 md:hidden"
-            style={{ height: 50 }}
-          >
-            <button
-              onClick={() => {
-                setMobileMenu(!mobileMenu);
-              }}
-              className="border-0 bg-transparent"
-            >
-              <HiMenuAlt4 color="white" size={24} />
-            </button>
-
-            <div>
-              {socials &&
-                socials.length > 0 &&
-                socials.map((social: any, i: number) => (
-                  <React.Fragment key={`inactive-${social.id}+${i}`}>
-                    {social.status === false && (
-                      <a
-                        href={social.platform_url}
-                        target="_BLANK"
-                        rel="noreferrer"
-                      >
-                        <img
-                          src={`${process.env.NEXT_PUBLIC_API_URL}/files/${social.collectionId}/${social.id}/${social?.platform_icon}`}
-                          alt={social.platform_name}
-                          width={120}
-                          height={40}
-                          style={{ height: 'auto!important' }}
-                        />
-                      </a>
-                    )}
-                  </React.Fragment>
-                ))}
-            </div>
-          </div>
         </div>
 
         {/* Mega menu */}
@@ -354,6 +285,82 @@ const Header = () => {
           </div>
         )}
       </header>
+      <div
+        className="items-center bg-blue-400 uppercase"
+        style={{ height: 50, position: 'sticky', top: 47, zIndex: 99999 }}
+      >
+        <div className="container mx-auto hidden max-w-6xl items-center md:block">
+          <nav
+            className="menu flex items-center justify-between  text-white"
+            style={{ height: 50 }}
+          >
+            <Link
+              className="d-block py-2 px-3 text-white"
+              href="/company-history"
+            >
+              company
+            </Link>
+            <Link
+              onMouseEnter={showMegamenu}
+              className="d-block py-2 px-3 text-white"
+              href="/products"
+              onClick={() => {
+                hideMegaMenu();
+              }}
+            >
+              products
+            </Link>
+            <Link className="d-block py-2 px-3 text-white" href="/updates">
+              updates
+            </Link>
+            <Link className="d-block py-2 px-3 text-white" href="/articles">
+              articles
+            </Link>
+            <Link className="d-block py-2 px-3 text-white" href="/contact">
+              contact
+            </Link>
+          </nav>
+        </div>
+
+        {/* Mobile */}
+        <div
+          className="flex items-center justify-between px-4 md:hidden"
+          style={{ height: 50 }}
+        >
+          <button
+            onClick={() => {
+              setMobileMenu(!mobileMenu);
+            }}
+            className="border-0 bg-transparent"
+          >
+            <HiMenuAlt4 color="white" size={24} />
+          </button>
+
+          <div>
+            {socials &&
+              socials.length > 0 &&
+              socials.map((social: any, i: number) => (
+                <React.Fragment key={`inactive-${social.id}+${i}`}>
+                  {social.status === false && (
+                    <a
+                      href={social.platform_url}
+                      target="_BLANK"
+                      rel="noreferrer"
+                    >
+                      <img
+                        src={`${process.env.NEXT_PUBLIC_API_URL}/files/${social.collectionId}/${social.id}/${social?.platform_icon}`}
+                        alt={social.platform_name}
+                        width={120}
+                        height={40}
+                        style={{ height: 'auto!important' }}
+                      />
+                    </a>
+                  )}
+                </React.Fragment>
+              ))}
+          </div>
+        </div>
+      </div>
 
       {/* Mobile Menu */}
       <div
@@ -443,7 +450,7 @@ const Header = () => {
             href="/register"
             className="block px-8 py-3 text-white"
           >
-            Register
+            Account
           </Link>
         )}
 
