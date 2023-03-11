@@ -229,13 +229,15 @@ const Header = () => {
           style={{ marginTop: 47 }}
         >
           <Link href="/">
-            <img
+            <Image
               src={withCdn({
                 img: 'https://mysoklin.com/assets/images/logo.png',
                 w: 120,
                 h: 74,
                 q: 100,
               })}
+              width={120}
+              height={74}
               alt="My Soklin"
             />
           </Link>
@@ -349,12 +351,16 @@ const Header = () => {
                       target="_BLANK"
                       rel="noreferrer"
                     >
-                      <img
-                        src={`${process.env.NEXT_PUBLIC_API_URL}/files/${social.collectionId}/${social.id}/${social?.platform_icon}`}
+                      <Image
+                        src={withCdn({
+                          img: `${process.env.NEXT_PUBLIC_API_URL}/files/${social.collectionId}/${social.id}/${social?.platform_icon}`,
+                          w: 120,
+                          h: 31,
+                          q: 70,
+                        })}
                         alt={social.platform_name}
                         width={120}
-                        height={40}
-                        style={{ height: 'auto!important' }}
+                        height={31}
                       />
                     </a>
                   )}
