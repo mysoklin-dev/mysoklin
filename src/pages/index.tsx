@@ -1,13 +1,16 @@
 import axios from 'axios';
 import type { GetServerSideProps, NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import PocketBase from 'pocketbase';
+import LazyLoad from 'react-lazy-load';
 
 import Carousel from '@/components/Carousel';
 import LatestUpdates from '@/components/LatestUpdates';
 import ProductsCarousel from '@/components/ProductsCarousel';
 import TipsAndTricks from '@/components/TipsAndTricks';
-import VideoCarousel from '@/components/VideoCarousel';
+
+const VideoCarousel = dynamic(() => import('@/components/VideoCarousel'));
 
 const Index: NextPage<any> = ({ og, slides }) => {
   if (!og) {
@@ -36,13 +39,21 @@ const Index: NextPage<any> = ({ og, slides }) => {
 
       <Carousel data={slides} />
 
-      <VideoCarousel />
+      <LazyLoad height={542} key="VideoCarousel">
+        <VideoCarousel />
+      </LazyLoad>
 
-      <ProductsCarousel />
+      <LazyLoad height={698} key="ProductsCarousel">
+        <ProductsCarousel />
+      </LazyLoad>
 
-      <LatestUpdates />
+      <LazyLoad height={904} key="LatestUpdates">
+        <LatestUpdates />
+      </LazyLoad>
 
-      <TipsAndTricks />
+      <LazyLoad height={904} key="TipsAndTricks">
+        <TipsAndTricks />
+      </LazyLoad>
     </>
   );
 };

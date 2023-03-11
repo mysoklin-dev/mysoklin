@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import PocketBase from 'pocketbase';
 import React, { useEffect, useState } from 'react';
@@ -57,10 +58,10 @@ export default function Footer({ showBanner = true }: IFooterProps) {
 
               <div className="ml-auto">
                 <Link href="/company-history">
-                  <img
+                  <Image
                     src="/assets/images/right-arrow.svg"
-                    width="70"
-                    height="70"
+                    width={70}
+                    height={70}
                     loading="lazy"
                     alt=""
                   />
@@ -77,10 +78,13 @@ export default function Footer({ showBanner = true }: IFooterProps) {
             </div>
 
             <div className="text-center">
-              <img
+              <Image
                 src="/assets/images/HIS-SOK-04-2003-A.png"
                 alt=""
                 loading="lazy"
+                width={416}
+                height={297}
+                className="inline-block"
               />
             </div>
           </div>
@@ -99,7 +103,7 @@ export default function Footer({ showBanner = true }: IFooterProps) {
 
               <div className="ml-auto">
                 <Link href="/register">
-                  <img
+                  <Image
                     src="/assets/images/right-arrow.svg"
                     width="70"
                     height="70"
@@ -111,10 +115,14 @@ export default function Footer({ showBanner = true }: IFooterProps) {
             </div>
 
             <div className="text-center">
-              <img
+              <Image
                 src="/assets/images/footer-products.png"
                 alt=""
                 loading="lazy"
+                width={556}
+                height={427}
+                className="inline-block"
+                style={{ height: 'auto!important' }}
               />
             </div>
           </div>

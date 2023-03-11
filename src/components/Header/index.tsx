@@ -1,5 +1,6 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 import { HiMenuAlt4 } from '@react-icons/all-files/hi/HiMenuAlt4';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
@@ -197,12 +198,12 @@ const Header = () => {
                           target="_BLANK"
                           rel="noreferrer"
                         >
-                          <img
+                          <Image
                             src={withCdn({
                               img: `${process.env.NEXT_PUBLIC_API_URL}/files/${social.collectionId}/${social.id}/${social?.platform_icon}`,
                               w: 120,
                               h: 31,
-                              q: 100,
+                              q: 70,
                             })}
                             alt={social.platform_name}
                             width={120}
@@ -495,7 +496,13 @@ const Header = () => {
         .middle {
           width: 100%;
           height: 100px;
-          background: url('/assets/images/wave.png') no-repeat center center;
+          background: url('${withCdn({
+              w: 1503,
+              h: 100,
+              q: 100,
+              img: 'https://mysoklin.com/assets/images/wave.png',
+            })}')
+            no-repeat center center;
         }
 
         .search {
