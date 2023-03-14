@@ -163,7 +163,9 @@ const Header = () => {
 
                 {/* Register */}
                 <div>
-                  {pocketBaseAuth !== null && domLoaded ? (
+                  {pocketBaseAuth !== null &&
+                  domLoaded &&
+                  typeof window !== 'undefined' ? (
                     <Link
                       href="/profile"
                       className="flex items-center gap-2 capitalize text-blue-400"
@@ -430,7 +432,9 @@ const Header = () => {
             contact
           </Link>
 
-          {pocketBaseAuth !== null ? (
+          {pocketBaseAuth !== null &&
+          typeof window !== 'undefined' &&
+          domLoaded ? (
             <Link
               onClick={handleCloseMenu}
               href="/profile"
