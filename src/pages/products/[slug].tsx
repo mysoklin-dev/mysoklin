@@ -183,7 +183,9 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                   </Link>
                 </div>
                 <div>\</div>
-                <div>Products</div>
+                <div>
+                  <Link href="/products">Products</Link>
+                </div>
                 <div>\</div>
                 <div className="text-gray-500">{data ? data.title : ''}</div>
               </div>

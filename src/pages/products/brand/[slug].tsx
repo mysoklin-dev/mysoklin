@@ -147,7 +147,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                       q: 100,
                     })}
                     alt=""
-                    loading="lazy"
+                    loading="eager"
                     width="200"
                     height="200"
                     style={{ width: 200, height: 'auto' }}
