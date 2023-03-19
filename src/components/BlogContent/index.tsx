@@ -213,7 +213,7 @@ const BlogContent = ({ og, isFallback, type }: BlogContentProps) => {
                       >
                         <div className="w-3/12">
                           <Link
-                            href={`/${type}/${relpost.title
+                            href={`/${type}/${relpost.id}/${relpost.title
                               .replaceAll(' ', '-')
                               .toLowerCase()}`}
                           >
@@ -234,7 +234,7 @@ const BlogContent = ({ og, isFallback, type }: BlogContentProps) => {
 
                         <div className="w-9/12 pl-5">
                           <Link
-                            href={`/${type}/${relpost.title
+                            href={`/${type}/${relpost.id}/${relpost.title
                               .replaceAll(' ', '-')
                               .toLowerCase()}`}
                           >
