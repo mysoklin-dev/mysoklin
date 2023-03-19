@@ -227,9 +227,20 @@ const Header = () => {
 
         {/* logo */}
         <div
-          className="middle flex items-center justify-center"
+          className="middle flex items-center justify-between px-4 md:justify-center"
           style={{ marginTop: 47 }}
         >
+          <div className="md:hidden">
+            <button
+              onClick={() => {
+                setMobileMenu(!mobileMenu);
+              }}
+              className="border-0 bg-transparent"
+            >
+              <HiMenuAlt4 color="#071789" size={24} />
+            </button>
+          </div>
+
           <Link href="/">
             <Image
               src={withCdn({
@@ -243,12 +254,14 @@ const Header = () => {
               alt="My Soklin"
             />
           </Link>
+
+          <div>&nbsp;</div>
         </div>
       </header>
 
       {/* NAV */}
       <div
-        className="m-nav items-center bg-blue-400 uppercase"
+        className="m-nav hidden items-center bg-blue-400 uppercase md:block"
         style={{ height: 50, position: 'sticky', top: 47, zIndex: 99999 }}
       >
         <div className="container mx-auto hidden max-w-6xl items-center md:block">
@@ -333,15 +346,6 @@ const Header = () => {
           className="flex items-center justify-between px-4 md:hidden"
           style={{ height: 50 }}
         >
-          <button
-            onClick={() => {
-              setMobileMenu(!mobileMenu);
-            }}
-            className="border-0 bg-transparent"
-          >
-            <HiMenuAlt4 color="white" size={24} />
-          </button>
-
           <div>
             {socials &&
               socials.length > 0 &&
