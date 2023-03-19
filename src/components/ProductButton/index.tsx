@@ -7,8 +7,8 @@ const ProductButton = (props: any) => {
         .replaceAll(' ', '-')
         .toLowerCase()}`}
     >
-      <div className="product-opt flex items-center gap-4 px-10">
-        <div>
+      <div className="product-opt flex items-center gap-4 px-5 md:px-10">
+        <div className="w-3/12">
           <img
             src={props.logo}
             width="80"
@@ -19,12 +19,17 @@ const ProductButton = (props: any) => {
           />
         </div>
 
-        <div className="ml-10 text-xl font-black text-blue-400">
+        <div className="w-7/12 font-black text-blue-400 md:text-xl">
           {props.title}
         </div>
 
-        <div className="ml-auto">
-          <img src="/assets/images/chevron-right.svg" loading="lazy" alt="" />
+        <div className="w-2/12 text-right">
+          <img
+            src="/assets/images/chevron-right.svg"
+            loading="lazy"
+            alt=""
+            className="inline-block"
+          />
         </div>
 
         <style jsx>{`
