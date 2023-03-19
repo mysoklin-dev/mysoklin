@@ -100,7 +100,7 @@ body {
   top: 0;
   left: 0;
   overflow-y: auto;
-  z-index: 9999;
+  z-index: 999999!important;
 }
 
 .modal-box {
