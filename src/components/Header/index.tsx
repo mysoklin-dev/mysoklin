@@ -459,9 +459,7 @@ const Header = () => {
                                 onClick={() => {
                                   hideMegaMenu();
                                 }}
-                                href={`/products/brand/${
-                                  submenu.id
-                                }/${submenu.title
+                                href={`/products/brand/${submenu.title
                                   .replaceAll(' ', '-')
                                   .toLowerCase()}`}
                                 className="hover:text-blue-400"

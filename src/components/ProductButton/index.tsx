@@ -3,7 +3,7 @@ import Link from 'next/link';
 const ProductButton = (props: any) => {
   return (
     <Link
-      href={`/products/brand/${props.data.id}/${props.data.title
+      href={`/products/brand/${props.data.title
         .replaceAll(' ', '-')
         .toLowerCase()}`}
     >
