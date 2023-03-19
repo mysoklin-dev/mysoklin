@@ -3,18 +3,16 @@ import Link from 'next/link';
 import { withCdn } from '@/helpers';
 
 type IProductCardCircleProps = {
-  id: string;
+  id?: string;
   img: string;
   title: string;
 };
 
-const ProductCardCircle = ({ id, img, title }: IProductCardCircleProps) => {
+const ProductCardCircle = ({ img, title }: IProductCardCircleProps) => {
   return (
     <div className="text-center">
       <Link
-        href={`/products/${id}/${title
-          .replaceAll(' ', '-')
-          .toLocaleLowerCase()}`}
+        href={`/products/${title.replaceAll(' ', '-').toLocaleLowerCase()}`}
       >
         <div className="thumb mb-10">
           <div className="radial"></div>
@@ -30,9 +28,7 @@ const ProductCardCircle = ({ id, img, title }: IProductCardCircleProps) => {
 
       <div className="text-xl font-bold text-blue-400">
         <Link
-          href={`/products/${id}/${title
-            .replaceAll(' ', '-')
-            .toLocaleLowerCase()}`}
+          href={`/products/${title.replaceAll(' ', '-').toLocaleLowerCase()}`}
         >
           <span className="text-blue-400">{title}</span>
         </Link>
