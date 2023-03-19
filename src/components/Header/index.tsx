@@ -256,6 +256,143 @@ const Header = () => {
           </Link>
 
           <div>&nbsp;</div>
+
+          {/* Mobile Menu */}
+          <div
+            className={`absolute left-0 w-full bg-blue-300 py-10 uppercase text-white md:hidden ${
+              mobileMenu ? 'block' : 'hidden'
+            }`}
+            style={{ zIndex: 9999, height: '100vh', top: 100 }}
+          >
+            <div className="mb-5 px-8">
+              <div
+                className="block w-full overflow-hidden rounded-full bg-white px-8 text-black"
+                style={{
+                  width: '100%!important',
+                  background:
+                    '#ffffff url(/assets/images/fa_search.svg) no-repeat 10px center',
+                }}
+              >
+                <input
+                  type="text"
+                  name="s"
+                  className="block w-full py-2"
+                  onKeyDown={handleEnter}
+                />
+              </div>
+            </div>
+
+            <Link
+              onClick={handleCloseMenu}
+              className="block py-3 px-8 text-white"
+              href="/company-history"
+            >
+              company
+            </Link>
+            <Link
+              onClick={handleCloseMenu}
+              className="block py-3 px-8 text-white"
+              href="/products"
+            >
+              products
+            </Link>
+            <Link
+              onClick={handleCloseMenu}
+              className="block py-3 px-8 text-white"
+              href="/updates"
+            >
+              updates
+            </Link>
+            <Link
+              onClick={handleCloseMenu}
+              className="block py-3 px-8 text-white"
+              href="/articles"
+            >
+              articles
+            </Link>
+            <Link
+              onClick={handleCloseMenu}
+              className="block py-3 px-8 text-white"
+              href="/contact"
+            >
+              contact
+            </Link>
+
+            {pocketBaseAuth !== null &&
+            typeof window !== 'undefined' &&
+            domLoaded ? (
+              <Link
+                onClick={handleCloseMenu}
+                href="/profile"
+                className="flex items-center gap-2 px-8 py-3 capitalize text-white"
+              >
+                <span>
+                  <img
+                    src={
+                      userData.avatar !== ''
+                        ? `${process.env.NEXT_PUBLIC_API_URL}/files/${userData.collectionId}/${userData.id}/${userData.avatar}?thumb=80x80`
+                        : userData.avatarUrl
+                    }
+                    alt=""
+                    referrerPolicy="no-referrer"
+                    width={30}
+                    height={30}
+                    className="rounded-full"
+                  />
+                </span>
+                <span>{(pocketBaseAuth as any).model.name}</span>
+              </Link>
+            ) : (
+              <Link
+                onClick={handleCloseMenu}
+                href="/register"
+                className="block px-8 py-3 text-white"
+              >
+                Account
+              </Link>
+            )}
+
+            {socials &&
+              socials.length > 0 &&
+              socials.map((social: any, i: number) => (
+                <React.Fragment key={`inactive-${social.id}-${i}`}>
+                  {social.status !== false && (
+                    <div className="flex gap-4 px-8 py-3 text-white">
+                      <div>
+                        <a
+                          href={social.platform_url}
+                          target="_blank"
+                          className="text-white"
+                          rel="noreferrer"
+                        >
+                          <img
+                            src={`${process.env.NEXT_PUBLIC_API_URL}/files/${social.collectionId}/${social.id}/${social?.platform_icon}`}
+                            alt={social.platform_name}
+                            width={28}
+                            height={28.56}
+                            style={{
+                              height: 'auto!important',
+                              filter: 'brightness(10)',
+                            }}
+                          />
+                        </a>
+                      </div>
+                      <div>
+                        <a
+                          style={{ fontSize: 14 }}
+                          href={social.platform_url}
+                          target="_BLANK"
+                          className="text-white"
+                          rel="noreferrer"
+                        >
+                          {social.platform_name}
+                        </a>
+                      </div>
+                    </div>
+                  )}
+                </React.Fragment>
+              ))}
+          </div>
         </div>
       </header>
 
@@ -373,143 +510,6 @@ const Header = () => {
                 </React.Fragment>
               ))}
           </div>
-        </div>
-
-        {/* Mobile Menu */}
-        <div
-          className={`absolute top-full left-0 w-full bg-blue-300 py-10 uppercase text-white md:hidden ${
-            mobileMenu ? 'block' : 'hidden'
-          }`}
-          style={{ zIndex: 9999, height: '100vh' }}
-        >
-          <div className="mb-5 px-8">
-            <div
-              className="block w-full overflow-hidden rounded-full bg-white px-8 text-black"
-              style={{
-                width: '100%!important',
-                background:
-                  '#ffffff url(/assets/images/fa_search.svg) no-repeat 10px center',
-              }}
-            >
-              <input
-                type="text"
-                name="s"
-                className="block w-full py-2"
-                onKeyDown={handleEnter}
-              />
-            </div>
-          </div>
-
-          <Link
-            onClick={handleCloseMenu}
-            className="block py-3 px-8 text-white"
-            href="/company-history"
-          >
-            company
-          </Link>
-          <Link
-            onClick={handleCloseMenu}
-            className="block py-3 px-8 text-white"
-            href="/products"
-          >
-            products
-          </Link>
-          <Link
-            onClick={handleCloseMenu}
-            className="block py-3 px-8 text-white"
-            href="/updates"
-          >
-            updates
-          </Link>
-          <Link
-            onClick={handleCloseMenu}
-            className="block py-3 px-8 text-white"
-            href="/articles"
-          >
-            articles
-          </Link>
-          <Link
-            onClick={handleCloseMenu}
-            className="block py-3 px-8 text-white"
-            href="/contact"
-          >
-            contact
-          </Link>
-
-          {pocketBaseAuth !== null &&
-          typeof window !== 'undefined' &&
-          domLoaded ? (
-            <Link
-              onClick={handleCloseMenu}
-              href="/profile"
-              className="flex items-center gap-2 px-8 py-3 capitalize text-white"
-            >
-              <span>
-                <img
-                  src={
-                    userData.avatar !== ''
-                      ? `${process.env.NEXT_PUBLIC_API_URL}/files/${userData.collectionId}/${userData.id}/${userData.avatar}?thumb=80x80`
-                      : userData.avatarUrl
-                  }
-                  alt=""
-                  referrerPolicy="no-referrer"
-                  width={30}
-                  height={30}
-                  className="rounded-full"
-                />
-              </span>
-              <span>{(pocketBaseAuth as any).model.name}</span>
-            </Link>
-          ) : (
-            <Link
-              onClick={handleCloseMenu}
-              href="/register"
-              className="block px-8 py-3 text-white"
-            >
-              Account
-            </Link>
-          )}
-
-          {socials &&
-            socials.length > 0 &&
-            socials.map((social: any, i: number) => (
-              <React.Fragment key={`inactive-${social.id}-${i}`}>
-                {social.status !== false && (
-                  <div className="flex gap-4 px-8 py-3 text-white">
-                    <div>
-                      <a
-                        href={social.platform_url}
-                        target="_blank"
-                        className="text-white"
-                        rel="noreferrer"
-                      >
-                        <img
-                          src={`${process.env.NEXT_PUBLIC_API_URL}/files/${social.collectionId}/${social.id}/${social?.platform_icon}`}
-                          alt={social.platform_name}
-                          width={28}
-                          height={28.56}
-                          style={{
-                            height: 'auto!important',
-                            filter: 'brightness(10)',
-                          }}
-                        />
-                      </a>
-                    </div>
-                    <div>
-                      <a
-                        style={{ fontSize: 14 }}
-                        href={social.platform_url}
-                        target="_BLANK"
-                        className="text-white"
-                        rel="noreferrer"
-                      >
-                        {social.platform_name}
-                      </a>
-                    </div>
-                  </div>
-                )}
-              </React.Fragment>
-            ))}
         </div>
       </div>
 
