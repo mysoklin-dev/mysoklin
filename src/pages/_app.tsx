@@ -44,6 +44,20 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
         <Analytics />
       </div>
     </SWRConfig>
+    {/* eslint-disable-next-line @next/next/next-script-for-ga */}
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-B0Z9CEQSB9"
+    ></script>
+    <script
+      dangerouslySetInnerHTML={{
+        __html: `window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B0Z9CEQSB9');`,
+      }}
+    ></script>
   </Main>
 );
 
