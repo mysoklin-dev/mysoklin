@@ -105,11 +105,7 @@ const Updates: NextPage<any> = ({ og }) => {
               ></div>
 
               <div className="flex justify-center">
-                <Link
-                  href={`/updates/${posts[0]?.id}/${posts[0].title
-                    .replaceAll(' ', '-')
-                    .toLowerCase()}`}
-                >
+                <Link href={`/updates/${posts[0].slug}`}>
                   <Button variant="elevated">Read</Button>
                 </Link>
               </div>
@@ -127,9 +123,7 @@ const Updates: NextPage<any> = ({ og }) => {
                   <ArticleCard
                     title={item.title}
                     text={item.content}
-                    link={`/updates/${item.id}/${item.title
-                      .replaceAll(' ', '-')
-                      .toLowerCase()}`}
+                    link={`/updates/${item.slug}`}
                     thumbnail={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item?.image}`}
                   />
                 </div>

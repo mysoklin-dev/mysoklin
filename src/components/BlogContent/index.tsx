@@ -212,11 +212,7 @@ const BlogContent = ({ og, isFallback, type }: BlogContentProps) => {
                         className="flex items-center border-b border-gray-300"
                       >
                         <div className="w-3/12">
-                          <Link
-                            href={`/${type}/${relpost.id}/${relpost.title
-                              .replaceAll(' ', '-')
-                              .toLowerCase()}`}
-                          >
+                          <Link href={`/${type}/${relpost.slug}`}>
                             <img
                               src={withCdn({
                                 w: 100,
@@ -233,11 +229,7 @@ const BlogContent = ({ og, isFallback, type }: BlogContentProps) => {
                         </div>
 
                         <div className="w-9/12 pl-5">
-                          <Link
-                            href={`/${type}/${relpost.id}/${relpost.title
-                              .replaceAll(' ', '-')
-                              .toLowerCase()}`}
-                          >
+                          <Link href={`/${type}/${relpost.slug}`}>
                             {relpost.title}
                           </Link>
                         </div>
