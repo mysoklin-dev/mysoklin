@@ -176,6 +176,20 @@ const Header = () => {
                 </div>
               </div>
 
+              <div>
+                <Image
+                  src={withCdn({
+                    img: 'https://mysoklin.com/assets/images/logo.png',
+                    w: 70,
+                    h: 43,
+                    q: 100,
+                  })}
+                  width={70}
+                  height={43}
+                  alt="My Soklin"
+                />
+              </div>
+
               <div className="flex items-center justify-end gap-4">
                 {/* Search */}
                 <div>
@@ -404,7 +418,7 @@ const Header = () => {
       {/* NAV */}
       <div
         className="m-nav hidden items-center bg-blue-400 uppercase md:block"
-        style={{ height: 50, position: 'sticky', top: 47, zIndex: 99999 }}
+        style={{ height: 50, position: 'sticky', top: 59, zIndex: 99999 }}
       >
         <div className="container mx-auto hidden max-w-6xl items-center md:block">
           <nav
