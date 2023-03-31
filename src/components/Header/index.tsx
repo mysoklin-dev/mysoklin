@@ -22,6 +22,14 @@ const Header = () => {
   const [socials, setSocial] = useState<any>([]);
   const [domLoaded, setDomLoaded] = useState(false);
 
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    window.onscroll = () => {
+      setOffset(window.pageYOffset);
+    };
+  }, []);
+
   const navs = [
     {
       name: 'company',
@@ -187,6 +195,10 @@ const Header = () => {
                   width={70}
                   height={43}
                   alt="My Soklin"
+                  style={{
+                    opacity: `${offset > 100 ? 1 : 0}`,
+                    transition: 'all .2s ease',
+                  }}
                 />
               </div>
 
