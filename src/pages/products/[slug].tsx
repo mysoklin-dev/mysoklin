@@ -158,7 +158,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
     <>
       <Head>
         <title>{og?.title}</title>
-        <meta name="description" content={og?.description.substring(0, 100)} />
+        <meta name="description" content={og?.og_description} />
         <meta property="og:title" content={og?.og_title} />
         <meta property="og:description" content={og?.og_description} />
         <meta
