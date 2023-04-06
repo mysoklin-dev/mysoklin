@@ -82,7 +82,9 @@ const ItemEdit = () => {
                     console.log(data);
                   }}
                   editorLoaded={editorLoaded}
-                  value={record.description}
+                  value={
+                    record.description ? record.description : record.content
+                  }
                 />
               )}
             </div>

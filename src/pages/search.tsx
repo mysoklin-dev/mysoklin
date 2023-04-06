@@ -162,9 +162,7 @@ const Search: NextPage<any> = ({ og }) => {
                 <ArticleCard
                   title={item.title}
                   text={item.content}
-                  link={`/updates/${item.id}/${item.title
-                    .replaceAll(' ', '-')
-                    .toLowerCase()}`}
+                  link={`/updates/${item.slug}`}
                   thumbnail={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item?.image}`}
                 />
               </div>
@@ -181,9 +179,7 @@ const Search: NextPage<any> = ({ og }) => {
                 <ArticleCard
                   title={item.title}
                   text={item.content}
-                  link={`/articles/${item.id}/${item.title
-                    .replaceAll(' ', '-')
-                    .toLowerCase()}`}
+                  link={`/articles/${item.slug}`}
                   thumbnail={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item?.image}`}
                 />
               </div>
