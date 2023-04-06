@@ -24,9 +24,7 @@ interface BlogContentProps {
 
 const BlogContent = ({ og, isFallback, type }: BlogContentProps) => {
   const post = og;
-  const router = useRouter();
 
-  const { id } = router.query;
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const [related, setRelated] = useState<any>([]);
   const [isCopied, setIsCopied] = useState<boolean>(false);
