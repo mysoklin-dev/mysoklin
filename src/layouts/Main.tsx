@@ -1,7 +1,9 @@
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import type { ReactNode } from 'react';
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
+import DashboardMenu from '@/components/Dashboard/Menu';
 import type { IFooterProps } from '@/components/Footer';
 import Header from '@/components/Header';
 // const Header = dynamic(() => import('@/components/Header'), {
@@ -18,16 +20,35 @@ type IMainLayout = {
 };
 
 const Main = (props: IMainLayout) => {
+  const router = useRouter();
+  const [isDashboard, setIsDashboard] = useState(false);
+
+  useEffect(() => {
+    if (router && router.asPath.includes('admin')) {
+      setIsDashboard(true);
+    }
+  }, [router]);
+
   return (
     <>
-      {/* <Suspense
-        fallback={<div style={{ background: '#fff', height: 197.36 }} />}
-      >
-        
-      </Suspense> */}
-      <Header />
+      {!isDashboard && (
+        <>
+          <Header />
 
-      {props.children}
+          {props.children}
+        </>
+      )}
+
+      {isDashboard && (
+        <div className="flex min-h-screen w-full gap-4">
+          <div className="w-3/12 bg-sky-100">
+            <DashboardMenu />
+          </div>
+          <div className="w-9/12">
+            <div className="p-6">{props.children}</div>
+          </div>
+        </div>
+      )}
 
       <Suspense>
         <Footer {...props.footerProps} />
