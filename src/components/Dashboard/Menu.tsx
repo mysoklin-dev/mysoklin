@@ -1,14 +1,16 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import usePocketBaseAuth from '@/hooks/usePocketBaseAuth';
 
 const DashboardMenu = () => {
   const [admin]: any = usePocketBaseAuth();
+  const router = useRouter();
   const baseUrl = '/admin';
   const adminMenus = [
     {
       title: 'Overview',
-      slug: '/',
+      slug: '/overview',
     },
     {
       title: 'Products',
@@ -41,19 +43,25 @@ const DashboardMenu = () => {
   return (
     <div className="h-full py-6">
       <div className="px-6">
-        <h1 className="text-2xl">Dashboard</h1>
+        <h1 className="text-xl">MySoklin Dashboard</h1>
       </div>
 
       <nav className="mt-4">
-        <ul className="text-md">
+        <ul>
           {admin !== null ? (
             <>
               {adminMenus.map((item: any) => (
                 <li key={`admin-menu-${item.slug}`}>
                   <Link
-                    className="block py-2 px-6 text-black hover:bg-sky-600 hover:text-white"
+                    className={`block py-2 px-6 hover:bg-sky-600 hover:text-white ${
+                      router &&
+                      router.asPath &&
+                      router.asPath.replace('/admin', '').includes(item.slug)
+                        ? 'bg-sky-600 text-white'
+                        : 'text-black'
+                    }`}
                     href={`${baseUrl}${item.slug}`}
-                    style={{ fontSize: 16 }}
+                    style={{ fontSize: 14 }}
                   >
                     {item.title}
                   </Link>
@@ -64,8 +72,8 @@ const DashboardMenu = () => {
                         <li key={`child-${child.title}`}>
                           <Link
                             className="block py-1 text-black hover:text-sky-600"
-                            style={{ fontSize: 14 }}
                             href={`${baseUrl}${item.slug}${child.slug}`}
+                            style={{ fontSize: 13 }}
                           >
                             {child.title}
                           </Link>

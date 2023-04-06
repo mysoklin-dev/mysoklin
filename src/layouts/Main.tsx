@@ -41,10 +41,10 @@ const Main = (props: IMainLayout) => {
 
       {isDashboard && (
         <div className="flex min-h-screen w-full gap-4">
-          <div className="w-3/12 bg-sky-100">
+          <div className="w-2/12 bg-gray-200">
             <DashboardMenu />
           </div>
-          <div className="w-9/12">
+          <div className="w-10/12">
             <div className="p-6">{props.children}</div>
           </div>
         </div>
