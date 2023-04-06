@@ -36,7 +36,7 @@ const BlogContent = ({ og, isFallback, type }: BlogContentProps) => {
     const getRelated = async () => {
       try {
         const resultList = await pb.collection(type).getList(1, 4, {
-          filter: `id != '${id}'`,
+          filter: `id != '${post.id}'`,
         });
         setRelated(resultList.items);
       } catch (error) {
