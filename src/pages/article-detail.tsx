@@ -20,14 +20,6 @@ const ArticleDetail = () => {
               <h1 className="text-4xl font-black text-blue-400">
                 Natural Essential Oil Lavender
               </h1>
-
-              <div className="my-2 flex gap-3 font-serif text-lg">
-                <div>
-                  <img src="/assets/images/FEMALE01.png" alt="" />
-                </div>
-
-                <div>Rebeca</div>
-              </div>
             </header>
 
             <figure>

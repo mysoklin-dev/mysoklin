@@ -125,18 +125,6 @@ const BlogContent = ({ og, isFallback, type }: BlogContentProps) => {
                 <h1 className="text-4xl font-black text-blue-400">
                   {post.title}
                 </h1>
-
-                <div className="my-2 flex gap-3 font-serif text-lg">
-                  <div>
-                    <img
-                      src="/assets/images/FEMALE01.png"
-                      alt=""
-                      style={{ maxWidth: '100%' }}
-                    />
-                  </div>
-
-                  <div>Rebeca</div>
-                </div>
               </header>
 
               <figure>
