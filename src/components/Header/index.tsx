@@ -237,7 +237,7 @@ const Header = () => {
                     </Link>
                   ) : (
                     <Link href="/register" className="text-blue-400">
-                      Register
+                      Account
                     </Link>
                   )}
                 </div>
