@@ -1,4 +1,3 @@
-import axios from 'axios';
 import type { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
@@ -58,14 +57,14 @@ const Index: NextPage<any> = ({ og, slides }) => {
 export const getServerSideProps: GetServerSideProps = async () => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const record = await pb.collection('pages').getOne('7y4tkpyyemu5m08');
-  const slideRes = await axios.get(
-    `${process.env.NEXT_PUBLIC_PB_URL}/api/collections/hero_banner/records?page=1&perPage=3&sort=+sequence&filter=status%20%3D%20true`
-  );
-  const slides = await slideRes.data.items;
+  const slideRes = await pb.collection('hero_banner').getList(1, 50, {
+    filter: 'status = true',
+  });
+  const slides = await slideRes.items;
   return {
     props: {
       og: JSON.parse(JSON.stringify(record)),
-      slides,
+      slides: JSON.parse(JSON.stringify(slides)),
     },
   };
 };
