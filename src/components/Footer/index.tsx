@@ -196,6 +196,7 @@ export default function Footer({ showBanner = true }: IFooterProps) {
 
           <div className="col-span-2">
             <h4 className="font-bold">Contact</h4>
+
             {contacts.map((contact) => (
               <div className="mt-4" key={`contact-${contact.id}`}>
                 <strong>{contact.title}</strong>
@@ -221,7 +222,6 @@ export default function Footer({ showBanner = true }: IFooterProps) {
                 <br />
               </div>
             ))}
-            Denis nih Bos
           </div>
         </div>
 
