@@ -59,6 +59,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const record = await pb.collection('pages').getOne('7y4tkpyyemu5m08');
   const slideRes = await pb.collection('hero_banner').getList(1, 50, {
     filter: 'status = true',
+    sort: '+sequence',
   });
   const slides = await slideRes.items;
   return {
