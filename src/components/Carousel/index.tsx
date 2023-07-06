@@ -27,7 +27,15 @@ const Carousel = ({ data }: ICarouselProps) => {
                 >
                   {' '}
                 </a>
-                <Image
+                <img
+                  src={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item?.banner}`}
+                  alt=""
+                  width={1440}
+                  height={720}
+                  loading="eager"
+                  style={{ width: '100%', height: 'auto' }}
+                />
+                {/* <Image
                   src={withCdn({
                     w: 1440,
                     h: 720,
@@ -39,7 +47,7 @@ const Carousel = ({ data }: ICarouselProps) => {
                   height={720}
                   loading="eager"
                   style={{ width: '100%', height: 'auto' }}
-                />
+                /> */}
               </div>
             ))}
         </ReactCarousel>
