@@ -21,11 +21,14 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^37.0.1",
+    "@ckeditor/ckeditor5-react": "^5.1.0",
     "@react-icons/all-files": "^4.1.0",
     "@vercel/analytics": "^0.1.10",
     "axios": "^1.2.2",
     "fslightbox-react": "^1.6.2-2",
     "next": "^13.0.4",
+    "next-auth": "^4.21.1",
     "next-seo": "^5.14.1",
     "next-sitemap": "^3.1.32",
     "pocketbase": "^0.9.1",

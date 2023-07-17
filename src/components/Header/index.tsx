@@ -120,7 +120,7 @@ const Header = () => {
         .getOne((userData as any).id as string);
       setUserData(record);
     };
-    if (userData?.id) {
+    if (userData.phone) {
       fetchUser();
     }
   }, [router, router.asPath]);
@@ -131,7 +131,10 @@ const Header = () => {
 
   return (
     <>
-      <header style={{ position: 'static', zIndex: 9999 }}>
+      <header
+        className="main-header"
+        style={{ position: 'static', zIndex: 9999 }}
+      >
         <div
           className="top-0 bg-white"
           style={{ position: 'fixed', top: 0, width: '100%', zIndex: 9999 }}
@@ -429,7 +432,7 @@ const Header = () => {
 
       {/* NAV */}
       <div
-        className="m-nav hidden items-center bg-blue-400 uppercase md:block"
+        className="main-header m-nav hidden items-center bg-blue-400 uppercase md:block"
         style={{ height: 50, position: 'sticky', top: 59, zIndex: 99999 }}
       >
         <div className="container mx-auto hidden max-w-6xl items-center md:block">
