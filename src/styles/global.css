@@ -207,9 +207,13 @@ button.close {
 }
 
 .ck-editor__editable {
-    min-height: 500px;
+    min-height: 300px;
 }
 
 .ck-editor__editable ul {
   padding-left: 25px;
+}
+
+label {
+  font-weight: bold;
 }

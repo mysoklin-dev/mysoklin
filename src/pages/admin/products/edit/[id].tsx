@@ -88,17 +88,45 @@ const ItemEdit = () => {
 
               <div className="mb-3">
                 {typeof window !== 'undefined' && (
-                  <Editor
-                    name="description"
-                    onChange={(data: any) => {
-                      // eslint-disable-next-line no-console
-                      console.log(data);
-                    }}
-                    editorLoaded={editorLoaded}
-                    value={
-                      record.description ? record.description : record.content
-                    }
-                  />
+                  <>
+                    <Editor
+                      name="description"
+                      onChange={(data: any) => {
+                        // eslint-disable-next-line no-console
+                        console.log(data);
+                      }}
+                      editorLoaded={editorLoaded}
+                      value={
+                        record.description ? record.description : record.content
+                      }
+                    />
+
+                    <div className="my-6">
+                      <label>Feature</label>
+                      <Editor
+                        name="feature"
+                        onChange={(data: any) => {
+                          // eslint-disable-next-line no-console
+                          console.log(data);
+                        }}
+                        editorLoaded={editorLoaded}
+                        value={record.feature}
+                      />
+                    </div>
+
+                    <div className="my-6">
+                      <label>Specification</label>
+                      <Editor
+                        name="specification"
+                        onChange={(data: any) => {
+                          // eslint-disable-next-line no-console
+                          console.log(data);
+                        }}
+                        editorLoaded={editorLoaded}
+                        value={record.specification}
+                      />
+                    </div>
+                  </>
                 )}
               </div>
             </div>
@@ -138,12 +166,114 @@ const ItemEdit = () => {
                   />
                 </div>
               </div>
+
+              {/* SEO */}
+              <div className="mt-6">
+                <label>OG Title</label>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    name="title"
+                    defaultValue={record.og_title}
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+
+              {/* SEO */}
+              <div className="mt-6">
+                <label>OG Description</label>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    name="title"
+                    defaultValue={record.og_description}
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+
+              {/* tokped */}
+              <div className="mt-6">
+                <label>Tokopedia</label>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    name="tokopedia"
+                    defaultValue={record.tokopedia}
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+
+              {/* Shopee */}
+              <div className="mt-6">
+                <label>Shopee</label>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    name="shopee"
+                    defaultValue={record.shopee}
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+
+              {/* Shopee */}
+              <div className="mt-6">
+                <label>Blibli</label>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    name="blibli"
+                    defaultValue={record.blibli}
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+
+              {/* JD.iD */}
+              <div className="mt-6">
+                <label>JD.ID</label>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    name="jdid"
+                    defaultValue={record.jdid}
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+
+              {/* JD.iD */}
+              <div className="mt-6">
+                <label>Lazada</label>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    name="lazada"
+                    defaultValue={record.lazada}
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
+
+              {/* JD.iD */}
+              <div className="mt-6">
+                <label>Astro</label>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    name="astro"
+                    defaultValue={record.astro}
+                    className={inputStyle}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </form>
       )}
-
-      <pre>{JSON.stringify(record, null, 2)}</pre>
     </>
   );
 };
