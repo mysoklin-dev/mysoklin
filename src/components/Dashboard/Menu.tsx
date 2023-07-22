@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { removeCookie } from 'typescript-cookie';
 
 import usePocketBaseAuth from '@/hooks/usePocketBaseAuth';
 
@@ -85,7 +86,12 @@ const DashboardMenu = () => {
 
               <li>
                 <Link
-                  href="/admin/logout"
+                  href="/"
+                  onClick={() => {
+                    removeCookie('token');
+                    removeCookie('admin');
+                    localStorage.removeItem('pocketbase_auth');
+                  }}
                   className="block py-2 px-6 text-black hover:bg-sky-600 hover:text-white"
                 >
                   Logout
@@ -94,7 +100,12 @@ const DashboardMenu = () => {
             </>
           ) : (
             <li>
-              <Link href="/admin/login">Login</Link>
+              <Link
+                href="/admin/login"
+                className='hover:text-white" block py-2 px-6 text-black hover:bg-sky-600'
+              >
+                Login
+              </Link>
             </li>
           )}
         </ul>

@@ -24,6 +24,7 @@
     "@ckeditor/ckeditor5-build-classic": "^37.0.1",
     "@ckeditor/ckeditor5-react": "^5.1.0",
     "@react-icons/all-files": "^4.1.0",
+    "@tanstack/react-query": "^4.32.0",
     "@vercel/analytics": "^0.1.10",
     "axios": "^1.2.2",
     "fslightbox-react": "^1.6.2-2",
@@ -41,7 +42,9 @@
     "react-responsive-carousel": "^3.2.23",
     "react-share": "^4.4.1",
     "react-star-ratings": "^2.3.0",
-    "swr": "^2.0.0"
+    "swr": "^2.0.0",
+    "typescript-cookie": "^1.0.6",
+    "use-dehydrated-state": "^0.1.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.2.0",

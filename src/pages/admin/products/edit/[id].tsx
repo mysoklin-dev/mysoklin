@@ -10,10 +10,13 @@ const Editor = dynamic(() => import('@/components/Admin/Editor'), {
 
 const ItemEdit = () => {
   const router = useRouter();
-  const { slug, id } = router.query;
+  const slug = 'products';
+  const { id } = router.query;
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const [record, setRecord] = useState<any>(null);
   const [editorLoaded, setEditorLoaded] = useState(false);
+  const [brands, setBrands] = useState<any[] | null>(null);
+
   useEffect(() => {
     setEditorLoaded(true);
   }, []);
@@ -31,10 +34,15 @@ const ItemEdit = () => {
       }
     };
 
-    if (router && router.query && router.query.slug) {
+    if (id) {
       getDetail();
+      pb.collection('product_brands')
+        .getFullList(200 /* batch size */, {
+          sort: '-created',
+        })
+        .then((res) => setBrands(res));
     }
-  }, [id, slug]);
+  }, [id]);
 
   if (record === null) {
     return 'Loading...';
@@ -55,7 +63,7 @@ const ItemEdit = () => {
       </h2>
 
       {record && (
-        <div className="flex">
+        <div className="flex gap-3">
           <div className="w-8/12">
             {/* Title */}
             <div className="mb-3">
@@ -79,6 +87,7 @@ const ItemEdit = () => {
                 <Editor
                   name="description"
                   onChange={(data: any) => {
+                    // eslint-disable-next-line no-console
                     console.log(data);
                   }}
                   editorLoaded={editorLoaded}
@@ -89,7 +98,20 @@ const ItemEdit = () => {
               )}
             </div>
           </div>
-          <div className="w-4/12"></div>
+          <div className="w-4/12">
+            <label htmlFor="brandId">Product Brand</label>
+            <select
+              id="brandId"
+              className="my-2 block w-full rounded-md border border-gray-300 bg-gray-100 px-3 py-2"
+              value={record.product_brand_id}
+            >
+              {brands?.map((item: any) => (
+                <option key={`brand_id-${item.id}`} value={item.id}>
+                  {item.title}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       )}
 

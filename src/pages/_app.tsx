@@ -32,6 +32,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
       <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#a8a8a8" />
       <meta name="msapplication-TileColor" content="#ffffff" />
       <meta name="theme-color" content="#ffffff" />
+      <title>My Soklin</title>
     </Head>
     <SWRConfig
       value={{

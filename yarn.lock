@@ -1702,6 +1702,19 @@
   dependencies:
     tslib "^2.4.0"
 
+"@tanstack/query-core@4.32.0":
+  version "4.32.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.32.0.tgz#e0f4a830283612430450c13badd353766423f523"
+  integrity sha512-ei4IYwL2kmlKSlCw9WgvV7PpXi0MiswVwfQRxawhJA690zWO3dU49igaQ/UMTl+Jy9jj9dK5IKAYvbX7kUvviQ==
+
+"@tanstack/react-query@^4.32.0":
+  version "4.32.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-4.32.0.tgz#701b45b149cfd4b54a68705f9100973db3ba5d5d"
+  integrity sha512-B8WUMcByYAH9500ENejDCATOmEZhqjtS9wsfiQ3BNa+s+yAynY8SESI8WWHhSqUmjd0pmCSFRP6BOUGSda3QXA==
+  dependencies:
+    "@tanstack/query-core" "4.32.0"
+    use-sync-external-store "^1.2.0"
+
 "@testing-library/cypress@^8.0.7":
   version "8.0.7"
   resolved "https://registry.yarnpkg.com/@testing-library/cypress/-/cypress-8.0.7.tgz#18315eba3cf8852808afadf122e4858406384015"
@@ -9504,6 +9517,11 @@ type-fest@^1.0.2:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-1.4.0.tgz#e9fb813fe3bf1744ec359d55d1affefa76f14be1"
   integrity sha512-yGSza74xk0UG8k+pLh5oeoYirvIiWo5t0/o3zHHAO2tRDiZcxWP7fywNlXhqb6/r6sWvwi+RsyQMWhVLe4BVuA==
 
+typescript-cookie@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/typescript-cookie/-/typescript-cookie-1.0.6.tgz#009b0665706b2cc856f796e76cf408a16ef011c5"
+  integrity sha512-s+BZr7/9BUG6Kg7jGGcOY/4XJcP+iZRFdF3q4FPTfRSP83ivLWF94OcH8PrzGmnS8Ab9qP7ENu/ikLwNFsIafA==
+
 typescript@^4.6.4, typescript@^4.9.3:
   version "4.9.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.3.tgz#3aea307c1746b8c384435d8ac36b8a2e580d85db"
@@ -9600,6 +9618,13 @@ url-parse@^1.5.3:
   dependencies:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
+
+use-dehydrated-state@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/use-dehydrated-state/-/use-dehydrated-state-0.1.0.tgz#a85027b0b1f38ed7e76c21a98b4fe06725d44d8f"
+  integrity sha512-E2E1Mx9UeHiK1fxabnUULJEc7BNMmdsMy7hBGiDxDvxgP5/QIYJawQ2g2ZQvqvoXIkyzJA7wWG07hBWa5yuM9Q==
+  dependencies:
+    deepmerge "^4.2.2"
 
 use-sync-external-store@^1.2.0:
   version "1.2.0"

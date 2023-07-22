@@ -151,7 +151,7 @@ const Profile = () => {
       userData.email === '' ||
       userData.address === '' ||
       userData.city === '' ||
-      userData.phone === '' ||
+      userData?.phone === '' ||
       userData.post_code === '' ||
       userData.province === '' ||
       userData.referrer.length === 0

@@ -120,7 +120,7 @@ const Header = () => {
         .getOne((userData as any).id as string);
       setUserData(record);
     };
-    if (userData.phone) {
+    if (userData?.phone) {
       fetchUser();
     }
   }, [router, router.asPath]);
@@ -225,9 +225,9 @@ const Header = () => {
                       <span>
                         <img
                           src={
-                            userData.avatar !== ''
+                            userData.avatar !== 0
                               ? `${process.env.NEXT_PUBLIC_API_URL}/files/${userData.collectionId}/${userData.id}/${userData.avatar}?thumb=80x80`
-                              : userData.avatarUrl
+                              : `https://mysoklin-dashboard.efectifity.com/_/images/avatars/avatar0.svg`
                           }
                           alt=""
                           referrerPolicy="no-referrer"

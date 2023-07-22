@@ -1,14 +1,13 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
 import { useState } from 'react';
+import { setCookie } from 'typescript-cookie';
 
 import Container from '@/components/Container';
 
 const Register: NextPage<any> = () => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
-  const router = useRouter();
   // States
   const [isSent, setIsSent] = useState<boolean>(false);
 
@@ -32,11 +31,15 @@ const Register: NextPage<any> = () => {
       setIsSent(true);
       // eslint-disable-next-line no-console
       console.log(record);
+      if (record) {
+        setCookie('token', record.token);
+        setCookie('admin', JSON.stringify(record.admin));
+      }
       setForm(() => ({
         email: '',
         password: '',
       }));
-      router.push('/admin/');
+      window.location.href = '/admin';
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error);
