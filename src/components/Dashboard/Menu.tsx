@@ -29,7 +29,17 @@ const DashboardMenu = () => {
     },
     {
       title: 'Brands',
-      slug: '/brands',
+      slug: '/product_brands',
+      children: [
+        {
+          title: 'items',
+          slug: '/items',
+        },
+        {
+          title: 'Add New',
+          slug: '/add-new',
+        },
+      ],
     },
     {
       title: 'Categories',

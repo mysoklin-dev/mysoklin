@@ -60,11 +60,15 @@ const ItemList = ({ slug }: ItemListProps) => {
   return (
     <>
       <Head>
-        <title>{slug || ''} items | MySoklin Dashboard</title>
+        <title>
+          {slug?.replaceAll('_', ' ') || ''} items | MySoklin Dashboard
+        </title>
       </Head>
 
       <div className="pb-10">
-        <h2 className="text-bold mb-10 text-lg capitalize">{slug || ''}</h2>
+        <h2 className="text-bold mb-10 text-lg capitalize">
+          {slug?.replaceAll('_', ' ') || ''}
+        </h2>
 
         <div className="mb-10 flex gap-4">
           <input
