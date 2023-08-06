@@ -44,7 +44,10 @@ const Main = (props: IMainLayout) => {
       {isDashboard && (
         <div className="flex min-h-screen w-full gap-4">
           {admin && (
-            <div className="w-2/12 bg-gray-200">
+            <div
+              className="w-2/12"
+              style={{ backgroundColor: '#071789', color: 'white' }}
+            >
               <DashboardMenu />
             </div>
           )}

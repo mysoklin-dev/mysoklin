@@ -36,7 +36,6 @@ export default function Editor({
           editor={ClassicEditor}
           data={value}
           onChange={(event: any, editor: any) => {
-            console.log(event);
             const data = editor.getData();
             onChange(data);
           }}

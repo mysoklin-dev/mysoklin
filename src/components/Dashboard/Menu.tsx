@@ -22,14 +22,18 @@ const DashboardMenu = () => {
           slug: '/items',
         },
         {
-          title: 'Brands',
-          slug: '/brands',
-        },
-        {
-          title: 'Categories',
-          slug: '/categories',
+          title: 'Add New',
+          slug: '/add-new',
         },
       ],
+    },
+    {
+      title: 'Brands',
+      slug: '/brands',
+    },
+    {
+      title: 'Categories',
+      slug: '/categories',
     },
     {
       title: 'Articles',
@@ -59,7 +63,7 @@ const DashboardMenu = () => {
                       router.asPath &&
                       router.asPath.replace('/admin', '').includes(item.slug)
                         ? 'bg-sky-600 text-white'
-                        : 'text-black'
+                        : 'text-white'
                     }`}
                     href={`${baseUrl}${item.slug}`}
                     style={{ fontSize: 14 }}
@@ -72,7 +76,7 @@ const DashboardMenu = () => {
                       item.children.map((child: any) => (
                         <li key={`child-${child.title}`}>
                           <Link
-                            className="block py-1 text-black hover:text-sky-600"
+                            className="block py-1 text-white hover:text-sky-600"
                             href={`${baseUrl}${item.slug}${child.slug}`}
                             style={{ fontSize: 13 }}
                           >
@@ -92,7 +96,7 @@ const DashboardMenu = () => {
                     removeCookie('admin');
                     localStorage.removeItem('pocketbase_auth');
                   }}
-                  className="block py-2 px-6 text-black hover:bg-sky-600 hover:text-white"
+                  className="block py-2 px-6 text-white hover:bg-sky-600 hover:text-white"
                 >
                   Logout
                 </Link>
