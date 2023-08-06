@@ -270,7 +270,7 @@ const ItemEdit = () => {
               
               {/* Sequence */}
               <div className="mt-6">
-                <label>OG Description</label>
+                <label>Sequence</label>
                 <div className="mt-2">
                   <input
                     type="text"

@@ -43,7 +43,17 @@ const DashboardMenu = () => {
     },
     {
       title: 'Categories',
-      slug: '/categories',
+      slug: '/product_categories',
+      children: [
+        {
+          title: 'items',
+          slug: '/items',
+        },
+        {
+          title: 'Add New',
+          slug: '/add-new',
+        },
+      ],
     },
     {
       title: 'Articles',
