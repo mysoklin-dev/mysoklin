@@ -5,7 +5,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
 import { useEffect, useState } from 'react';
-import Switch from 'react-switch';
+import Switch from 'react-switch'
 
 import Button from '@/components/Button';
 
@@ -18,7 +18,7 @@ const ItemEdit = () => {
   const slug = 'product_brands';
   const { id } = router.query;
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
-  const [record, setRecord] = useState<any>(null);
+  const [record, setRecord] = useState<any>({});
   const [editorLoaded, setEditorLoaded] = useState(false);
   const [brands, setBrands] = useState<any[] | null>(null);
 
@@ -41,7 +41,7 @@ const ItemEdit = () => {
 
     if (id) {
       getDetail();
-      pb.collection('product_brands')
+      pb.collection('product_categories')
         .getFullList(200 /* batch size */, {
           sort: '-created',
         })
@@ -54,7 +54,7 @@ const ItemEdit = () => {
     console.log('hit save');
     try { 
       if (typeof id !== 'undefined') {
-        const res = await pb.collection('products').update(id.toString(), record);
+        const res = await pb.collection('product_brands').update(id.toString(), record);
         console.log(res);
       }
     } catch {
@@ -78,7 +78,7 @@ const ItemEdit = () => {
         `}</style>
       </Head>
       <h2 className="text-bold mb-10 text-xl capitalize">
-        Edit {record.collectionName.replaceAll('_', ' ')}
+        Edit {record?.collectionName?.replaceAll('_', ' ')}
       </h2>
 
       {record && (
@@ -151,11 +151,17 @@ const ItemEdit = () => {
               </div>
 
               {/* Brands */}
-              <label htmlFor="brandId">Product Brand</label>
+              <label htmlFor="brandId">Product Category</label>
               <select
                 id="brandId"
                 className="my-2 block w-full rounded-md border border-gray-300 bg-gray-100 px-3 py-2"
-                defaultValue={record.product_brand_id}
+                value={record.product_category_id}
+                onChange={(e) => {
+                  setRecord(() => ({
+                    ...record,
+                    product_category_id: e.target.value
+                  }))
+                }}
               >
                 {brands?.map((item: any) => (
                   <option key={`brand_id-${item.id}`} value={item.id}>
@@ -163,6 +169,31 @@ const ItemEdit = () => {
                   </option>
                 ))}
               </select>
+
+              <div className="mt-6">
+                 <label htmlFor="bannerHeaderType">Product Category</label>
+                 <select
+                    id="bannerHeaderType"
+                    className="my-2 block w-full rounded-md border border-gray-300 bg-gray-100 px-3 py-2"
+                    value={record.banner_header_type}
+                    onChange={(e) => {
+                      setRecord(() => ({
+                        ...record,
+                        banner_header_type: e.target.value
+                      }))
+                    }}
+                  >
+                    <option value="color">
+                      Color
+                    </option>
+                    <option value="image">
+                      Image
+                    </option>
+                    <option value="video">
+                      Vide
+                    </option>
+                  </select>
+              </div>
 
               {/* Status */}
               <div className="mt-6">
@@ -175,7 +206,7 @@ const ItemEdit = () => {
                         status: !record.status,
                       });
                     }}
-                    checked={record.status}
+                    checked={record.status ? record.status : false}
                   />
                 </div>
               </div>
@@ -212,6 +243,25 @@ const ItemEdit = () => {
                       setRecord(() => ({
                         ...record,
                         og_description: e.target.value,
+                      }));
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* color */}
+              <div className="mt-6">
+                <label>Header Color</label>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    name="title"
+                    className={inputStyle}
+                    defaultValue={record.header_color}
+                    onChange={(e) => {
+                      setRecord(() => ({
+                        ...record,
+                        header_color: e.target.value,
                       }));
                     }}
                   />

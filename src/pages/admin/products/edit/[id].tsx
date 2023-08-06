@@ -189,7 +189,13 @@ const ItemEdit = () => {
               <select
                 id="brandId"
                 className="my-2 block w-full rounded-md border border-gray-300 bg-gray-100 px-3 py-2"
-                defaultValue={record.product_brand_id}
+                value={record.product_brand_id}
+                onChange={(e) => {
+                  setRecord(() => ({
+                    ...record,
+                    product_brand_id: e.target.value
+                  }))
+                }}
               >
                 {brands?.map((item: any) => (
                   <option key={`brand_id-${item.id}`} value={item.id}>

@@ -1,3 +1,5 @@
+/* eslint-disable no-alert */
+/* eslint-disable prettier/prettier */
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -13,11 +15,10 @@ const Editor = dynamic(() => import('@/components/Admin/Editor'), {
 
 const ItemEdit = () => {
   const router = useRouter();
+  const slug = 'product_brands';
+  const { id } = router.query;
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
-  const [record, setRecord] = useState<any>({
-    description: '',
-    feature: '',
-  });
+  const [record, setRecord] = useState<any>({});
   const [editorLoaded, setEditorLoaded] = useState(false);
   const [brands, setBrands] = useState<any[] | null>(null);
   const [domLoaded, setDomLoaded] = useState(false);
@@ -33,37 +34,39 @@ const ItemEdit = () => {
     'block w-full rounded-md border border-gray-300 bg-gray-100 px-3 py-2';
 
   useEffect(() => {
-    pb.collection('product_brands')
-      .getFullList(200 /* batch size */, {
-        sort: '-created',
-      })
-      .then((res) => setBrands(res));
-  }, []);
+      pb.collection('product_categories')
+        .getFullList(200 /* batch size */, {
+          sort: '-created',
+        })
+        .then((res) => setBrands(res));
+  }, [id]);
 
   // Save
   const postSave = async () => {
     console.log('hit save');
-    try {
-      const res = await pb.collection('products').create(record);
-      if (res) {
-        router.push('/admin/products/items');
-      }
+    try { 
+        const res = await pb.collection('product_brands').create(record);
+        console.log(res);
+        router.push(`/admin/${slug}`)
     } catch {
-      // test
+      alert('an error occured')
     }
+   
   };
 
   return (
     <>
       <Head>
-        <title>Add New Product</title>
+        <title>Edit</title>
         <style>{`
           .main-header {
             display: none!important;
           }
         `}</style>
       </Head>
-      <h2 className="text-bold mb-10 text-xl capitalize">Add New Product</h2>
+      <h2 className="text-bold mb-10 text-xl capitalize">
+        Add New Brand
+      </h2>
 
       {domLoaded && (
         <form>
@@ -115,42 +118,8 @@ const ItemEdit = () => {
                         console.log(data);
                       }}
                       editorLoaded={editorLoaded}
-                      value={record.description ?? ''}
+                      value={record?.description ?? ""}
                     />
-
-                    <div className="my-6">
-                      <label>Feature</label>
-                      <Editor
-                        name="feature"
-                        onChange={(data: any) => {
-                          setRecord(() => ({
-                            ...record,
-                            feature: data,
-                          }));
-                          // eslint-disable-next-line no-console
-                          console.log(data);
-                        }}
-                        editorLoaded={editorLoaded}
-                        value={record.feature ?? ''}
-                      />
-                    </div>
-
-                    <div className="my-6">
-                      <label>Specification</label>
-                      <Editor
-                        name="specification"
-                        onChange={(data: any) => {
-                          setRecord(() => ({
-                            ...record,
-                            specification: data,
-                          }));
-                          // eslint-disable-next-line no-console
-                          console.log(data);
-                        }}
-                        editorLoaded={editorLoaded}
-                        value={record.specification ?? ''}
-                      />
-                    </div>
                   </>
                 )}
               </div>
@@ -163,15 +132,15 @@ const ItemEdit = () => {
               </div>
 
               {/* Brands */}
-              <label htmlFor="brandId">Product Brand</label>
+              <label htmlFor="brandId">Product Category</label>
               <select
                 id="brandId"
                 className="my-2 block w-full rounded-md border border-gray-300 bg-gray-100 px-3 py-2"
                 onChange={(e) => {
                   setRecord(() => ({
                     ...record,
-                    product_brand_id: e.target.value,
-                  }));
+                    product_category_id: e.target.value
+                  }))
                 }}
               >
                 {brands?.map((item: any) => (
@@ -192,7 +161,7 @@ const ItemEdit = () => {
                         status: !record.status,
                       });
                     }}
-                    checked={record.status ?? false}
+                    checked={record.status && record ? record.status : false}
                   />
                 </div>
               </div>
@@ -204,7 +173,6 @@ const ItemEdit = () => {
                   <input
                     type="text"
                     name="title"
-                    defaultValue={record.og_title}
                     className={inputStyle}
                     onChange={(e) => {
                       setRecord(() => ({
@@ -223,7 +191,6 @@ const ItemEdit = () => {
                   <input
                     type="text"
                     name="title"
-                    defaultValue={record.og_description}
                     className={inputStyle}
                     onChange={(e) => {
                       setRecord(() => ({
@@ -235,114 +202,36 @@ const ItemEdit = () => {
                 </div>
               </div>
 
-              {/* tokped */}
+              {/* color */}
               <div className="mt-6">
-                <label>Tokopedia</label>
+                <label>Header Color</label>
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="tokopedia"
-                    defaultValue={record.tokopedia}
+                    name="title"
                     className={inputStyle}
                     onChange={(e) => {
                       setRecord(() => ({
                         ...record,
-                        tokopedia: e.target.value,
+                        header_color: e.target.value,
                       }));
                     }}
                   />
                 </div>
               </div>
-
-              {/* Shopee */}
+              
+              {/* Sequence */}
               <div className="mt-6">
-                <label>Shopee</label>
+                <label>OG Description</label>
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="shopee"
-                    defaultValue={record.shopee}
+                    name="title"
                     className={inputStyle}
                     onChange={(e) => {
                       setRecord(() => ({
                         ...record,
-                        shopee: e.target.value,
-                      }));
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* Shopee */}
-              <div className="mt-6">
-                <label>Blibli</label>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="blibli"
-                    defaultValue={record.blibli}
-                    className={inputStyle}
-                    onChange={(e) => {
-                      setRecord(() => ({
-                        ...record,
-                        blibli: e.target.value,
-                      }));
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* JD.iD */}
-              <div className="mt-6">
-                <label>JD.ID</label>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="jdid"
-                    defaultValue={record.jdid}
-                    className={inputStyle}
-                    onChange={(e) => {
-                      setRecord(() => ({
-                        ...record,
-                        jdid: e.target.value,
-                      }));
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* JD.iD */}
-              <div className="mt-6">
-                <label>Lazada</label>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="lazada"
-                    defaultValue={record.lazada}
-                    className={inputStyle}
-                    onChange={(e) => {
-                      setRecord(() => ({
-                        ...record,
-                        lazada: e.target.value,
-                      }));
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* JD.iD */}
-              <div className="mt-6">
-                <label>Astro</label>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="astro"
-                    defaultValue={record.astro}
-                    className={inputStyle}
-                    onChange={(e) => {
-                      setRecord(() => ({
-                        ...record,
-                        astro: e.target.value,
+                        sequence: e.target.value,
                       }));
                     }}
                   />
