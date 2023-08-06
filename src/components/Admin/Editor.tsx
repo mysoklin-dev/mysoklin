@@ -1,9 +1,9 @@
-/* eslint-disable no-console */
 /* eslint-disable global-require */
-// eslint-disable-next-line global-require
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import React, { useEffect, useRef } from 'react';
+
+import ArticleCard from '@/components/ArticleCard';
 
 interface CKeditorProps {
   onChange: (data: string) => void;
@@ -55,7 +55,7 @@ export default function Editor({
           }}
         />
       ) : (
-        <div>Editor loading</div>
+        <ArticleCard link="asdf" thumbnail="asdfs" text="asdfsd" title="" />
       )}
     </>
   );

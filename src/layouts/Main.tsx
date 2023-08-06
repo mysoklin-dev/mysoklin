@@ -6,6 +6,7 @@ import { Suspense, useEffect, useState } from 'react';
 import DashboardMenu from '@/components/Dashboard/Menu';
 import type { IFooterProps } from '@/components/Footer';
 import Header from '@/components/Header';
+import usePocketBaseAuth from '@/hooks/usePocketBaseAuth';
 // const Header = dynamic(() => import('@/components/Header'), {
 //   ssr: false,
 // });
@@ -20,6 +21,7 @@ type IMainLayout = {
 };
 
 const Main = (props: IMainLayout) => {
+  const [admin]: any = usePocketBaseAuth();
   const router = useRouter();
   const [isDashboard, setIsDashboard] = useState(false);
 
@@ -41,10 +43,13 @@ const Main = (props: IMainLayout) => {
 
       {isDashboard && (
         <div className="flex min-h-screen w-full gap-4">
-          <div className="w-2/12 bg-gray-200">
-            <DashboardMenu />
-          </div>
-          <div className="w-10/12">
+          {admin && (
+            <div className="w-2/12 bg-gray-200">
+              <DashboardMenu />
+            </div>
+          )}
+
+          <div className={admin ? 'w-10/12' : 'w-full'}>
             <div className="p-6">{props.children}</div>
           </div>
         </div>
