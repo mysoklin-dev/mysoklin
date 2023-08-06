@@ -13,52 +13,35 @@ import Button from '@/components/Button';
 const ItemEdit = () => {
   const router = useRouter();
   const slug = 'product_categories';
-  const { id } = router.query;
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const [record, setRecord] = useState<any>({});
+  const [domLoaded, setDomLoaded] = useState(false);
+
+  useEffect(() => {
+    setDomLoaded(true);
+  }, []);
 
 
   const inputStyle =
     'block w-full rounded-md border border-gray-300 bg-gray-100 px-3 py-2';
 
-  useEffect(() => {
-    const getDetail = async () => {
-      try {
-        const item = await pb.collection(slug as string).getOne(id as string);
-
-        setRecord(item);
-      } catch {
-        // ignore
-      }
-    };
-
-    if (id) {
-      getDetail();
-    }
-  }, [id]);
-
   // Save
   const postSave = async () => {
     console.log('hit save');
     try { 
-      if (typeof id !== 'undefined') {
-        const res = await pb.collection(slug).update(id.toString(), record);
+        const res = await pb.collection(slug).create(record);
         console.log(res);
-      }
+        router.push(`/admin/${slug}`)
     } catch {
       alert('an error occured')
     }
    
   };
 
-  if (record === null) {
-    return 'Loading...';
-  }
-
   return (
     <>
       <Head>
-        <title>Edit</title>
+        <title>Add New Product Category</title>
         <style>{`
           .main-header {
             display: none!important;
@@ -66,10 +49,10 @@ const ItemEdit = () => {
         `}</style>
       </Head>
       <h2 className="text-bold mb-10 text-xl capitalize">
-        Edit {record?.collectionName?.replaceAll('_', ' ')}
+        Add New Product Category
       </h2>
 
-      {record && (
+      {domLoaded && (
         <form>
           <div className="flex gap-3">
             <div className="w-8/12">
@@ -79,7 +62,6 @@ const ItemEdit = () => {
                   type="text"
                   name="title"
                   placeholder="Title"
-                  defaultValue={record.title}
                   value={record.title}
                   onChange={(e: any) => {
                     setRecord({
@@ -97,7 +79,6 @@ const ItemEdit = () => {
                 <input
                   type="text"
                   name="slug"
-                  defaultValue={record.slug}
                   value={record.slug}
                   onChange={(e: any) => {
                     setRecord({
@@ -143,7 +124,6 @@ const ItemEdit = () => {
                   <input
                     type="text"
                     name="sequence"
-                    defaultValue={record.sequence}
                     className={inputStyle}
                     onChange={(e) => {
                       setRecord(() => ({

@@ -57,7 +57,7 @@ const ItemEdit = () => {
   return (
     <>
       <Head>
-        <title>Edit</title>
+        <title>Add New Brand</title>
         <style>{`
           .main-header {
             display: none!important;
