@@ -47,6 +47,15 @@ const ItemEdit = () => {
     }
   }, [id]);
 
+  // Save
+  const postSave = async () => {
+    console.log('hit save');
+    if (typeof id !== 'undefined') {
+      const res = await pb.collection('products').update(id.toString(), record);
+      console.log(res);
+    }
+  };
+
   if (record === null) {
     return 'Loading...';
   }
@@ -74,12 +83,31 @@ const ItemEdit = () => {
                 <input
                   type="text"
                   name="title"
+                  placeholder="Title"
                   defaultValue={record.title}
                   value={record.title}
                   onChange={(e: any) => {
                     setRecord({
                       ...record,
                       title: e.target.value,
+                    });
+                  }}
+                  className={inputStyle}
+                />
+              </div>
+
+              {/* Slug */}
+              <label>Slug</label>
+              <div className="mb-10">
+                <input
+                  type="text"
+                  name="slug"
+                  defaultValue={record.slug}
+                  value={record.slug}
+                  onChange={(e: any) => {
+                    setRecord({
+                      ...record,
+                      slug: e.target.value,
                     });
                   }}
                   className={inputStyle}
@@ -132,7 +160,7 @@ const ItemEdit = () => {
             </div>
             <div className="w-4/12">
               <div className="mb-10">
-                <Button square variant="contained-blue">
+                <Button square variant="contained-blue" onClick={postSave}>
                   Save
                 </Button>
               </div>
