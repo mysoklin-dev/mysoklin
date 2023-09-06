@@ -47,7 +47,10 @@ const ProductDetail: NextPage<any> = ({ og }) => {
     const getBrand = async () => {
       try {
         const record = await pb.collection('product_brands').getList(1, 1, {
-          filter: `title ~ '${(slug as string)?.replaceAll('-', ' ')}' && status = true`,
+          filter: `title ~ '${(slug as string)?.replaceAll(
+            '-',
+            ' '
+          )}' && status = true`,
         });
         // console.log('fetc');
         setBrand(record.items[0]);
