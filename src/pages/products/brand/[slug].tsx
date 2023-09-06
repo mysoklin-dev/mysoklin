@@ -218,13 +218,11 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                   )}
                 </div>
               </div>
-
               <div className="mt-8">
                 <div className="flex items-center justify-between">
                   <div className="text-xl font-black text-blue-400">
                     {items && items.length > 0 && items.length} Products
                   </div>
-
                   <div className="font-black text-blue-400">
                     Sort by:
                     <select name="" id="">
