@@ -24,7 +24,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const { slug } = context.params as any; // no longer causes error
   const record = await pb
     .collection('products')
-    .getFirstListItem(`title ~ '${slug.replaceAll('-', ' ')}'`);
+    .getFirstListItem(`slug ~ '${slug}'`);
   return {
     props: { og: JSON.parse(JSON.stringify(record)) },
     revalidate: 60,
@@ -665,6 +665,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                     <div className="col-span-1 mb-10" key={`product-${i}`}>
                       <ProductCardCircle
                         id={item.id}
+                        slug={item.slug}
                         title={item.title}
                         img={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item.image}`}
                       />

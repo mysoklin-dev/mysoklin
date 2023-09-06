@@ -47,7 +47,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
     const getBrand = async () => {
       try {
         const record = await pb.collection('product_brands').getList(1, 1, {
-          filter: `title ~ '${(slug as string)?.replaceAll('-', ' ')}'`,
+          filter: `title ~ '${(slug as string)?.replaceAll('-', ' ')}' && status = true`,
         });
         // console.log('fetc');
         setBrand(record.items[0]);
@@ -67,7 +67,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
   const getProducts = async (catId: string) => {
     try {
       const resultList = await pb.collection('products').getList(1, 50, {
-        filter: `product_brand_id ~ '${catId}'`,
+        filter: `product_brand_id ~ '${catId}' && status = true`,
       });
       setProducts(resultList.items);
     } catch (error) {
@@ -246,6 +246,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
               <div className="col-span-1 mb-10" key={`product-${i}`}>
                 <ProductCardCircle
                   id={item.id}
+                  slug={item.slug}
                   title={item.title}
                   img={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item.image}`}
                 />

@@ -145,6 +145,7 @@ const Search: NextPage<any> = ({ og }) => {
               <div className="col-span-1 mb-10" key={`product-${i}`}>
                 <ProductCardCircle
                   id={item.id}
+                  slug={item.slug}
                   title={item.title}
                   img={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item.image}`}
                 />

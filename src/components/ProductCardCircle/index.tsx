@@ -6,13 +6,14 @@ type IProductCardCircleProps = {
   id?: string;
   img: string;
   title: string;
+  slug?: string;
 };
 
-const ProductCardCircle = ({ img, title }: IProductCardCircleProps) => {
+const ProductCardCircle = ({ img, title, slug }: IProductCardCircleProps) => {
   return (
     <div className="text-center">
       <Link
-        href={`/products/${title.replaceAll(' ', '-').toLocaleLowerCase()}`}
+        href={`/products/${slug}`}
       >
         <div className="thumb mb-10">
           <div className="radial"></div>
@@ -28,7 +29,7 @@ const ProductCardCircle = ({ img, title }: IProductCardCircleProps) => {
 
       <div className="text-xl font-bold text-blue-400">
         <Link
-          href={`/products/${title.replaceAll(' ', '-').toLocaleLowerCase()}`}
+          href={`/products/${slug}`}
         >
           <span className="text-blue-400">{title}</span>
         </Link>
