@@ -12,9 +12,7 @@ type IProductCardCircleProps = {
 const ProductCardCircle = ({ img, title, slug }: IProductCardCircleProps) => {
   return (
     <div className="text-center">
-      <Link
-        href={`/products/${slug}`}
-      >
+      <Link href={`/products/${slug}`}>
         <div className="thumb mb-10">
           <div className="radial"></div>
           <img
@@ -28,9 +26,7 @@ const ProductCardCircle = ({ img, title, slug }: IProductCardCircleProps) => {
       </Link>
 
       <div className="text-xl font-bold text-blue-400">
-        <Link
-          href={`/products/${slug}`}
-        >
+        <Link href={`/products/${slug}`}>
           <span className="text-blue-400">{title}</span>
         </Link>
       </div>
