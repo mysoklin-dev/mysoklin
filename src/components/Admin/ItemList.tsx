@@ -97,9 +97,24 @@ const ItemList = ({ slug }: ItemListProps) => {
               <table className="border-1 w-full table-fixed overflow-hidden rounded-md">
                 <thead className="bg-gray-800 text-white">
                   <tr>
+                    {(slug === 'hero_video' || slug === 'hero_banner') && (
+                      <th className="border px-4 py-3" style={{ width: 100 }}>
+                        Image
+                      </th>
+                    )}
+
                     <th className="border px-4 py-3">Title</th>
-                    <th className="border px-4 py-3">Slug</th>
+
+                    <th className="border px-4 py-3">
+                      {slug !== 'social_main' &&
+                        slug !== 'social_group' &&
+                        'Slug'}
+                      {slug === 'social_main' && 'URL'}
+                      {slug === 'social_group' && 'Product Brand ID'}
+                    </th>
+
                     <th className="border px-4 py-3">Date</th>
+
                     <th className="border px-4 py-3" style={{ width: 150 }}>
                       {slug !== 'articles' && 'Status'}
                       {slug === 'articles' && 'Type'}
@@ -110,20 +125,57 @@ const ItemList = ({ slug }: ItemListProps) => {
                 <tbody className="text-md">
                   {items.map((item: any) => (
                     <tr key={`${slug}-item-${item.id}`}>
+                      {(slug === 'hero_video' || slug === 'hero_banner') && (
+                        <td className="border px-4 py-2">
+                          {slug === 'hero_banner' && (
+                            <figure className="relative max-w-sm cursor-pointer">
+                              <img
+                                className="rounded-lg"
+                                src={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item.banner}?thumb=100x100`}
+                                alt={item.title}
+                              />
+                            </figure>
+                          )}
+
+                          {slug === 'hero_video' && (
+                            <figure className="relative max-w-sm cursor-pointer">
+                              <img
+                                className="rounded-lg"
+                                src={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item.video_cover}?thumb=100x100`}
+                                alt={item.title}
+                              />
+                            </figure>
+                          )}
+                        </td>
+                      )}
+
                       <td className="border px-4 py-2 ">
                         <div>
-                          <strong>{item.title}</strong>
+                          <strong>
+                            {item.title ??
+                              item.platform_name ??
+                              item.group_name}
+                          </strong>
                         </div>
                         <div className="mt-1 flex text-sm">
                           <div>
-                            <Link href={`/admin/${slug}/edit/${item.id}`}>
+                            <Link
+                              href={
+                                slug !== 'hero_banner' && slug !== 'hero_video'
+                                  ? `/admin/${slug}/edit/${item.id}`
+                                  : `/admin/general/${slug}/edit/${item.id}`
+                              }
+                            >
                               Edit
                             </Link>
                           </div>
                         </div>
                       </td>
-                      <td className="border px-4 py-2 italic">
-                        {item.slug || 'not created'}
+                      <td className="text-ellipsis break-words border px-4 py-2 italic">
+                        {item.slug ??
+                          item.platform_url ??
+                          item.product_brand_id ??
+                          'n/a'}
                       </td>
                       <td className="border px-4 py-2 ">
                         <div className="mb-1">

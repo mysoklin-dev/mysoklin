@@ -14,6 +14,28 @@ const DashboardMenu = () => {
       slug: '/overview',
     },
     {
+      title: 'General Settings (WIP)',
+      slug: '/general',
+      children: [
+        {
+          title: 'Main Carousel',
+          slug: '/carousel',
+        },
+        {
+          title: 'Video Carousel',
+          slug: '/video-carousel',
+        },
+        {
+          title: 'Social Media',
+          slug: '/social',
+        },
+        {
+          title: 'Social Group',
+          slug: '/social-group',
+        },
+      ],
+    },
+    {
       title: 'Products',
       slug: '/products',
       children: [
