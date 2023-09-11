@@ -187,7 +187,7 @@ const ItemEdit = () => {
                       onChange={(data: any) => {
                         setRecord(() => ({
                           ...record,
-                          description: data,
+                          content: data,
                         }));
                         // eslint-disable-next-line no-console
                         console.log(data);
