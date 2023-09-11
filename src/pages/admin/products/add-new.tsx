@@ -25,6 +25,7 @@ const ItemEdit = () => {
   const [brands, setBrands] = useState<any[] | null>(null);
   const [domLoaded, setDomLoaded] = useState(false);
   const [imgPreview, setImgPreview] = useState<any>(null);
+  const [gallery, setGallery] = useState<any[]>([]);
 
   useEffect(() => {
     setDomLoaded(true);
@@ -52,10 +53,24 @@ const ItemEdit = () => {
     setImgPreview(file);
   };
 
+  // Handle Gallery
+  const handleGallery = () => {
+    const fileInput: any = document.getElementById('gallery');
+    const { files } = fileInput;
+    const gallFiles = Array.from(files).map((item: any) => {
+      const imgObj = {
+        fileName: item.name,
+        imgUrl: window.URL.createObjectURL(item),
+      };
+      return imgObj;
+    });
+    setGallery(gallFiles);
+  };
+
   // Save Post
   const postSave = async () => {
     console.log('hit save');
-
+    // Create Form Data from JSON
     const formData = getFormData(record);
 
     const fileInput: any = document.getElementById('file');
@@ -63,6 +78,16 @@ const ItemEdit = () => {
       formData.append('image', fileInput.files[0]);
     }
 
+    // Gallery
+    const galleryInput: any = document.getElementById('gallery');
+    if (galleryInput !== null) {
+      // eslint-disable-next-line no-restricted-syntax
+      for (const file of galleryInput.files) {
+        formData.append('gallery', file);
+      }
+    }
+
+    // HIT API
     try {
       const res = await pb.collection('products').create(formData);
       if (res) {
@@ -124,6 +149,7 @@ const ItemEdit = () => {
               <div className="mb-3">
                 {typeof window !== 'undefined' && (
                   <>
+                    <label>Description</label>
                     <Editor
                       name="description"
                       onChange={(data: any) => {
@@ -171,75 +197,108 @@ const ItemEdit = () => {
             </div>
             <div className="w-4/12">
               {/* Publish Box */}
-              <div className="mb-10">
-                <Card className="rounded-md">
-                  <div className="p-3">
-                    <strong>Publish</strong>
-                  </div>
-                  <hr />
-                  <div className="grid grid-cols-1 gap-3 p-3">
-                    <div className="flex items-center gap-3">
-                      {/* Status */}
-                      <label>Status</label>
-                      <Switch
-                        onChange={() => {
-                          setRecord({
-                            ...record,
-                            status: !record.status,
-                          });
-                        }}
-                        checked={record.status}
-                      />
-                    </div>
-
-                    <hr />
-
-                    <div>
-                      <Button
-                        square
-                        variant="contained-blue"
-                        onClick={postSave}
-                      >
-                        Save
-                      </Button>
-                    </div>
-                  </div>
-                </Card>
-              </div>
-
-              <div className="mb-10">
-                <Card className="rounded-md">
-                  <div className="p-3">
-                    <strong>Image</strong>
-                  </div>
-                  <hr />
-                  <div className="overflow-hidden text-ellipsis p-3 text-center">
-                    {imgPreview && <ImagePreview file={imgPreview} />}
-
-                    <div>
-                      <label
-                        htmlFor="file"
-                        className="labelnomargin"
-                        style={{ margin: '0!important' }}
-                      >
-                        <Button variant="outlined">
-                          {imgPreview ? 'Replace image' : 'Upload'}
-                        </Button>
-                      </label>
-                    </div>
-
-                    <input
-                      type="file"
-                      id="file"
-                      // value={form.attachment}
-                      style={{ width: 0, height: 0, opacity: 0 }}
+              <Card className="mb-3 rounded-md">
+                <div className="p-3">
+                  <strong>Publish</strong>
+                </div>
+                <hr />
+                <div className="grid grid-cols-1 gap-3 p-3">
+                  <div className="flex items-center gap-3">
+                    {/* Status */}
+                    <label>Status</label>
+                    <Switch
                       onChange={() => {
-                        handleUpload();
+                        setRecord({
+                          ...record,
+                          status: !record.status,
+                        });
                       }}
+                      checked={record.status}
                     />
                   </div>
-                </Card>
-              </div>
+
+                  <hr />
+
+                  <div>
+                    <Button square variant="contained-blue" onClick={postSave}>
+                      Save
+                    </Button>
+                  </div>
+                </div>
+              </Card>
+
+              {/* Featured Image */}
+              <Card className="mb-5 rounded-md">
+                <div className="p-3">
+                  <strong>Image</strong>
+                </div>
+                <hr />
+                <div className="overflow-hidden text-ellipsis p-3 text-center">
+                  {imgPreview && <ImagePreview file={imgPreview} />}
+
+                  <div>
+                    <label
+                      htmlFor="file"
+                      className="labelnomargin"
+                      style={{ margin: '0!important' }}
+                    >
+                      <Button variant="outlined">
+                        {imgPreview ? 'Replace image' : 'Upload'}
+                      </Button>
+                    </label>
+                  </div>
+
+                  <input
+                    type="file"
+                    id="file"
+                    // value={form.attachment}
+                    style={{ width: 0, height: 0, opacity: 0 }}
+                    onChange={() => {
+                      handleUpload();
+                    }}
+                  />
+                </div>
+              </Card>
+
+              {/* Gallery */}
+              <Card className="mb-5 rounded-md">
+                <div className="p-3">
+                  <strong>Gallery</strong>
+                </div>
+                <hr />
+                <div className="overflow-hidden text-ellipsis p-3 text-center">
+                  {gallery.length > 0 &&
+                    gallery.map((img, i) => (
+                      <ImagePreview
+                        fileName={img.fileName}
+                        imgUrl={img.imgUrl}
+                        key={`gallery-image-${i}`}
+                      />
+                    ))}
+
+                  <div>
+                    <label
+                      htmlFor="gallery"
+                      className="labelnomargin"
+                      style={{ margin: '0!important' }}
+                    >
+                      <Button variant="outlined">Add gallery item</Button>
+                    </label>
+                  </div>
+
+                  <input
+                    type="file"
+                    accept="image/png, image/gif, image/jpeg, image/svg+xml"
+                    multiple={true}
+                    id="gallery"
+                    // value={form.attachment}
+                    style={{ width: 0, height: 0, opacity: 0 }}
+                    onChange={() => {
+                      handleGallery();
+                    }}
+                  />
+                </div>
+              </Card>
 
               {/* Brands */}
               <label htmlFor="brandId">Product Brand</label>

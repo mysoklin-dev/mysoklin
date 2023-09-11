@@ -1,3 +1,5 @@
+import { serialize } from 'object-to-formdata';
+
 /* eslint-disable no-plusplus */
 export const score = (p: number, n: number): number => {
   if (p === 0 && n === 0) {
@@ -91,10 +93,10 @@ export const convertDate = (datestring: string, showHour: boolean = false) => {
 };
 
 export const getFormData = (object: any) => {
-  const formData = new FormData();
-  Object.keys(object).forEach((key) => {
-    if (typeof object[key] !== 'object') formData.append(key, object[key]);
-    else formData.append(key, JSON.stringify(object[key]));
+  const formData = serialize(object, {
+    noAttributesWithArrayNotation: true,
+    noFilesWithArrayNotation: true,
   });
+
   return formData;
 };

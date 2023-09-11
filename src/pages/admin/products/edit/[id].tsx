@@ -1,4 +1,5 @@
 /* eslint-disable no-alert */
+import { FaTimes } from '@react-icons/all-files/fa/FaTimes';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -9,6 +10,7 @@ import Switch from 'react-switch';
 import ImagePreview from '@/components/Admin/ImagePreview';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
+import { getFormData } from '@/helpers';
 
 const Editor = dynamic(() => import('@/components/Admin/Editor'), {
   ssr: false,
@@ -22,6 +24,8 @@ const ItemEdit = () => {
   const [record, setRecord] = useState<any>(null);
   const [editorLoaded, setEditorLoaded] = useState(false);
   const [brands, setBrands] = useState<any[] | null>(null);
+  const [gallery, setGallery] = useState<any[]>([]);
+  // const [removeGallery, setRemoveGallery] = useState<any[]>([]);
 
   useEffect(() => {
     setEditorLoaded(true);
@@ -29,17 +33,30 @@ const ItemEdit = () => {
   const inputStyle =
     'block w-full rounded-md border-2 border-gray-300 bg-white px-3 py-3';
 
-  useEffect(() => {
-    const getDetail = async () => {
-      try {
-        const item = await pb.collection(slug as string).getOne(id as string);
+  const getDetail = async () => {
+    try {
+      const item = await pb.collection(slug as string).getOne(id as string);
+      setRecord(item);
 
-        setRecord(item);
-      } catch {
-        // ignore
+      if (item.gallery && item.gallery.length > 0) {
+        console.log(item.gallery);
+        const gallArr: any[] = [];
+
+        item.gallery.map((img: string, i: number) =>
+          gallArr.push({
+            imgUrl: `${process.env.NEXT_PUBLIC_API_URL}/files/${item?.collectionId}/${item?.id}/${item.gallery[i]}?thumb=384x300`,
+            fileName: img,
+          })
+        );
+
+        setGallery(gallArr);
       }
-    };
+    } catch {
+      // ignore
+    }
+  };
 
+  useEffect(() => {
     if (id) {
       getDetail();
       pb.collection('product_brands')
@@ -52,12 +69,27 @@ const ItemEdit = () => {
 
   // Save
   const postSave = async () => {
-    console.log('hit save');
+    console.log('hit update');
+    const formData = getFormData(record);
+
+    // Featured Image
+    const fileInput: any = document.getElementById('file');
+    if (fileInput !== null) {
+      formData.append('image', fileInput.files[0]);
+    }
+
+    // Gallery
+    const galleryInput: any = document.getElementById('gallery');
+    if (galleryInput !== null) {
+      // eslint-disable-next-line no-restricted-syntax
+      for (const file of galleryInput.files) {
+        formData.append('gallery', file);
+      }
+    }
+
     try {
       if (typeof id !== 'undefined') {
-        const res = await pb
-          .collection('products')
-          .update(id.toString(), record);
+        const res = await pb.collection(slug).update(id.toString(), formData);
         console.log(res);
       }
     } catch {
@@ -80,6 +112,31 @@ const ItemEdit = () => {
       setRecord(updatedRecord);
     } catch {
       // ignore catch
+    }
+  };
+
+  const handleGallery = () => {
+    const fileInput: any = document.getElementById('gallery');
+    const { files } = fileInput;
+    const gallFiles = Array.from(files).map((item: any) => {
+      const imgObj = {
+        fileName: item.name,
+        imgUrl: window.URL.createObjectURL(item),
+      };
+      return imgObj;
+    });
+    const joinGall = [...gallery, ...gallFiles];
+    setGallery(joinGall);
+  };
+
+  // Delete gallery individual
+  const deleteGallItem = async (index: number) => {
+    const res = await pb.collection(slug).update(id as string, {
+      [`gallery.${index}`]: null,
+    });
+
+    if (res) {
+      getDetail();
     }
   };
 
@@ -234,45 +291,90 @@ const ItemEdit = () => {
                 </Card>
               </div>
 
-              <div className="mb-10">
-                <Card className="rounded-md">
-                  <div className="p-3">
-                    <strong>Image</strong>
-                  </div>
-                  <hr />
-                  <div className="p-3 text-center">
-                    {record.image && (
-                      <ImagePreview
-                        fileName={record.image}
-                        imgUrl={`${process.env.NEXT_PUBLIC_API_URL}/files/${record.collectionId}/${record.id}/${record.image}`}
-                      />
-                    )}
-
-                    <div>
-                      <label
-                        htmlFor="file"
-                        className="labelnomargin"
-                        style={{ margin: '0!important' }}
-                      >
-                        <Button variant="outlined">
-                          {record.image ? 'Replace image' : 'Upload Image'}
-                        </Button>
-                      </label>
-                    </div>
-
-                    <input
-                      type="file"
-                      id="file"
-                      // value={form.attachment}
-                      style={{ width: 0, height: 0, opacity: 0 }}
-                      onChange={(e: any) => {
-                        console.log(e.target.value);
-                        handleUpload();
-                      }}
+              <Card className="mb-5 rounded-md">
+                <div className="p-3">
+                  <strong>Image</strong>
+                </div>
+                <hr />
+                <div className="p-3 text-center">
+                  {record.image && (
+                    <ImagePreview
+                      fileName={record.image}
+                      imgUrl={`${process.env.NEXT_PUBLIC_API_URL}/files/${record.collectionId}/${record.id}/${record.image}`}
                     />
+                  )}
+
+                  <div>
+                    <label
+                      htmlFor="file"
+                      className="labelnomargin"
+                      style={{ margin: '0!important' }}
+                    >
+                      <Button variant="outlined">
+                        {record.image ? 'Replace image' : 'Upload Image'}
+                      </Button>
+                    </label>
                   </div>
-                </Card>
-              </div>
+
+                  <input
+                    type="file"
+                    id="file"
+                    // value={form.attachment}
+                    style={{ width: 0, height: 0, opacity: 0 }}
+                    onChange={(e: any) => {
+                      console.log(e.target.value);
+                      handleUpload();
+                    }}
+                  />
+                </div>
+              </Card>
+
+              {/* Gallery */}
+              <Card className="mb-5 rounded-md">
+                <div className="p-3">
+                  <strong>Gallery</strong>
+                </div>
+                <hr />
+                <div className="overflow-hidden text-ellipsis p-3 text-center">
+                  {gallery.length > 0 &&
+                    gallery.map((img, i) => (
+                      <ImagePreview
+                        fileName={img.fileName}
+                        imgUrl={img.imgUrl}
+                        appendIcon={
+                          <FaTimes
+                            onClick={() => {
+                              deleteGallItem(i);
+                            }}
+                          />
+                        }
+                        key={`gallery-image-${i}`}
+                      />
+                    ))}
+
+                  <div>
+                    <label
+                      htmlFor="gallery"
+                      className="labelnomargin"
+                      style={{ margin: '0!important' }}
+                    >
+                      <Button variant="outlined">Add gallery item</Button>
+                    </label>
+                  </div>
+
+                  <input
+                    type="file"
+                    accept="image/png, image/gif, image/jpeg, image/svg+xml"
+                    multiple={true}
+                    id="gallery"
+                    // value={form.attachment}
+                    style={{ width: 0, height: 0, opacity: 0 }}
+                    onChange={() => {
+                      handleGallery();
+                    }}
+                  />
+                </div>
+              </Card>
 
               {/* Brands */}
               <label htmlFor="brandId">Product Brand</label>
