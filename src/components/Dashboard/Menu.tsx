@@ -93,7 +93,7 @@ const DashboardMenu = () => {
     },
     {
       title: 'Updates',
-      slug: '/updates/items',
+      slug: '/updates',
       children: [
         {
           title: 'Items',
