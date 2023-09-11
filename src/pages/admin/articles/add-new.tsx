@@ -210,7 +210,7 @@ const ItemEdit = () => {
 
                   <div>
                     <label
-                      htmlFor="file"
+                      htmlFor="banner_image"
                       className="labelnomargin"
                       style={{ margin: '0!important' }}
                     >
