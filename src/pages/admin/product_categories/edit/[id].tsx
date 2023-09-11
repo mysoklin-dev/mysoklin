@@ -19,7 +19,7 @@ const ItemEdit = () => {
 
 
   const inputStyle =
-    'block w-full rounded-md border border-gray-300 bg-gray-100 px-3 py-2';
+    'block w-full rounded-md border-2 border-gray-300 bg-white px-3 py-3';
 
   useEffect(() => {
     const getDetail = async () => {
@@ -65,7 +65,7 @@ const ItemEdit = () => {
           }
         `}</style>
       </Head>
-      <h2 className="text-bold mb-10 text-xl capitalize">
+      <h2 className="font-bold mb-10 text-2xl capitalize">
         Edit {record?.collectionName?.replaceAll('_', ' ')}
       </h2>
 

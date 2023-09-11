@@ -68,7 +68,7 @@ const DashboardMenu = () => {
   return (
     <div className="h-full py-6">
       <div className="px-6">
-        <h1 className="text-xl">MySoklin Dashboard</h1>
+        <h1 className="text-xl">Dashboard</h1>
       </div>
 
       <nav className="mt-4">

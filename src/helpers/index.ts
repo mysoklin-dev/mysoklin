@@ -65,3 +65,27 @@ export const withCdn = (options: IWithCdnOptions): string => {
 
   return cdnUrl;
 };
+
+export const convertDate = (datestring: string, showHour: boolean = false) => {
+  if (!datestring) {
+    return datestring;
+  }
+  const initialDate = datestring.replace('T', ' ');
+
+  const formattedDate = new Date(initialDate).toLocaleDateString(undefined, {
+    year: 'numeric',
+    month: 'long',
+    day: '2-digit',
+    ...(showHour && {
+      hour: '2-digit',
+      minute: '2-digit',
+    }),
+    hour12: true,
+  });
+
+  if (formattedDate.toLowerCase() === 'invalid date') {
+    return initialDate;
+  }
+
+  return formattedDate;
+};

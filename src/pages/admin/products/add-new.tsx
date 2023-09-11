@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import Switch from 'react-switch';
 
 import Button from '@/components/Button';
+import Card from '@/components/Card';
 
 const Editor = dynamic(() => import('@/components/Admin/Editor'), {
   ssr: false,
@@ -30,7 +31,7 @@ const ItemEdit = () => {
     setEditorLoaded(true);
   }, []);
   const inputStyle =
-    'block w-full rounded-md border border-gray-300 bg-gray-100 px-3 py-2';
+    'block w-full rounded-md border-2 border-gray-300 bg-white px-3 py-3';
 
   useEffect(() => {
     pb.collection('product_brands')
@@ -63,7 +64,7 @@ const ItemEdit = () => {
           }
         `}</style>
       </Head>
-      <h2 className="text-bold mb-10 text-xl capitalize">Add New Product</h2>
+      <h2 className="mb-10 text-2xl font-bold capitalize">Add New Product</h2>
 
       {domLoaded && (
         <form>
@@ -157,16 +158,46 @@ const ItemEdit = () => {
             </div>
             <div className="w-4/12">
               <div className="mb-10">
-                <Button square variant="contained-blue" onClick={postSave}>
-                  Save
-                </Button>
+                <Card className="rounded-md">
+                  <div className="p-3">
+                    <strong>Publish</strong>
+                  </div>
+                  <hr />
+                  <div className="grid grid-cols-1 gap-3 p-3">
+                    <div className="flex items-center gap-3">
+                      {/* Status */}
+                      <label>Status</label>
+                      <Switch
+                        onChange={() => {
+                          setRecord({
+                            ...record,
+                            status: !record.status,
+                          });
+                        }}
+                        checked={record.status}
+                      />
+                    </div>
+
+                    <hr />
+
+                    <div>
+                      <Button
+                        square
+                        variant="contained-blue"
+                        onClick={postSave}
+                      >
+                        Save
+                      </Button>
+                    </div>
+                  </div>
+                </Card>
               </div>
 
               {/* Brands */}
               <label htmlFor="brandId">Product Brand</label>
               <select
                 id="brandId"
-                className="my-2 block w-full rounded-md border border-gray-300 bg-gray-100 px-3 py-2"
+                className="my-2 block w-full rounded-md border border-gray-300 bg-white p-3"
                 onChange={(e) => {
                   setRecord(() => ({
                     ...record,
@@ -180,22 +211,6 @@ const ItemEdit = () => {
                   </option>
                 ))}
               </select>
-
-              {/* Status */}
-              <div className="mt-6">
-                <label>Status</label>
-                <div className="mt-2">
-                  <Switch
-                    onChange={() => {
-                      setRecord({
-                        ...record,
-                        status: !record.status,
-                      });
-                    }}
-                    checked={record.status ?? false}
-                  />
-                </div>
-              </div>
 
               {/* SEO */}
               <div className="mt-6">

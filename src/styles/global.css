@@ -42,6 +42,11 @@ body {
   color: rgba(0,0,0,.5)!important;
 }
 
+/** TABLE */
+tbody>:nth-child(odd), ul.striped>:nth-child(odd) {
+  background-color: #f6f7f7;
+}
+
 .content p {
   @apply my-6;
 }

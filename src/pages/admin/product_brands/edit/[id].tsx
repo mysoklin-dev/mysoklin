@@ -26,7 +26,7 @@ const ItemEdit = () => {
     setEditorLoaded(true);
   }, []);
   const inputStyle =
-    'block w-full rounded-md border border-gray-300 bg-gray-100 px-3 py-2';
+    'block w-full rounded-md border-2 border-gray-300 bg-white px-3 py-3';
 
   useEffect(() => {
     const getDetail = async () => {
@@ -52,6 +52,7 @@ const ItemEdit = () => {
   // Save
   const postSave = async () => {
     console.log('hit save');
+    
     try { 
       if (typeof id !== 'undefined') {
         const res = await pb.collection('product_brands').update(id.toString(), record);
@@ -77,7 +78,7 @@ const ItemEdit = () => {
           }
         `}</style>
       </Head>
-      <h2 className="text-bold mb-10 text-xl capitalize">
+      <h2 className="mb-10 text-2xl font-bold capitalize">
         Edit {record?.collectionName?.replaceAll('_', ' ')}
       </h2>
 
@@ -154,7 +155,7 @@ const ItemEdit = () => {
               <label htmlFor="brandId">Product Category</label>
               <select
                 id="brandId"
-                className="my-2 block w-full rounded-md border border-gray-300 bg-gray-100 px-3 py-2"
+                className="my-2 block w-full rounded-md border-2 border-gray-300 bg-white p-3"
                 value={record.product_category_id}
                 onChange={(e) => {
                   setRecord(() => ({
@@ -174,7 +175,7 @@ const ItemEdit = () => {
                  <label htmlFor="bannerHeaderType">Product Category</label>
                  <select
                     id="bannerHeaderType"
-                    className="my-2 block w-full rounded-md border border-gray-300 bg-gray-100 px-3 py-2"
+                    className="my-2 block w-full rounded-md border-2 border-gray-300 bg-white p-3"
                     value={record.banner_header_type}
                     onChange={(e) => {
                       setRecord(() => ({

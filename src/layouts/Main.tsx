@@ -42,7 +42,10 @@ const Main = (props: IMainLayout) => {
       )}
 
       {isDashboard && (
-        <div className="flex min-h-screen w-full gap-4">
+        <div
+          className="flex min-h-screen w-full gap-4"
+          style={{ background: '#f0f0f1' }}
+        >
           {admin && (
             <div
               className="w-2/12"

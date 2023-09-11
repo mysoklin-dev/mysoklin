@@ -31,7 +31,7 @@ const ItemEdit = () => {
     setEditorLoaded(true);
   }, []);
   const inputStyle =
-    'block w-full rounded-md border border-gray-300 bg-gray-100 px-3 py-2';
+    'block w-full rounded-md border-2 border-gray-300 bg-white px-3 py-3';
 
   useEffect(() => {
       pb.collection('product_categories')
@@ -64,7 +64,7 @@ const ItemEdit = () => {
           }
         `}</style>
       </Head>
-      <h2 className="text-bold mb-10 text-xl capitalize">
+      <h2 className="mb-10 text-2xl font-bold capitalize">
         Add New Brand
       </h2>
 
@@ -135,7 +135,7 @@ const ItemEdit = () => {
               <label htmlFor="brandId">Product Category</label>
               <select
                 id="brandId"
-                className="my-2 block w-full rounded-md border border-gray-300 bg-gray-100 px-3 py-2"
+                className="my-2 block w-full rounded-md border-2 border-gray-300 bg-white p-3"
                 onChange={(e) => {
                   setRecord(() => ({
                     ...record,

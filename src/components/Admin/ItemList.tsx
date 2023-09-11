@@ -4,6 +4,8 @@ import PocketBase from 'pocketbase';
 import Pagination from 'rc-pagination';
 import { useEffect, useState } from 'react';
 
+import { convertDate } from '@/helpers';
+
 import Button from '../Button';
 
 type ItemListProps = {
@@ -66,7 +68,7 @@ const ItemList = ({ slug }: ItemListProps) => {
       </Head>
 
       <div className="pb-10">
-        <h2 className="text-bold mb-10 text-lg capitalize">
+        <h2 className="text-bold mb-10 text-2xl font-bold capitalize">
           {slug?.replaceAll('_', ' ') || ''}
         </h2>
 
@@ -77,53 +79,69 @@ const ItemList = ({ slug }: ItemListProps) => {
             name="search"
             value={search}
             placeholder="Search..."
-            className="block rounded-md bg-gray-200 px-6 py-2"
+            className="block rounded-md bg-white px-6 py-3"
+            style={{ width: 300 }}
             onChange={(e: any) => {
               setSearch(() => e.target.value);
             }}
           />
 
-          <Button onClick={handleSearch}>Search</Button>
+          <Button onClick={handleSearch} square style={{ minWidth: 150 }}>
+            Search
+          </Button>
         </div>
 
         {items && items.length > 0 && (
           <>
-            <table className="border-1 w-full table-fixed overflow-hidden rounded-md">
-              <thead>
-                <tr>
-                  <th className="border px-4 py-2">Title</th>
-                  <th className="border px-4 py-2">Slug</th>
-                  <th className="border px-4 py-2">Date</th>
-                </tr>
-              </thead>
-
-              <tbody className="text-md">
-                {items.map((item: any) => (
-                  <tr key={`${slug}-item-${item.id}`}>
-                    <td className="border px-4 py-2 ">
-                      <div>
-                        <strong>{item.title}</strong>
-                      </div>
-                      <div className="mt-1 flex text-sm">
-                        <div>
-                          <Link href={`/admin/${slug}/edit/${item.id}`}>
-                            Edit
-                          </Link>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="border px-4 py-2 italic">
-                      {item.slug || 'not created'}
-                    </td>
-                    <td className="border px-4 py-2 ">
-                      <div className="mb-1">Published: {item.created}</div>
-                      <div>updated: {item.updated}</div>
-                    </td>
+            <div className="overflow-hidden rounded border-b border-gray-200 shadow">
+              <table className="border-1 w-full table-fixed overflow-hidden rounded-md">
+                <thead className="bg-gray-800 text-white">
+                  <tr>
+                    <th className="border px-4 py-3">Title</th>
+                    <th className="border px-4 py-3">Slug</th>
+                    <th className="border px-4 py-3">Date</th>
+                    <th className="border px-4 py-3" style={{ width: 150 }}>
+                      Status
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
 
+                <tbody className="text-md">
+                  {items.map((item: any) => (
+                    <tr key={`${slug}-item-${item.id}`}>
+                      <td className="border px-4 py-2 ">
+                        <div>
+                          <strong>{item.title}</strong>
+                        </div>
+                        <div className="mt-1 flex text-sm">
+                          <div>
+                            <Link href={`/admin/${slug}/edit/${item.id}`}>
+                              Edit
+                            </Link>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="border px-4 py-2 italic">
+                        {item.slug || 'not created'}
+                      </td>
+                      <td className="border px-4 py-2 ">
+                        <div className="mb-1">
+                          Published: {convertDate(item.created)}
+                        </div>
+                        <div>Updated: {convertDate(item.updated)}</div>
+                      </td>
+                      <td className="border px-4 py-2">
+                        {item.status === true ? (
+                          <span className="text-lime-700">Active</span>
+                        ) : (
+                          <span className="text-red-800">Inactive</span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
             <div className="mt-3">
               <Pagination
                 onChange={(p: any) => {
