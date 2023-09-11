@@ -128,18 +128,17 @@ const DashboardMenu = () => {
                 </li>
               ))}
 
-              <li>
-                <Link
-                  href="/"
+              <li className="w-100 block cursor-pointer py-2 px-6 text-white hover:bg-sky-600 hover:text-white">
+                <button
                   onClick={() => {
                     removeCookie('token');
                     removeCookie('admin');
                     localStorage.removeItem('pocketbase_auth');
+                    window.location.href = '/';
                   }}
-                  className="block py-2 px-6 text-white hover:bg-sky-600 hover:text-white"
                 >
-                  Logout
-                </Link>
+                  <span>Logout</span>
+                </button>
               </li>
             </>
           ) : (
