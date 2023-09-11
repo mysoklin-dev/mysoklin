@@ -226,3 +226,12 @@ label {
 div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
   background: #071789!important
 }
+
+.textformat ul {
+  list-style-type: disc;
+  padding-left: 18px;
+}
+
+.textformat ul li{
+  margin: 15px 0;
+}
