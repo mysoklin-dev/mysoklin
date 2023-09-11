@@ -5,6 +5,7 @@ import PocketBase from 'pocketbase';
 import { useEffect, useState } from 'react';
 import Switch from 'react-switch';
 
+import ImagePreview from '@/components/Admin/ImagePreview';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import { getFormData } from '@/helpers';
@@ -23,6 +24,7 @@ const ItemEdit = () => {
   const [editorLoaded, setEditorLoaded] = useState(false);
   const [brands, setBrands] = useState<any[] | null>(null);
   const [domLoaded, setDomLoaded] = useState(false);
+  const [imgPreview, setImgPreview] = useState<any>(null);
 
   useEffect(() => {
     setDomLoaded(true);
@@ -42,7 +44,15 @@ const ItemEdit = () => {
       .then((res) => setBrands(res));
   }, []);
 
-  // Save
+  // Preview image
+  const handleUpload = () => {
+    const fileInput: any = document.getElementById('file');
+    const file = fileInput.files[0];
+
+    setImgPreview(file);
+  };
+
+  // Save Post
   const postSave = async () => {
     console.log('hit save');
 
@@ -203,14 +213,8 @@ const ItemEdit = () => {
                     <strong>Image</strong>
                   </div>
                   <hr />
-                  <div className="p-3 text-center">
-                    {record.image && (
-                      <img
-                        className="mb-2 inline-block"
-                        src={`${process.env.NEXT_PUBLIC_API_URL}/files/${record.collectionId}/${record.id}/${record.image}`}
-                        alt=""
-                      />
-                    )}
+                  <div className="overflow-hidden text-ellipsis p-3 text-center">
+                    {imgPreview && <ImagePreview file={imgPreview} />}
 
                     <div>
                       <label
@@ -218,14 +222,20 @@ const ItemEdit = () => {
                         className="labelnomargin"
                         style={{ margin: '0!important' }}
                       >
-                        <Button variant="outlined">Upload</Button>
+                        <Button variant="outlined">
+                          {imgPreview ? 'Replace image' : 'Upload'}
+                        </Button>
                       </label>
                     </div>
 
                     <input
                       type="file"
                       id="file"
+                      // value={form.attachment}
                       style={{ width: 0, height: 0, opacity: 0 }}
+                      onChange={() => {
+                        handleUpload();
+                      }}
                     />
                   </div>
                 </Card>

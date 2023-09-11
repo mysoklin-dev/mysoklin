@@ -6,6 +6,7 @@ import PocketBase from 'pocketbase';
 import { useEffect, useState } from 'react';
 import Switch from 'react-switch';
 
+import ImagePreview from '@/components/Admin/ImagePreview';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 
@@ -241,10 +242,9 @@ const ItemEdit = () => {
                   <hr />
                   <div className="p-3 text-center">
                     {record.image && (
-                      <img
-                        className="mb-2 inline-block"
-                        src={`${process.env.NEXT_PUBLIC_API_URL}/files/${record.collectionId}/${record.id}/${record.image}`}
-                        alt=""
+                      <ImagePreview
+                        fileName={record.image}
+                        imgUrl={`${process.env.NEXT_PUBLIC_API_URL}/files/${record.collectionId}/${record.id}/${record.image}`}
                       />
                     )}
 
@@ -254,7 +254,9 @@ const ItemEdit = () => {
                         className="labelnomargin"
                         style={{ margin: '0!important' }}
                       >
-                        <Button variant="outlined">Upload</Button>
+                        <Button variant="outlined">
+                          {record.image ? 'Replace image' : 'Upload Image'}
+                        </Button>
                       </label>
                     </div>
 
