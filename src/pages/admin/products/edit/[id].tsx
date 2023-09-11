@@ -211,6 +211,18 @@ const ItemEdit = () => {
                 </Card>
               </div>
 
+              <div className="mb-10">
+                <Card className="rounded-md">
+                  <div className="p-3">
+                    <strong>Image</strong>
+                  </div>
+                  <hr />
+                  <div className="p-3 text-center">
+                    <img className="inline-block" src={`${process.env.NEXT_PUBLIC_API_URL}/files/${record.collectionId}/${record.id}/${record.image}`} alt="" />
+                  </div>
+                </Card>
+              </div>
+
               {/* Brands */}
               <label htmlFor="brandId">Product Brand</label>
               <select

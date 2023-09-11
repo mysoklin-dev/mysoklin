@@ -112,11 +112,9 @@ const ItemEdit = () => {
                           ...record,
                           description: data,
                         }));
-                        // eslint-disable-next-line no-console
-                        console.log(data);
                       }}
                       editorLoaded={editorLoaded}
-                      value={record.description ?? ''}
+                      value={record.description}
                     />
 
                     <div className="my-6">
@@ -128,8 +126,6 @@ const ItemEdit = () => {
                             ...record,
                             feature: data,
                           }));
-                          // eslint-disable-next-line no-console
-                          console.log(data);
                         }}
                         editorLoaded={editorLoaded}
                         value={record.feature ?? ''}
@@ -145,8 +141,6 @@ const ItemEdit = () => {
                             ...record,
                             specification: data,
                           }));
-                          // eslint-disable-next-line no-console
-                          console.log(data);
                         }}
                         editorLoaded={editorLoaded}
                         value={record.specification ?? ''}
