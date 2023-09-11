@@ -158,7 +158,10 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                     {brand.title}
                   </h1>
 
-                  <p className="mt-5 text-xl">{brand.description}</p>
+                  <div
+                    className="mt-5 text-xl"
+                    dangerouslySetInnerHTML={{ __html: brand.description }}
+                  ></div>
 
                   {/* <pre>{JSON.stringify(socials, null, 2)}</pre> */}
                   {socials && socials.length > 0 && socials[0] && (
