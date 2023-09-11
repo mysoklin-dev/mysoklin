@@ -69,6 +69,7 @@ const Header = () => {
       const record = await pb.collection('product_categories').getList(1, 6, {
         sort: '-created',
         expand: 'product_brands(product_category_id)',
+        filter: 'status = true',
       });
 
       setMenu(record?.items);
@@ -78,6 +79,7 @@ const Header = () => {
       try {
         const resultList = await pb.collection('social_main').getList(1, 6, {
           sort: '+sequence',
+          filter: 'status = true',
         });
         setSocial(resultList.items);
       } catch (error) {
@@ -481,7 +483,8 @@ const Header = () => {
                       </h4>
 
                       <ul>
-                        {item.expand &&
+                        {item &&
+                          item.expand &&
                           item.expand['product_brands(product_category_id)']
                             .length > 0 &&
                           item.expand[
