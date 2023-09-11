@@ -56,7 +56,13 @@ const ItemList = ({ slug }: ItemListProps) => {
   }, [slug]);
 
   const handleSearch = async () => {
-    getItems(1, `title ~ "${search}"`);
+    let key: string = 'title';
+    if (slug === 'social_group') {
+      key = 'group_name';
+    } else if (slug === 'social_main') {
+      key = 'platform_name';
+    }
+    getItems(1, `${key} ~ "${search}"`);
   };
 
   if (!slug && typeof slug === 'undefined') {
@@ -97,7 +103,7 @@ const ItemList = ({ slug }: ItemListProps) => {
 
         {loading && items.length === 0 && <Skeleton count={10} />}
 
-        {items && items.length > 0 && (
+        {!loading && items && items.length > 0 && (
           <>
             <div className="overflow-hidden rounded border-b border-gray-200 shadow">
               <table className="border-1 w-full table-fixed overflow-hidden rounded-md">
@@ -219,6 +225,12 @@ const ItemList = ({ slug }: ItemListProps) => {
               />
             </div>
           </>
+        )}
+
+        {!loading && items.length === 0 && (
+          <div className="w-100 flex h-36 items-center justify-center rounded-md bg-gray-300">
+            No Items Found
+          </div>
         )}
         {/* <pre>{JSON.stringify(items, null, 2)}</pre> */}
       </div>
