@@ -50,7 +50,10 @@ const ArticleCard = ({
           ></p>
         </Link>
 
-        <p className="mb-3">{text}</p>
+        <div
+          className="mb-3 excerpt"
+          dangerouslySetInnerHTML={{ __html: text }}
+        ></div>
 
         <Link href={link === '#' ? '/article-detail' : link}>
           <div className="button text-blue-400">Read</div>
@@ -85,7 +88,7 @@ const ArticleCard = ({
           width: 100%;
         }
 
-        p {
+        .excerpt {
           font-style: normal;
           font-weight: 400;
           font-size: 12px;
