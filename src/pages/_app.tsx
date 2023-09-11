@@ -42,7 +42,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
     >
       <div className="position-relative">
         <Component {...pageProps} />
-        <Analytics />
+        {process.env.NODE_ENV === 'production' && <Analytics />}
       </div>
     </SWRConfig>
     {/* eslint-disable-next-line @next/next/next-script-for-ga */}

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import PocketBase from 'pocketbase';
 import Pagination from 'rc-pagination';
 import { useEffect, useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
 
 import { convertDate } from '@/helpers';
 
@@ -15,6 +16,7 @@ type ItemListProps = {
 const ItemList = ({ slug }: ItemListProps) => {
   const [items, setItems] = useState<any>([]);
   const [search, setSearch] = useState<any>('');
+  const [loading, setLoading] = useState<boolean>(true);
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const [pagination, setPagination] = useState({
     page: 1,
@@ -39,9 +41,11 @@ const ItemList = ({ slug }: ItemListProps) => {
         totalItems: record.totalItems,
         totalPages: record.totalPages,
       });
+      setLoading(false);
     } catch (error) {
       // eslint-disable-next-line no-console
       if (error) console.log(error);
+      setLoading(false);
     }
   };
 
@@ -62,14 +66,14 @@ const ItemList = ({ slug }: ItemListProps) => {
   return (
     <>
       <Head>
-        <title>
-          {slug?.replaceAll('_', ' ') || ''} items | MySoklin Dashboard
-        </title>
+        {slug && (
+          <title>{`${slug.replaceAll('_', ' ')} | My Soklin Dashboard`}</title>
+        )}
       </Head>
 
       <div className="pb-10">
         <h2 className="text-bold mb-10 text-2xl font-bold capitalize">
-          {slug?.replaceAll('_', ' ') || ''}
+          {slug?.replaceAll('_', ' ') || <Skeleton />}
         </h2>
 
         <div className="mb-10 flex gap-4">
@@ -90,6 +94,8 @@ const ItemList = ({ slug }: ItemListProps) => {
             Search
           </Button>
         </div>
+
+        {loading && items.length === 0 && <Skeleton count={10} />}
 
         {items && items.length > 0 && (
           <>

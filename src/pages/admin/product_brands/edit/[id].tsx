@@ -1,11 +1,10 @@
 /* eslint-disable no-alert */
-/* eslint-disable prettier/prettier */
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
 import { useEffect, useState } from 'react';
-import Switch from 'react-switch'
+import Switch from 'react-switch';
 
 import ImagePreview from '@/components/Admin/ImagePreview';
 import Button from '@/components/Button';
@@ -80,8 +79,8 @@ const ItemEdit = () => {
     if (fileInput !== null) {
       formData.append('logo', fileInput.files[0]);
     }
-    
-    try { 
+
+    try {
       if (typeof id !== 'undefined') {
         const res = await pb.collection(slug).update(id.toString(), formData);
         if (res) {
@@ -123,7 +122,6 @@ const ItemEdit = () => {
                   name="title"
                   placeholder="Title"
                   defaultValue={record.title}
-                  value={record.title}
                   onChange={(e: any) => {
                     setRecord({
                       ...record,
@@ -141,7 +139,6 @@ const ItemEdit = () => {
                   type="text"
                   name="slug"
                   defaultValue={record.slug}
-                  value={record.slug}
                   onChange={(e: any) => {
                     setRecord({
                       ...record,
@@ -151,7 +148,7 @@ const ItemEdit = () => {
                   className={inputStyle}
                 />
               </div>
-                
+
               {/* Description */}
               <div className="mb-3">
                 {typeof window !== 'undefined' && (
@@ -174,130 +171,8 @@ const ItemEdit = () => {
                   </>
                 )}
               </div>
-
-              {/* Brands */}
-              <label htmlFor="brandId">Product Category</label>
-              <select
-                id="brandId"
-                className="my-2 block w-full rounded-md border-2 border-gray-300 bg-white p-3"
-                value={record.product_category_id}
-                onChange={(e) => {
-                  setRecord(() => ({
-                    ...record,
-                    product_category_id: e.target.value
-                  }))
-                }}
-              >
-                {brands?.map((item: any) => (
-                  <option key={`brand_id-${item.id}`} value={item.id}>
-                    {item.title}
-                  </option>
-                ))}
-              </select>
-
-              {/* Product Category */}
-              <div className="mt-6">
-                 <label htmlFor="bannerHeaderType">Header Media Type</label>
-                 <select
-                    id="bannerHeaderType"
-                    className="my-2 block w-full rounded-md border-2 border-gray-300 bg-white p-3"
-                    value={record.banner_header_type}
-                    onChange={(e) => {
-                      setRecord(() => ({
-                        ...record,
-                        banner_header_type: e.target.value
-                      }))
-                    }}
-                  >
-                    <option value="color">
-                      Color
-                    </option>
-                    <option value="image">
-                      Image
-                    </option>
-                    <option value="video">
-                      Video
-                    </option>
-                  </select>
-              </div>
-
-              {/* SEO */}
-              <div className="mt-6">
-                <label>OG Title</label>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="title"
-                    defaultValue={record.og_title}
-                    className={inputStyle}
-                    onChange={(e) => {
-                      setRecord(() => ({
-                        ...record,
-                        og_title: e.target.value,
-                      }));
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* SEO */}
-              <div className="mt-6">
-                <label>OG Description</label>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="title"
-                    defaultValue={record.og_description}
-                    className={inputStyle}
-                    onChange={(e) => {
-                      setRecord(() => ({
-                        ...record,
-                        og_description: e.target.value,
-                      }));
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* color */}
-              <div className="mt-6">
-                <label>Header Color</label>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="title"
-                    className={inputStyle}
-                    defaultValue={record.header_color}
-                    onChange={(e) => {
-                      setRecord(() => ({
-                        ...record,
-                        header_color: e.target.value,
-                      }));
-                    }}
-                  />
-                </div>
-              </div>
-              
-              {/* Sequence */}
-              <div className="mt-6">
-                <label>Sequence</label>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="title"
-                    defaultValue={record.sequence}
-                    className={inputStyle}
-                    onChange={(e) => {
-                      setRecord(() => ({
-                        ...record,
-                        sequence: e.target.value,
-                      }));
-                    }}
-                  />
-                </div>
-              </div>
             </div>
-            
+
             <div className="w-4/12">
               {/* Publish */}
               <div className="mb-10">
@@ -343,10 +218,10 @@ const ItemEdit = () => {
                 </div>
                 <hr />
                 <div className="p-3 text-center">
-                    <ImagePreview
-                      fileName={record.logo}
-                      imgUrl={`${process.env.NEXT_PUBLIC_API_URL}/files/${record.collectionId}/${record.id}/${record.logo}?thumb=100x100`}
-                    />
+                  <ImagePreview
+                    fileName={record.logo}
+                    imgUrl={`${process.env.NEXT_PUBLIC_API_URL}/files/${record.collectionId}/${record.id}/${record.logo}?thumb=100x100`}
+                  />
 
                   <div>
                     <label
@@ -372,6 +247,122 @@ const ItemEdit = () => {
                   />
                 </div>
               </Card>
+
+              {/* Brands */}
+              <label htmlFor="brandId">Product Category</label>
+              <select
+                id="brandId"
+                className="my-2 block w-full rounded-md border-2 border-gray-300 bg-white p-3"
+                defaultValue={record.product_category_id}
+                onChange={(e) => {
+                  setRecord(() => ({
+                    ...record,
+                    product_category_id: e.target.value,
+                  }));
+                }}
+              >
+                {brands?.map((item: any) => (
+                  <option key={`brand_id-${item.id}`} value={item.id}>
+                    {item.title}
+                  </option>
+                ))}
+              </select>
+
+              {/* SEO */}
+              <div className="mt-6">
+                <label>OG Title</label>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    name="title"
+                    defaultValue={record.og_title}
+                    className={inputStyle}
+                    onChange={(e) => {
+                      setRecord(() => ({
+                        ...record,
+                        og_title: e.target.value,
+                      }));
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* SEO */}
+              <div className="mt-6">
+                <label>OG Description</label>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    name="title"
+                    defaultValue={record.og_description}
+                    className={inputStyle}
+                    onChange={(e) => {
+                      setRecord(() => ({
+                        ...record,
+                        og_description: e.target.value,
+                      }));
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Sequence */}
+              <div className="mt-6">
+                <label>Sequence</label>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    name="title"
+                    defaultValue={record.sequence}
+                    className={inputStyle}
+                    onChange={(e) => {
+                      setRecord(() => ({
+                        ...record,
+                        sequence: e.target.value,
+                      }));
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Header media type */}
+              <div className="mt-6">
+                <label htmlFor="bannerHeaderType">Header Media Type</label>
+                <select
+                  id="bannerHeaderType"
+                  className="my-2 block w-full rounded-md border-2 border-gray-300 bg-white p-3"
+                  defaultValue={record.banner_header_type}
+                  onChange={(e) => {
+                    setRecord(() => ({
+                      ...record,
+                      banner_header_type: e.target.value,
+                    }));
+                  }}
+                >
+                  <option value="color">Color</option>
+                  <option value="image">Image</option>
+                  <option value="video">Video</option>
+                </select>
+              </div>
+
+              {/* color */}
+              <div className="mt-6">
+                <label>Header Color</label>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    name="title"
+                    className={inputStyle}
+                    defaultValue={record.header_color}
+                    onChange={(e) => {
+                      setRecord(() => ({
+                        ...record,
+                        header_color: e.target.value,
+                      }));
+                    }}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </form>

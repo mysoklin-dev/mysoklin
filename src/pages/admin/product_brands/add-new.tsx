@@ -141,117 +141,6 @@ const ItemEdit = () => {
                   </>
                 )}
               </div>
-
-              {/* Brands */}
-              <label htmlFor="brandId">Product Category</label>
-              <select
-                id="brandId"
-                className="my-2 block w-full rounded-md border-2 border-gray-300 bg-white p-3"
-                onChange={(e) => {
-                  setRecord(() => ({
-                    ...record,
-                    product_category_id: e.target.value,
-                  }));
-                }}
-              >
-                {brands?.map((item: any) => (
-                  <option key={`brand_id-${item.id}`} value={item.id}>
-                    {item.title}
-                  </option>
-                ))}
-              </select>
-
-              {/* Product Category */}
-              <div className="mt-6">
-                <label htmlFor="bannerHeaderType">Header Media Type</label>
-                <select
-                  id="bannerHeaderType"
-                  className="my-2 block w-full rounded-md border-2 border-gray-300 bg-white p-3"
-                  value={record.banner_header_type}
-                  onChange={(e) => {
-                    setRecord(() => ({
-                      ...record,
-                      banner_header_type: e.target.value,
-                    }));
-                  }}
-                >
-                  <option value="color">Color</option>
-                  <option value="image">Image</option>
-                  <option value="video">Video</option>
-                </select>
-              </div>
-
-              {/* SEO */}
-              <div className="mt-6">
-                <label>OG Title</label>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="title"
-                    className={inputStyle}
-                    onChange={(e) => {
-                      setRecord(() => ({
-                        ...record,
-                        og_title: e.target.value,
-                      }));
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* SEO */}
-              <div className="mt-6">
-                <label>OG Description</label>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="title"
-                    className={inputStyle}
-                    onChange={(e) => {
-                      setRecord(() => ({
-                        ...record,
-                        og_description: e.target.value,
-                      }));
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* color */}
-              <div className="mt-6">
-                <label>Header Color</label>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="title"
-                    className={inputStyle}
-                    onChange={(e) => {
-                      setRecord(() => ({
-                        ...record,
-                        header_color: e.target.value,
-                      }));
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* Sequence */}
-              <div className="mt-6">
-                <label>Sequence</label>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="title"
-                    className={inputStyle}
-                    onChange={(e) => {
-                      setRecord(() => ({
-                        ...record,
-                        sequence: e.target.value,
-                      }));
-                    }}
-                  />
-                </div>
-              </div>
             </div>
             <div className="w-4/12">
               {/* Publish */}
@@ -324,6 +213,117 @@ const ItemEdit = () => {
                   />
                 </div>
               </Card>
+
+              {/* Category */}
+              <label htmlFor="brandId">Product Category</label>
+              <select
+                id="brandId"
+                className="my-2 block w-full rounded-md border-2 border-gray-300 bg-white p-3"
+                onChange={(e) => {
+                  setRecord(() => ({
+                    ...record,
+                    product_category_id: e.target.value,
+                  }));
+                }}
+              >
+                {brands?.map((item: any) => (
+                  <option key={`brand_id-${item.id}`} value={item.id}>
+                    {item.title}
+                  </option>
+                ))}
+              </select>
+
+              {/* SEO */}
+              <div className="mt-6">
+                <label>OG Title</label>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    name="title"
+                    className={inputStyle}
+                    onChange={(e) => {
+                      setRecord(() => ({
+                        ...record,
+                        og_title: e.target.value,
+                      }));
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* SEO */}
+              <div className="mt-6">
+                <label>OG Description</label>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    name="title"
+                    className={inputStyle}
+                    onChange={(e) => {
+                      setRecord(() => ({
+                        ...record,
+                        og_description: e.target.value,
+                      }));
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Header Media Type */}
+              <div className="mt-6">
+                <label htmlFor="bannerHeaderType">Header Media Type</label>
+                <select
+                  id="bannerHeaderType"
+                  className="my-2 block w-full rounded-md border-2 border-gray-300 bg-white p-3"
+                  value={record.banner_header_type}
+                  onChange={(e) => {
+                    setRecord(() => ({
+                      ...record,
+                      banner_header_type: e.target.value,
+                    }));
+                  }}
+                >
+                  <option value="color">Color</option>
+                  <option value="image">Image</option>
+                  <option value="video">Video</option>
+                </select>
+              </div>
+
+              {/* color */}
+              <div className="mt-6">
+                <label>Header Color</label>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    name="title"
+                    className={inputStyle}
+                    onChange={(e) => {
+                      setRecord(() => ({
+                        ...record,
+                        header_color: e.target.value,
+                      }));
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Sequence */}
+              <div className="mt-6">
+                <label>Sequence</label>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    name="title"
+                    className={inputStyle}
+                    onChange={(e) => {
+                      setRecord(() => ({
+                        ...record,
+                        sequence: e.target.value,
+                      }));
+                    }}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </form>

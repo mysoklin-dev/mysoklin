@@ -150,7 +150,6 @@ const ItemEdit = () => {
                   name="title"
                   placeholder="Title"
                   defaultValue={record.title}
-                  value={record.title}
                   onChange={(e: any) => {
                     setRecord({
                       ...record,
@@ -168,7 +167,6 @@ const ItemEdit = () => {
                   type="text"
                   name="slug"
                   defaultValue={record.slug}
-                  value={record.slug}
                   onChange={(e: any) => {
                     setRecord({
                       ...record,

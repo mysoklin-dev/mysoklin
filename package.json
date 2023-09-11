@@ -39,6 +39,7 @@
     "react-dom": "^18.2.0",
     "react-lazy-load": "^4.0.1",
     "react-lite-youtube-embed": "^2.3.52",
+    "react-loading-skeleton": "^3.3.1",
     "react-query": "^3.39.3",
     "react-responsive-carousel": "^3.2.23",
     "react-share": "^4.4.1",

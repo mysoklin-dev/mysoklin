@@ -148,7 +148,7 @@ const ItemEdit = () => {
                             status: !record.status,
                           });
                         }}
-                        checked={record.status}
+                        checked={record.status ?? false}
                       />
                     </div>
 
