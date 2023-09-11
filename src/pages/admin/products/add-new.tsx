@@ -7,6 +7,7 @@ import Switch from 'react-switch';
 
 import Button from '@/components/Button';
 import Card from '@/components/Card';
+import { getFormData } from '@/helpers';
 
 const Editor = dynamic(() => import('@/components/Admin/Editor'), {
   ssr: false,
@@ -44,8 +45,16 @@ const ItemEdit = () => {
   // Save
   const postSave = async () => {
     console.log('hit save');
+
+    const formData = getFormData(record);
+
+    const fileInput: any = document.getElementById('file');
+    if (fileInput !== null) {
+      formData.append('image', fileInput.files[0]);
+    }
+
     try {
-      const res = await pb.collection('products').create(record);
+      const res = await pb.collection('products').create(formData);
       if (res) {
         router.push('/admin/products/items');
       }
@@ -151,6 +160,7 @@ const ItemEdit = () => {
               </div>
             </div>
             <div className="w-4/12">
+              {/* Publish Box */}
               <div className="mb-10">
                 <Card className="rounded-md">
                   <div className="p-3">
@@ -183,6 +193,40 @@ const ItemEdit = () => {
                         Save
                       </Button>
                     </div>
+                  </div>
+                </Card>
+              </div>
+
+              <div className="mb-10">
+                <Card className="rounded-md">
+                  <div className="p-3">
+                    <strong>Image</strong>
+                  </div>
+                  <hr />
+                  <div className="p-3 text-center">
+                    {record.image && (
+                      <img
+                        className="mb-2 inline-block"
+                        src={`${process.env.NEXT_PUBLIC_API_URL}/files/${record.collectionId}/${record.id}/${record.image}`}
+                        alt=""
+                      />
+                    )}
+
+                    <div>
+                      <label
+                        htmlFor="file"
+                        className="labelnomargin"
+                        style={{ margin: '0!important' }}
+                      >
+                        <Button variant="outlined">Upload</Button>
+                      </label>
+                    </div>
+
+                    <input
+                      type="file"
+                      id="file"
+                      style={{ width: 0, height: 0, opacity: 0 }}
+                    />
                   </div>
                 </Card>
               </div>

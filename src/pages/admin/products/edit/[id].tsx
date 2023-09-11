@@ -1,5 +1,4 @@
 /* eslint-disable no-alert */
-/* eslint-disable prettier/prettier */
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -53,15 +52,34 @@ const ItemEdit = () => {
   // Save
   const postSave = async () => {
     console.log('hit save');
-    try { 
+    try {
       if (typeof id !== 'undefined') {
-        const res = await pb.collection('products').update(id.toString(), record);
+        const res = await pb
+          .collection('products')
+          .update(id.toString(), record);
         console.log(res);
       }
     } catch {
-      alert('an error occured')
+      alert('an error occured');
     }
-   
+  };
+
+  const handleUpload = async () => {
+    const formData = new FormData();
+    const fileInput: any = document.getElementById('file');
+    if (fileInput !== null) {
+      formData.append('image', fileInput.files[0]);
+    }
+
+    try {
+      const updatedRecord = await pb
+        .collection(slug)
+        .update(id as string, formData);
+
+      setRecord(updatedRecord);
+    } catch {
+      // ignore catch
+    }
   };
 
   if (record === null) {
@@ -203,7 +221,11 @@ const ItemEdit = () => {
                     <hr />
 
                     <div>
-                      <Button square variant="contained-blue" onClick={postSave}>
+                      <Button
+                        square
+                        variant="contained-blue"
+                        onClick={postSave}
+                      >
                         Save
                       </Button>
                     </div>
@@ -218,7 +240,34 @@ const ItemEdit = () => {
                   </div>
                   <hr />
                   <div className="p-3 text-center">
-                    <img className="inline-block" src={`${process.env.NEXT_PUBLIC_API_URL}/files/${record.collectionId}/${record.id}/${record.image}`} alt="" />
+                    {record.image && (
+                      <img
+                        className="mb-2 inline-block"
+                        src={`${process.env.NEXT_PUBLIC_API_URL}/files/${record.collectionId}/${record.id}/${record.image}`}
+                        alt=""
+                      />
+                    )}
+
+                    <div>
+                      <label
+                        htmlFor="file"
+                        className="labelnomargin"
+                        style={{ margin: '0!important' }}
+                      >
+                        <Button variant="outlined">Upload</Button>
+                      </label>
+                    </div>
+
+                    <input
+                      type="file"
+                      id="file"
+                      // value={form.attachment}
+                      style={{ width: 0, height: 0, opacity: 0 }}
+                      onChange={(e: any) => {
+                        console.log(e.target.value);
+                        handleUpload();
+                      }}
+                    />
                   </div>
                 </Card>
               </div>
@@ -232,8 +281,8 @@ const ItemEdit = () => {
                 onChange={(e) => {
                   setRecord(() => ({
                     ...record,
-                    product_brand_id: e.target.value
-                  }))
+                    product_brand_id: e.target.value,
+                  }));
                 }}
               >
                 {brands?.map((item: any) => (

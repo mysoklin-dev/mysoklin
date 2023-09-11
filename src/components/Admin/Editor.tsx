@@ -34,7 +34,7 @@ export default function Editor({
       {editorLoaded ? (
         <CKEditor
           editor={ClassicEditor}
-          data={value}
+          data={value ?? ''}
           onChange={(_e: any, editor: any) => {
             const data = editor.getData();
             onChange(data);
