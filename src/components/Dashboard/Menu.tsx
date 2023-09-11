@@ -85,6 +85,14 @@ const DashboardMenu = () => {
     },
   ];
 
+  const isActive = (item: any) => {
+    return (
+      router &&
+      router.asPath &&
+      router.asPath.replace('/admin', '').includes(item.slug)
+    );
+  };
+
   return (
     <div className="h-full py-6">
       <div className="px-6">
@@ -99,11 +107,7 @@ const DashboardMenu = () => {
                 <li key={`admin-menu-${item.slug}`}>
                   <Link
                     className={`block py-2 px-6 hover:bg-sky-600 hover:text-white ${
-                      router &&
-                      router.asPath &&
-                      router.asPath.replace('/admin', '').includes(item.slug)
-                        ? 'bg-sky-600 text-white'
-                        : 'text-white'
+                      isActive(item) ? 'bg-sky-600 text-white' : 'text-white'
                     }`}
                     href={`${baseUrl}${item.slug}`}
                     style={{ fontSize: 14 }}
@@ -111,7 +115,10 @@ const DashboardMenu = () => {
                     {item.title}
                   </Link>
 
-                  <ul className="pl-10">
+                  <ul
+                    className="pl-10"
+                    style={{ display: isActive(item) ? 'block' : 'none' }}
+                  >
                     {item.children &&
                       item.children.map((child: any) => (
                         <li key={`child-${child.title}`}>
