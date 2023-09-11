@@ -51,7 +51,7 @@ const ArticleCard = ({
         </Link>
 
         <div
-          className="mb-3 excerpt"
+          className="excerpt mb-3"
           dangerouslySetInnerHTML={{ __html: text }}
         ></div>
 
