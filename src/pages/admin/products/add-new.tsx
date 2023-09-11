@@ -8,7 +8,7 @@ import Switch from 'react-switch';
 import ImagePreview from '@/components/Admin/ImagePreview';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
-import { getFormData } from '@/helpers';
+import { errorAlert, getFormData, openAlert } from '@/helpers';
 
 const Editor = dynamic(() => import('@/components/Admin/Editor'), {
   ssr: false,
@@ -93,8 +93,12 @@ const ItemEdit = () => {
       if (res) {
         router.push('/admin/products/items');
       }
-    } catch {
-      // test
+      if (res) {
+        openAlert();
+      }
+    } catch (error: any) {
+      const err = error.data.data;
+      errorAlert(err);
     }
   };
 

@@ -1,5 +1,4 @@
 /* eslint-disable no-alert */
-/* eslint-disable prettier/prettier */
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -7,7 +6,10 @@ import PocketBase from 'pocketbase';
 import { useEffect, useState } from 'react';
 import Switch from 'react-switch';
 
+import ImagePreview from '@/components/Admin/ImagePreview';
 import Button from '@/components/Button';
+import Card from '@/components/Card';
+import { errorAlert, getFormData, openAlert } from '@/helpers';
 
 const Editor = dynamic(() => import('@/components/Admin/Editor'), {
   ssr: false,
@@ -22,6 +24,7 @@ const ItemEdit = () => {
   const [editorLoaded, setEditorLoaded] = useState(false);
   const [brands, setBrands] = useState<any[] | null>(null);
   const [domLoaded, setDomLoaded] = useState(false);
+  const [imgPreview, setImgPreview] = useState<any>(null);
 
   useEffect(() => {
     setDomLoaded(true);
@@ -34,24 +37,41 @@ const ItemEdit = () => {
     'block w-full rounded-md border-2 border-gray-300 bg-white px-3 py-3';
 
   useEffect(() => {
-      pb.collection('product_categories')
-        .getFullList(200 /* batch size */, {
-          sort: '-created',
-        })
-        .then((res) => setBrands(res));
+    pb.collection('product_categories')
+      .getFullList(200 /* batch size */, {
+        sort: '-created',
+      })
+      .then((res) => setBrands(res));
   }, [id]);
+
+  const handleUpload = () => {
+    const fileInput: any = document.getElementById('file');
+    const file = fileInput.files[0];
+
+    setImgPreview(file);
+  };
 
   // Save
   const postSave = async () => {
-    console.log('hit save');
-    try { 
-        const res = await pb.collection('product_brands').create(record);
-        console.log(res);
-        router.push(`/admin/${slug}`)
-    } catch {
-      alert('an error occured')
+    const formData = getFormData(record);
+
+    const fileInput: any = document.getElementById('file');
+    if (fileInput !== null) {
+      formData.append('logo', fileInput.files[0]);
     }
-   
+
+    console.log('hit save');
+    try {
+      const res = await pb.collection('product_brands').create(formData);
+      console.log(res);
+      router.push(`/admin/${slug}`);
+      if (res) {
+        openAlert();
+      }
+    } catch (error: any) {
+      const err = error.data.data;
+      errorAlert(err);
+    }
   };
 
   return (
@@ -64,9 +84,7 @@ const ItemEdit = () => {
           }
         `}</style>
       </Head>
-      <h2 className="mb-10 text-2xl font-bold capitalize">
-        Add New Brand
-      </h2>
+      <h2 className="mb-10 text-2xl font-bold capitalize">Add New Brand</h2>
 
       {domLoaded && (
         <form>
@@ -118,17 +136,10 @@ const ItemEdit = () => {
                         console.log(data);
                       }}
                       editorLoaded={editorLoaded}
-                      value={record?.description ?? ""}
+                      value={record?.description ?? ''}
                     />
                   </>
                 )}
-              </div>
-            </div>
-            <div className="w-4/12">
-              <div className="mb-10">
-                <Button square variant="contained-blue" onClick={postSave}>
-                  Save
-                </Button>
               </div>
 
               {/* Brands */}
@@ -139,8 +150,8 @@ const ItemEdit = () => {
                 onChange={(e) => {
                   setRecord(() => ({
                     ...record,
-                    product_category_id: e.target.value
-                  }))
+                    product_category_id: e.target.value,
+                  }));
                 }}
               >
                 {brands?.map((item: any) => (
@@ -150,20 +161,24 @@ const ItemEdit = () => {
                 ))}
               </select>
 
-              {/* Status */}
+              {/* Product Category */}
               <div className="mt-6">
-                <label>Status</label>
-                <div className="mt-2">
-                  <Switch
-                    onChange={() => {
-                      setRecord({
-                        ...record,
-                        status: !record.status,
-                      });
-                    }}
-                    checked={record.status && record ? record.status : false}
-                  />
-                </div>
+                <label htmlFor="bannerHeaderType">Header Media Type</label>
+                <select
+                  id="bannerHeaderType"
+                  className="my-2 block w-full rounded-md border-2 border-gray-300 bg-white p-3"
+                  value={record.banner_header_type}
+                  onChange={(e) => {
+                    setRecord(() => ({
+                      ...record,
+                      banner_header_type: e.target.value,
+                    }));
+                  }}
+                >
+                  <option value="color">Color</option>
+                  <option value="image">Image</option>
+                  <option value="video">Video</option>
+                </select>
               </div>
 
               {/* SEO */}
@@ -219,7 +234,7 @@ const ItemEdit = () => {
                   />
                 </div>
               </div>
-              
+
               {/* Sequence */}
               <div className="mt-6">
                 <label>Sequence</label>
@@ -237,6 +252,78 @@ const ItemEdit = () => {
                   />
                 </div>
               </div>
+            </div>
+            <div className="w-4/12">
+              {/* Publish */}
+              <div className="mb-10">
+                <Card className="rounded-md">
+                  <div className="p-3">
+                    <strong>Publish</strong>
+                  </div>
+                  <hr />
+                  <div className="grid grid-cols-1 gap-3 p-3">
+                    <div className="flex items-center gap-3">
+                      {/* Status */}
+                      <label>Status</label>
+                      <Switch
+                        onChange={() => {
+                          setRecord({
+                            ...record,
+                            status: !record.status,
+                          });
+                        }}
+                        checked={record.status}
+                      />
+                    </div>
+
+                    <hr />
+
+                    <div>
+                      <Button
+                        square
+                        variant="contained-blue"
+                        onClick={postSave}
+                      >
+                        Save
+                      </Button>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+
+              {/* Logo */}
+              <Card className="mb-5 rounded-md">
+                <div className="p-3">
+                  <strong>Image</strong>
+                </div>
+                <hr />
+                <div className="p-3 text-center">
+                  {imgPreview && <ImagePreview file={imgPreview} />}
+
+                  <div>
+                    <label
+                      htmlFor="file"
+                      className="labelnomargin"
+                      style={{ margin: '0!important' }}
+                    >
+                      <Button variant="outlined">
+                        {record.image ? 'Replace image' : 'Upload Image'}
+                      </Button>
+                    </label>
+                  </div>
+
+                  <input
+                    type="file"
+                    id="file"
+                    // value={form.attachment}
+                    style={{ width: 0, height: 0, opacity: 0 }}
+                    onChange={(e: any) => {
+                      console.log(e.target.value);
+                      handleUpload();
+                    }}
+                  />
+                </div>
+              </Card>
             </div>
           </div>
         </form>

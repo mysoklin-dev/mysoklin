@@ -1,4 +1,8 @@
 import { serialize } from 'object-to-formdata';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
 
 /* eslint-disable no-plusplus */
 export const score = (p: number, n: number): number => {
@@ -99,4 +103,25 @@ export const getFormData = (object: any) => {
   });
 
   return formData;
+};
+
+export const openAlert = (message: any = `<p>Successfully Saved</p>`) => {
+  MySwal.fire({
+    didOpen: () => {
+      return MySwal.fire(message);
+    },
+  });
+};
+
+export const errorAlert = (err: any) => {
+  let errs = '';
+  Object.keys(err).forEach((key) => {
+    console.log(key);
+    errs = `${key}: ${err[key].message}\n`;
+  });
+  MySwal.fire({
+    didOpen: () => {
+      return MySwal.fire(errs);
+    },
+  });
 };

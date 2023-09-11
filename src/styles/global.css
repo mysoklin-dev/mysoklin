@@ -222,3 +222,7 @@ button.close {
 label {
   font-weight: bold;
 }
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+  background: #071789!important
+}

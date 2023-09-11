@@ -10,7 +10,7 @@ import Switch from 'react-switch';
 import ImagePreview from '@/components/Admin/ImagePreview';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
-import { getFormData } from '@/helpers';
+import { errorAlert, getFormData, openAlert } from '@/helpers';
 
 const Editor = dynamic(() => import('@/components/Admin/Editor'), {
   ssr: false,
@@ -91,9 +91,13 @@ const ItemEdit = () => {
       if (typeof id !== 'undefined') {
         const res = await pb.collection(slug).update(id.toString(), formData);
         console.log(res);
+        if (res) {
+          openAlert();
+        }
       }
-    } catch {
-      alert('an error occured');
+    } catch (error: any) {
+      const err = error.data.data;
+      errorAlert(err);
     }
   };
 
@@ -255,6 +259,7 @@ const ItemEdit = () => {
               </div>
             </div>
             <div className="w-4/12">
+              {/* Publish */}
               <div className="mb-10">
                 <Card className="rounded-md">
                   <div className="p-3">
@@ -291,6 +296,7 @@ const ItemEdit = () => {
                 </Card>
               </div>
 
+              {/* Image */}
               <Card className="mb-5 rounded-md">
                 <div className="p-3">
                   <strong>Image</strong>
