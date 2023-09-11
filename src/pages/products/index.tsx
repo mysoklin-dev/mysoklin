@@ -27,7 +27,7 @@ const Products: NextPage<any> = ({ og }) => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
 
   const { data, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/collections/product_categories/records?sort=-created`
+    `${process.env.NEXT_PUBLIC_API_URL}/collections/product_categories/records?sort=-created&filter=status%20%3D%20true`
   );
 
   const getBrands = async (title: string, product_category_id: string) => {

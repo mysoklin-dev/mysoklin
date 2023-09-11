@@ -18,13 +18,13 @@ const ProductsCarousel = () => {
   const [modaltitle, setModalTitle] = useState(false);
 
   const { data, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/collections/product_categories/records?sort=-created`
+    `${process.env.NEXT_PUBLIC_API_URL}/collections/product_categories/records?sort=-created&filter=status%20%3D%20true`
   );
 
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const getBrands = async (product_category_id: string) => {
     const records: any = await pb.collection('product_brands').getList(1, 50, {
-      filter: `product_category_id ~ '${product_category_id}'`,
+      filter: `product_category_id ~ '${product_category_id}' && status = true`,
       sort: '+sequence',
     });
     setBrands(records.items);

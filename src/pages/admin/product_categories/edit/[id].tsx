@@ -206,7 +206,7 @@ const ItemEdit = () => {
                   {record.image && (
                     <ImagePreview
                       fileName={record.image}
-                      imgUrl={`${process.env.NEXT_PUBLIC_API_URL}/files/${record.collectionId}/${record.id}/${record.image}`}
+                      imgUrl={`${process.env.NEXT_PUBLIC_API_URL}/files/${record.collectionId}/${record.id}/${record.image}?thumb=100x100`}
                     />
                   )}
 

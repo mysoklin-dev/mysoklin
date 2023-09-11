@@ -32,7 +32,7 @@ const DashboardMenu = () => {
       slug: '/product_brands',
       children: [
         {
-          title: 'items',
+          title: 'Items',
           slug: '/items',
         },
         {
@@ -46,7 +46,7 @@ const DashboardMenu = () => {
       slug: '/product_categories',
       children: [
         {
-          title: 'items',
+          title: 'Items',
           slug: '/items',
         },
         {
@@ -57,11 +57,31 @@ const DashboardMenu = () => {
     },
     {
       title: 'Articles',
-      slug: '/articles/items',
+      slug: '/articles',
+      children: [
+        {
+          title: 'Items',
+          slug: '/items',
+        },
+        {
+          title: 'Add New',
+          slug: '/add-new',
+        },
+      ],
     },
     {
       title: 'Updates',
       slug: '/updates/items',
+      children: [
+        {
+          title: 'Items',
+          slug: '/items',
+        },
+        {
+          title: 'Add New',
+          slug: '/add-new',
+        },
+      ],
     },
   ];
 

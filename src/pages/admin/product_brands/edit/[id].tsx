@@ -345,7 +345,7 @@ const ItemEdit = () => {
                 <div className="p-3 text-center">
                     <ImagePreview
                       fileName={record.logo}
-                      imgUrl={`${process.env.NEXT_PUBLIC_API_URL}/files/${record.collectionId}/${record.id}/${record.logo}`}
+                      imgUrl={`${process.env.NEXT_PUBLIC_API_URL}/files/${record.collectionId}/${record.id}/${record.logo}?thumb=100x100`}
                     />
 
                   <div>

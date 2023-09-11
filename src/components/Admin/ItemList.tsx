@@ -101,7 +101,8 @@ const ItemList = ({ slug }: ItemListProps) => {
                     <th className="border px-4 py-3">Slug</th>
                     <th className="border px-4 py-3">Date</th>
                     <th className="border px-4 py-3" style={{ width: 150 }}>
-                      Status
+                      {slug !== 'articles' && 'Status'}
+                      {slug === 'articles' && 'Type'}
                     </th>
                   </tr>
                 </thead>
@@ -131,11 +132,17 @@ const ItemList = ({ slug }: ItemListProps) => {
                         <div>Updated: {convertDate(item.updated)}</div>
                       </td>
                       <td className="border px-4 py-2">
-                        {item.status === true ? (
-                          <span className="text-lime-700">Active</span>
-                        ) : (
-                          <span className="text-red-800">Inactive</span>
+                        {slug !== 'articles' && (
+                          <>
+                            {item.status === true ? (
+                              <span className="text-lime-700">Active</span>
+                            ) : (
+                              <span className="text-red-800">Inactive</span>
+                            )}
+                          </>
                         )}
+
+                        {slug === 'articles' && <span>{item.type}</span>}
                       </td>
                     </tr>
                   ))}

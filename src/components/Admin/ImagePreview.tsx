@@ -28,7 +28,12 @@ const ImagePreview = ({
     <div className="mb-3 grid grid-cols-5 gap-4">
       <div className="col-span-1">
         <div className="thumbnail">
-          <img className="mb-2 inline-block" src={preview} alt="" />
+          <img
+            className="mb-2 inline-block"
+            src={preview}
+            alt=""
+            loading="lazy"
+          />
         </div>
       </div>
 
