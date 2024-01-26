@@ -20,6 +20,7 @@ const ProductsCarousel = () => {
   const { data, error } = useSWR(
     `${process.env.NEXT_PUBLIC_API_URL}/collections/product_categories/records?sort=-created&filter=status%20%3D%20true`
   );
+  console.log(data);
 
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const getBrands = async (product_category_id: string) => {
@@ -33,7 +34,7 @@ const ProductsCarousel = () => {
 
   return (
     <>
-      <section className="pt-20 pb-10">
+      <section className="pb-10 pt-20">
         <div className="container mx-auto mb-20 max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-4">
             <div className="col-span-3">
@@ -42,7 +43,7 @@ const ProductsCarousel = () => {
               </h1>
             </div>
             <div className="col-span-1">
-              <div className="mr-0 ml-auto mt-3 text-right md:mt-0">
+              <div className="ml-auto mr-0 mt-3 text-right md:mt-0">
                 <Link href="/products" className="hidden md:block">
                   <Button
                     style={{ width: '170px', height: 40, marginLeft: 'auto' }}
