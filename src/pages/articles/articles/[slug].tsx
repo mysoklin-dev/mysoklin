@@ -1,10 +1,7 @@
-import type {
-  GetServerSideProps,
-  NextPage,
-} from "next";
-import { useRouter } from "next/router";
+import type { GetServerSideProps, NextPage } from 'next';
+import { useRouter } from 'next/router';
 
-import BlogContent from "@/components/BlogContent";
+import BlogContent from '@/components/BlogContent';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { slug } = context.params as any; // no longer causes error
