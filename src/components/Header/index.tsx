@@ -101,6 +101,8 @@ const Header = () => {
       icon = 'fb.svg';
     } else if (platformType === 'Youtube') {
       icon = 'yt.svg';
+    } else if (platformType === 'Tiktok') {
+      icon = 'tiktok.svg';
     }
     return icon;
   };
