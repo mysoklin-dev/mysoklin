@@ -178,12 +178,12 @@ const Profile = () => {
           {/* Menu */}
           <div className="md:col-span-1">
             <div className="flex md:block">
-              <button className="mb-2 block w-full rounded-full bg-sky-300 py-3 px-10 text-center hover:bg-blue-100 hover:text-white md:text-left">
+              <button className="mb-2 block w-full rounded-full bg-sky-300 px-10 py-3 text-center hover:bg-blue-100 hover:text-white md:text-left">
                 Account
               </button>
               <button
                 onClick={logout}
-                className="block w-full rounded-full py-3 px-10 text-center hover:bg-blue-100 hover:text-white md:text-left"
+                className="block w-full rounded-full px-10 py-3 text-center hover:bg-blue-100 hover:text-white md:text-left"
               >
                 Sign Out
               </button>
@@ -429,7 +429,7 @@ const Profile = () => {
               </button>
             </div>
 
-            <div className="mt-5 mb-8 text-center">
+            <div className="mb-8 mt-5 text-center">
               <img
                 src="/assets/images/amico.svg"
                 style={{ display: 'inline-block' }}

@@ -128,7 +128,7 @@ const DashboardMenu = () => {
               {adminMenus.map((item: any) => (
                 <li key={`admin-menu-${item.slug}`}>
                   <Link
-                    className={`block py-2 px-6 hover:bg-sky-600 hover:text-white ${
+                    className={`block px-6 py-2 hover:bg-sky-600 hover:text-white ${
                       isActive(item) ? 'bg-sky-600 text-white' : 'text-white'
                     }`}
                     href={`${baseUrl}${item.slug}`}
@@ -157,7 +157,7 @@ const DashboardMenu = () => {
                 </li>
               ))}
 
-              <li className="w-100 block cursor-pointer py-2 px-6 text-white hover:bg-sky-600 hover:text-white">
+              <li className="w-100 block cursor-pointer px-6 py-2 text-white hover:bg-sky-600 hover:text-white">
                 <button
                   onClick={() => {
                     removeCookie('token');
@@ -174,7 +174,7 @@ const DashboardMenu = () => {
             <li>
               <Link
                 href="/admin/login"
-                className='hover:text-white" block py-2 px-6 text-black hover:bg-sky-600'
+                className='hover:text-white" block px-6 py-2 text-black hover:bg-sky-600'
               >
                 Login
               </Link>

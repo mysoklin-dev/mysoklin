@@ -15,6 +15,6 @@ module.exports = withBundleAnalyzer({
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
   },
   images: {
-    domains: ['mysoklin.com','maindbase.us'],
+    domains: ['mysoklin.com', 'maindbase.us'],
   },
 });

@@ -11,7 +11,7 @@ const AdminHome = () => {
           }
         `}</style>
       </Head>
-      <h2 className="font-bold mb-10 text-2xl capitalize">Overview</h2>
+      <h2 className="mb-10 text-2xl font-bold capitalize">Overview</h2>
     </>
   );
 };

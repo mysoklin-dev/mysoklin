@@ -131,7 +131,7 @@ export default function Footer({ showBanner = true }: IFooterProps) {
 
       {/* Footer Links */}
 
-      <section className="container mx-auto max-w-6xl px-8 pt-20 pb-16 md:px-0">
+      <section className="container mx-auto max-w-6xl px-8 pb-16 pt-20 md:px-0">
         <div className="grid grid-cols-2 md:grid-cols-6">
           <div className="col-span-1">
             <h4 className="font-bold">Company</h4>

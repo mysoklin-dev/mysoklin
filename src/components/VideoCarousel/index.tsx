@@ -18,7 +18,7 @@ const VideoCarousel = () => {
   const rows = data && data.items;
 
   return (
-    <div className="videoCarousel pt-20 pb-10 md:px-20">
+    <div className="videoCarousel pb-10 pt-20 md:px-20">
       <ReactCarousel
         showThumbs={false}
         autoPlay

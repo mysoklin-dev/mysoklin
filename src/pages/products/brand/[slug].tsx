@@ -1,19 +1,19 @@
-import { FaFacebook } from "@react-icons/all-files/fa/FaFacebook";
-import { FaGlobe } from "@react-icons/all-files/fa/FaGlobe";
-import { FaInstagram } from "@react-icons/all-files/fa/FaInstagram";
-import { FaYoutube } from "@react-icons/all-files/fa/FaYoutube";
-import { FaTiktok } from "react-icons/fa";
-import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import PocketBase from "pocketbase";
-import { useEffect, useState } from "react";
+import { FaFacebook } from '@react-icons/all-files/fa/FaFacebook';
+import { FaGlobe } from '@react-icons/all-files/fa/FaGlobe';
+import { FaInstagram } from '@react-icons/all-files/fa/FaInstagram';
+import { FaYoutube } from '@react-icons/all-files/fa/FaYoutube';
+import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import PocketBase from 'pocketbase';
+import { useEffect, useState } from 'react';
+import { FaTiktok } from 'react-icons/fa';
 
-import Button from "@/components/Button";
-import Container from "@/components/Container";
-import ProductCardCircle from "@/components/ProductCardCircle";
-import TipsAndTricks from "@/components/TipsAndTricks";
-import { withCdn } from "@/helpers";
+import Button from '@/components/Button';
+import Container from '@/components/Container';
+import ProductCardCircle from '@/components/ProductCardCircle';
+import TipsAndTricks from '@/components/TipsAndTricks';
+import { withCdn } from '@/helpers';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return { paths: [], fallback: true };
@@ -23,8 +23,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   // eslint-disable-next-line @typescript-eslint/naming-convention
   const { slug } = context.params as any; // no longer causes error
-  const record = await pb.collection("product_brands").getList(1, 1, {
-    filter: `title ~ '${slug.replaceAll("-", " ")}'`,
+  const record = await pb.collection('product_brands').getList(1, 1, {
+    filter: `title ~ '${slug.replaceAll('-', ' ')}'`,
   });
   return {
     props: { og: JSON.parse(JSON.stringify(record.items[0])) },
@@ -47,10 +47,10 @@ const ProductDetail: NextPage<any> = ({ og }) => {
   useEffect(() => {
     const getBrand = async () => {
       try {
-        const record = await pb.collection("product_brands").getList(1, 1, {
+        const record = await pb.collection('product_brands').getList(1, 1, {
           filter: `title ~ '${(slug as string)?.replaceAll(
-            "-",
-            " "
+            '-',
+            ' '
           )}' && status = true`,
         });
         // console.log('fetc');
@@ -70,7 +70,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
 
   const getProducts = async (catId: string) => {
     try {
-      const resultList = await pb.collection("products").getList(1, 50, {
+      const resultList = await pb.collection('products').getList(1, 50, {
         filter: `product_brand_id ~ '${catId}' && status = true`,
       });
       setProducts(resultList.items);
@@ -82,7 +82,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
 
   const getSocial = async (catId: string) => {
     try {
-      const resultList = await pb.collection("social_group").getList(1, 50, {
+      const resultList = await pb.collection('social_group').getList(1, 50, {
         filter: `product_brand_id ~ '${catId}'`,
       });
       if (resultList.items.length > 0 && resultList.items[0]) {
@@ -95,7 +95,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
   };
 
   useEffect(() => {
-    if (typeof og !== "undefined" && og.id) {
+    if (typeof og !== 'undefined' && og.id) {
       getProducts(og.id);
       getSocial(og.id);
     }
@@ -125,7 +125,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
         <div
           className="hero pt-56"
           style={{
-            background: `${brand.header_color ? brand.header_color : "#f9c10f"}
+            background: `${brand.header_color ? brand.header_color : '#f9c10f'}
             url('${process.env.NEXT_PUBLIC_API_URL}/files/${
               brand.collectionId
             }/${brand.id}/${brand.header_image}')
@@ -135,7 +135,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
           <Container>
             <div
               className="bg-white p-10 pb-4"
-              style={{ borderRadius: "20px 20px 0 0" }}
+              style={{ borderRadius: '20px 20px 0 0' }}
             >
               <div className="grid grid-cols-12 gap-7">
                 <div className="col-span-3">
@@ -150,7 +150,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                     loading="eager"
                     width="200"
                     height="200"
-                    style={{ width: 200, height: "auto" }}
+                    style={{ width: 200, height: 'auto' }}
                   />
                 </div>
 
@@ -167,7 +167,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                   {/* <pre>{JSON.stringify(socials, null, 2)}</pre> */}
                   {socials && socials.length > 0 && socials[0] && (
                     <div className="mt-5 gap-3 md:flex">
-                      {socials[0].instagram && socials[0].instagram !== "" && (
+                      {socials[0].instagram && socials[0].instagram !== '' && (
                         <a
                           href={socials[0].instagram}
                           target="_BLANK"
@@ -180,7 +180,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                         </a>
                       )}
 
-                      {socials[0].facebook && socials[0].facebook !== "" && (
+                      {socials[0].facebook && socials[0].facebook !== '' && (
                         <a
                           href={socials[0].facebook}
                           target="_BLANK"
@@ -193,7 +193,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                         </a>
                       )}
 
-                      {socials[0].youtube && socials[0].youtube !== "" && (
+                      {socials[0].youtube && socials[0].youtube !== '' && (
                         <a
                           href={socials[0].youtube}
                           target="_BLANK"
@@ -206,7 +206,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                         </a>
                       )}
 
-                      {socials[0].tiktok && socials[0].tiktok !== "" && (
+                      {socials[0].tiktok && socials[0].tiktok !== '' && (
                         <a
                           href={socials[0].tiktok}
                           target="_BLANK"
@@ -220,14 +220,14 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                       )}
 
                       {socials[0].website_url &&
-                        socials[0].website_url !== "" && (
+                        socials[0].website_url !== '' && (
                           <a
                             href={socials[0].website_url}
                             target="_BLANK"
                             rel="noreferrer"
                           >
                             <Button icon={<FaGlobe />} variant="outlined">
-                              {"Website"}
+                              {'Website'}
                             </Button>
                           </a>
                         )}

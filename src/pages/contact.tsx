@@ -94,13 +94,13 @@ const Contact: NextPage<any> = ({ og }) => {
         `}</style>
       </Head>
 
-      <Container className="my-4 p-8 md:my-20 md:py-20 md:px-0">
+      <Container className="my-4 p-8 md:my-20 md:px-0 md:py-20">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
           {/* Left */}
           {contacts && contacts[0] && contacts[1] && (
             <div>
               <Card
-                className="mb-8 py-16 px-6 md:px-14"
+                className="mb-8 px-6 py-16 md:px-14"
                 style={{
                   background:
                     '#fff url("/assets/images/contact-1.svg") no-repeat top right',
@@ -131,7 +131,7 @@ const Contact: NextPage<any> = ({ og }) => {
               </Card>
 
               <Card
-                className="py-20 px-14"
+                className="px-14 py-20"
                 style={{
                   background:
                     '#fff url("/assets/images/contact-2.svg") no-repeat top right',
@@ -302,7 +302,7 @@ const Contact: NextPage<any> = ({ og }) => {
               </button>
             </div>
 
-            <div className="mt-5 mb-8 text-center">
+            <div className="mb-8 mt-5 text-center">
               <img
                 src="/assets/images/amico.svg"
                 style={{ display: 'inline-block' }}

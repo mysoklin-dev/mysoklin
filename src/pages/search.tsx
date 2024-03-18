@@ -103,7 +103,7 @@ const Search: NextPage<any> = ({ og }) => {
 
           <div className="mt-5 flex gap-3 text-blue-400">
             <button
-              className={`block border-0 border-b-2 py-2 px-3 capitalize ${
+              className={`block border-0 border-b-2 px-3 py-2 capitalize ${
                 tab === 'products' ? 'border-orange-500' : 'border-transparent'
               }`}
               onClick={() => {
@@ -113,7 +113,7 @@ const Search: NextPage<any> = ({ og }) => {
               products ({items?.length.toString()})
             </button>
             <button
-              className={`block border-0 border-b-2 py-2 px-3 capitalize ${
+              className={`block border-0 border-b-2 px-3 py-2 capitalize ${
                 tab === 'updates' ? 'border-orange-500' : 'border-transparent'
               }`}
               onClick={() => {
@@ -123,7 +123,7 @@ const Search: NextPage<any> = ({ og }) => {
               updates ({updates?.length.toString()})
             </button>
             <button
-              className={`block border-0 border-b-2 py-2 px-3 capitalize ${
+              className={`block border-0 border-b-2 px-3 py-2 capitalize ${
                 tab === 'articles' ? 'border-orange-500' : 'border-transparent'
               }`}
               onClick={() => {

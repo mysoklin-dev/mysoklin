@@ -111,7 +111,7 @@ const BlogContent = ({ og, isFallback, type }: BlogContentProps) => {
         />
       </Head>
       {post && (
-        <Container className="py-20 px-8 md:px-0">
+        <Container className="px-8 py-20 md:px-0">
           {/* <pre>{JSON.stringify(post, null, 2)}</pre> */}
           <article className="grid grid-cols-1 gap-10 md:grid-cols-3">
             <div className="md:col-span-2">
@@ -251,7 +251,7 @@ const BlogContent = ({ og, isFallback, type }: BlogContentProps) => {
               </button>
             </div>
 
-            <div className="mt-5 mb-8 text-center">
+            <div className="mb-8 mt-5 text-center">
               <img
                 src="/assets/images/amico.svg"
                 style={{ display: 'inline-block' }}
