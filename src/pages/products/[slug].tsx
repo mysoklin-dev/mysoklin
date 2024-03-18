@@ -168,7 +168,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
       </Head>
       {data && (
         <>
-          <section className="bg-white py-12 px-8 md:px-0">
+          <section className="bg-white px-8 py-12 md:px-0">
             <Container>
               {/* Breadcrumbs */}
               <div className="flex items-center gap-2 text-gray-700">
@@ -361,7 +361,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
 
           {/* Description */}
           <section
-            className="py-12 px-8 md:px-0"
+            className="px-8 py-12 md:px-0"
             style={{ background: '#EEF3F6' }}
           >
             <Container>
@@ -413,7 +413,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
           </section>
 
           {/* Gallery */}
-          <section className="bg-white py-12 px-8 md:px-0">
+          <section className="bg-white px-8 py-12 md:px-0">
             <Container>
               <div className="grid-cols-1 gap-4 md:grid md:grid-cols-12 md:gap-10">
                 <div className="col-span-1 mb-4 md:col-span-5 md:mb-0">
@@ -498,7 +498,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                     </ul>
                   )}
 
-                  <h2 className="mt-10 mb-4 text-2xl font-black text-blue-400">
+                  <h2 className="mb-4 mt-10 text-2xl font-black text-blue-400">
                     Specification
                   </h2>
 
@@ -654,7 +654,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
 
           {/* related */}
           {items && items.length > 1 && (
-            <Container className="py-20 px-8 md:px-0">
+            <Container className="px-8 py-20 md:px-0">
               <h2 className="mb-20 text-2xl font-black text-blue-400">
                 Related Products
               </h2>
@@ -910,7 +910,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
               </button>
             </div>
 
-            <div className="mt-5 mb-8 text-center">
+            <div className="mb-8 mt-5 text-center">
               <img
                 src="/assets/images/amico.svg"
                 style={{ display: 'inline-block' }}
@@ -961,7 +961,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
               </button>
             </div>
 
-            <div className="mt-5 mb-8 text-center">
+            <div className="mb-8 mt-5 text-center">
               <LoginForm />
             </div>
           </div>

@@ -153,7 +153,7 @@ const CompanyHistory: NextPage<any> = ({ og }) => {
         </Container>
       </div>
 
-      <Container className="py-16 px-4 md:px-0">
+      <Container className="px-4 py-16 md:px-0">
         <div className="timeline">
           {rows.map((item, i: number) => (
             <React.Fragment key={`item-${item.id}-${i + 1}`}>

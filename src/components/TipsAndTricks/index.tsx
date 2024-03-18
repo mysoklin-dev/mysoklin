@@ -14,7 +14,7 @@ const LatestUpdates = () => {
 
   return (
     <section
-      className="px-8 pt-20 pb-10 md:px-0"
+      className="px-8 pb-10 pt-20 md:px-0"
       style={{ background: '#F5F5F5' }}
     >
       <div className="container mx-auto mb-20 max-w-6xl">
@@ -23,7 +23,7 @@ const LatestUpdates = () => {
             <h2 className="text-center md:text-left">Artikel Tips dan Trik</h2>
           </div>
           <div className="col-span-1">
-            <div className="mr-0 ml-auto mt-3 text-right md:mt-0">
+            <div className="ml-auto mr-0 mt-3 text-right md:mt-0">
               <Link href="/articles" className="hidden md:block">
                 <Button
                   style={{ width: '170px', height: 40, marginLeft: 'auto' }}

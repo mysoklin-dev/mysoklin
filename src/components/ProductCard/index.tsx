@@ -39,7 +39,7 @@ const ProductCard = ({
         />
       </div>
 
-      <div className="card-background pt-20 pb-10">
+      <div className="card-background pb-10 pt-20">
         <p>{title}</p>
 
         <div className="productButton cursoir-pointer">See Products</div>

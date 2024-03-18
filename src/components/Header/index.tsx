@@ -341,7 +341,7 @@ const Header = () => {
             {navs.map((item: any, i: number) => (
               <Link
                 key={`menu-m-${i}`}
-                className="block py-3 px-8 text-white"
+                className="block px-8 py-3 text-white"
                 href={item.slug}
                 style={{
                   color: `${
@@ -447,7 +447,7 @@ const Header = () => {
             {navs.map((item: any, i: number) => (
               <Link
                 key={`menu-${i}`}
-                className="d-block py-2 px-3 text-white"
+                className="d-block px-3 py-2 text-white"
                 href={item.slug}
                 style={{
                   color: `${

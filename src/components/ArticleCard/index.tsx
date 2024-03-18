@@ -38,7 +38,7 @@ const ArticleCard = ({
         </Link>
       </div>
 
-      <div className="card-background pt-20 pb-10">
+      <div className="card-background pb-10 pt-20">
         <Link
           href={link === '#' ? '/article-detail' : link}
           style={{ color: '#000' }}

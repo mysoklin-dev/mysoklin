@@ -110,11 +110,11 @@ const Register: NextPage<any> = ({ og }) => {
         `}</style>
       </Head>
 
-      <Container className="my-4 p-8 md:my-10 md:py-10 md:px-0">
+      <Container className="my-4 p-8 md:my-10 md:px-0 md:py-10">
         <div className="flex justify-center gap-10">
           {/* Right */}
           <div
-            className="rounded-xl py-14 px-10 text-center"
+            className="rounded-xl px-10 py-14 text-center"
             style={{ background: '#EEF3F6', width: '100%', maxWidth: '500px' }}
           >
             <div className="mb-4 text-center">
@@ -291,7 +291,7 @@ const Register: NextPage<any> = ({ og }) => {
               </button>
             </div>
 
-            <div className="mt-5 mb-8 text-center">
+            <div className="mb-8 mt-5 text-center">
               <img
                 src="/assets/images/amico.svg"
                 style={{ display: 'inline-block' }}

@@ -57,7 +57,7 @@ const Products: NextPage<any> = ({ og }) => {
         />
       </Head>
 
-      <div className="hero py-24 px-8 md:px-0">
+      <div className="hero px-8 py-24 md:px-0">
         {/* Muqodimah */}
         <Container>
           <div className="grid grid-cols-2 justify-center">

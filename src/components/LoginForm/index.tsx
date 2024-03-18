@@ -43,7 +43,7 @@ const LoginForm = () => {
 
   return (
     <div
-      className="rounded-xl py-14 px-10 text-center"
+      className="rounded-xl px-10 py-14 text-center"
       style={{ background: '#EEF3F6', width: '100%', maxWidth: '500px' }}
     >
       <div className="mb-4 text-center">
