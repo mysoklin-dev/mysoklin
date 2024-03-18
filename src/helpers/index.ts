@@ -59,18 +59,18 @@ interface IWithCdnOptions {
  * ```
  */
 export const withCdn = (options: IWithCdnOptions): string => {
-  const { w, h, img } = options;
+  const { img } = options;
 
   if (img === null) {
     return img;
   }
-  
+
   // const cdnUrl = `https://cdn.efectifity.com/img/?w=${w}&h=${h}&q=${
   //   q || 100
   // }&img=${img?.replace('https://', '')}`;
-  const cdnUrl = `${img}?thumb=${w}x${h}`;
+  // const cdnUrl = `${img}?thumb=${w}x${h}`;
 
-  return cdnUrl;
+  return img;
 };
 
 export const convertDate = (datestring: string, showHour: boolean = false) => {
