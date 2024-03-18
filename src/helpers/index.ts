@@ -59,15 +59,16 @@ interface IWithCdnOptions {
  * ```
  */
 export const withCdn = (options: IWithCdnOptions): string => {
-  const { w, h, q, img } = options;
+  const { w, h, img } = options;
 
   if (img === null) {
     return img;
   }
-
-  const cdnUrl = `https://cdn.efectifity.com/img/?w=${w}&h=${h}&q=${
-    q || 100
-  }&img=${img?.replace('https://', '')}`;
+  
+  // const cdnUrl = `https://cdn.efectifity.com/img/?w=${w}&h=${h}&q=${
+  //   q || 100
+  // }&img=${img?.replace('https://', '')}`;
+  const cdnUrl = `${img}?thumb=${w}x${h}`;
 
   return cdnUrl;
 };
