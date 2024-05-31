@@ -276,6 +276,24 @@ const BlogContent = ({ og, isFallback, type }: BlogContentProps) => {
       )}
 
       <style jsx>{`
+        .content {
+          ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            li {
+              margin-bottom: 20px;
+            }
+          }
+
+          ol {
+            list-style-type: number;
+            margin-left: 20px;
+
+            li {
+              margin-bottom: 20px;
+            }
+          }
+        }
         .modal-box {
           position: fixed;
           top: 50%;
