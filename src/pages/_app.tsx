@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/next-script-for-ga */
 import '../styles/global.css';
 
 import { Analytics } from '@vercel/analytics/react';
@@ -46,6 +47,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
       </div>
     </SWRConfig>
     {/* eslint-disable-next-line @next/next/next-script-for-ga */}
+    {/* <!-- GTM Tags --> */}
     <script
       dangerouslySetInnerHTML={{
         __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
