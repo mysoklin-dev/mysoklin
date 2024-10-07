@@ -16,19 +16,43 @@ import { average, withCdn } from '@/helpers';
 import usePocketBaseAuth from '@/hooks/usePocketBaseAuth';
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  return { paths: [], fallback: true };
+  return {
+    paths: [],
+    fallback: true, // or 'blocking'
+  };
 };
+
+// export const getStaticProps: GetStaticProps = async (context) => {
+//   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
+//   const { slug } = context.params as any; // no longer causes error
+//   const record = await pb
+//     .collection('products')
+//     .getFirstListItem(`slug ~ '${slug}'`);
+//   return {
+//     props: { og: JSON.parse(JSON.stringify(record)) },
+//     revalidate: 60,
+//   };
+// };
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
-  const { slug } = context.params as any; // no longer causes error
-  const record = await pb
-    .collection('products')
-    .getFirstListItem(`slug ~ '${slug}'`);
-  return {
-    props: { og: JSON.parse(JSON.stringify(record)) },
-    revalidate: 60,
-  };
+  const { slug } = context.params as any;
+
+  try {
+    const record = await pb
+      .collection('products')
+      .getFirstListItem(`slug ~ '${slug}'`);
+
+    return {
+      props: { og: JSON.parse(JSON.stringify(record)) },
+      revalidate: 60,
+    };
+  } catch (error) {
+    // If the slug is not found, return notFound: true
+    return {
+      notFound: true,
+    };
+  }
 };
 
 const ProductDetail: NextPage<any> = ({ og }) => {
