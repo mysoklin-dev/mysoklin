@@ -2,7 +2,15 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-const CustomErrorPage = ({ statusCode, message }) => {
+interface CustomErrorPageProps {
+  statusCode?: number;
+  message?: string;
+}
+
+const CustomErrorPage: React.FC<CustomErrorPageProps> = ({
+  statusCode,
+  message,
+}) => {
   const router = useRouter();
 
   const handleRetry = () => {
