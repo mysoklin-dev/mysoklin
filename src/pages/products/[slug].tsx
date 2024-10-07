@@ -178,7 +178,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                       src="/assets/images/home-muted.svg"
                       width="13"
                       height="13"
-                      alt=""
+                      alt={data.title}
                     />
                   </Link>
                 </div>
@@ -224,7 +224,10 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                       variant="outlined"
                       style={{ height: 50, width: 200 }}
                       icon={
-                        <img src="/assets/images/logos/tokopedia.png" alt="" />
+                        <img
+                          src="/assets/images/logos/tokopedia.png"
+                          alt={data.title}
+                        />
                       }
                       appendIcon={
                         <img
@@ -232,7 +235,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                           width={10}
                           height={7.5}
                           style={{ height: 'auto' }}
-                          alt=""
+                          alt={data.title}
                         />
                       }
                     >
@@ -252,7 +255,10 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                       variant="outlined"
                       style={{ height: 50, width: 200 }}
                       icon={
-                        <img src="/assets/images/logos/shopee.png" alt="" />
+                        <img
+                          src="/assets/images/logos/shopee.png"
+                          alt={data.title}
+                        />
                       }
                       appendIcon={
                         <img
@@ -260,7 +266,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                           width={10}
                           height={7.5}
                           style={{ height: 'auto' }}
-                          alt=""
+                          alt={data.title}
                         />
                       }
                     >
@@ -280,7 +286,10 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                       variant="outlined"
                       style={{ height: 50, width: 200 }}
                       icon={
-                        <img src="/assets/images/logos/blibli.png" alt="" />
+                        <img
+                          src="/assets/images/logos/blibli.png"
+                          alt={data.title}
+                        />
                       }
                       appendIcon={
                         <img
@@ -288,7 +297,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                           width={10}
                           height={7.5}
                           style={{ height: 'auto' }}
-                          alt=""
+                          alt={data.title}
                         />
                       }
                     >
@@ -307,14 +316,19 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                     <Button
                       variant="outlined"
                       style={{ height: 50, width: 200 }}
-                      icon={<img src="/assets/images/logos/jd.png" alt="" />}
+                      icon={
+                        <img
+                          src="/assets/images/logos/jd.png"
+                          alt={data.title}
+                        />
+                      }
                       appendIcon={
                         <img
                           src="/assets/images/chevron-right.svg"
                           width={10}
                           height={7.5}
                           style={{ height: 'auto' }}
-                          alt=""
+                          alt={data.title}
                         />
                       }
                     >
@@ -404,7 +418,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                       height={424}
                       style={{ width: 'auto!important', height: 424 }}
                       className="d-inline-block w-auto"
-                      alt=""
+                      alt={data.title}
                     />
                   </div>
                 </div>
@@ -430,7 +444,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                             h: 350,
                             q: 100,
                           })}
-                          alt=""
+                          alt={data.title}
                         />
                       </div>
 
@@ -448,7 +462,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                                         h: 300,
                                         q: 100,
                                       })}
-                                      alt=""
+                                      alt={data.title}
                                     />
                                   </div>
                                 )}
@@ -709,7 +723,10 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                       square
                       style={{ height: 60 }}
                       icon={
-                        <img src="/assets/images/logos/tokopedia.png" alt="" />
+                        <img
+                          src="/assets/images/logos/tokopedia.png"
+                          alt={data.title}
+                        />
                       }
                       appendIcon={
                         <img
@@ -717,7 +734,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                           width={10}
                           height={7.5}
                           style={{ height: 'auto' }}
-                          alt=""
+                          alt={data.title}
                         />
                       }
                     >
@@ -739,7 +756,10 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                       square
                       style={{ height: 60 }}
                       icon={
-                        <img src="/assets/images/logos/shopee.png" alt="" />
+                        <img
+                          src="/assets/images/logos/shopee.png"
+                          alt={data.title}
+                        />
                       }
                       appendIcon={
                         <img
@@ -747,7 +767,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                           width={10}
                           height={7.5}
                           style={{ height: 'auto' }}
-                          alt=""
+                          alt={data.title}
                         />
                       }
                     >
@@ -769,7 +789,10 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                       square
                       style={{ height: 60 }}
                       icon={
-                        <img src="/assets/images/logos/blibli.png" alt="" />
+                        <img
+                          src="/assets/images/logos/blibli.png"
+                          alt={data.title}
+                        />
                       }
                       appendIcon={
                         <img
@@ -777,7 +800,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                           width={10}
                           height={7.5}
                           style={{ height: 'auto' }}
-                          alt=""
+                          alt={data.title}
                         />
                       }
                     >
@@ -798,14 +821,19 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                       fullWidth
                       square
                       style={{ height: 60 }}
-                      icon={<img src="/assets/images/logos/jd.png" alt="" />}
+                      icon={
+                        <img
+                          src="/assets/images/logos/jd.png"
+                          alt={data.title}
+                        />
+                      }
                       appendIcon={
                         <img
                           src="/assets/images/chevron-right.svg"
                           width={10}
                           height={7.5}
                           style={{ height: 'auto' }}
-                          alt=""
+                          alt={data.title}
                         />
                       }
                     >
@@ -830,7 +858,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                         <img
                           src="/assets/images/logos/lazada.webp"
                           width="30"
-                          alt=""
+                          alt={data.title}
                         />
                       }
                       appendIcon={
@@ -839,7 +867,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                           width={10}
                           height={7.5}
                           style={{ height: 'auto' }}
-                          alt=""
+                          alt={data.title}
                         />
                       }
                     >
@@ -864,7 +892,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                         <img
                           src="/assets/images/logos/astro.jpeg"
                           width="30"
-                          alt=""
+                          alt={data.title}
                         />
                       }
                       appendIcon={
@@ -873,7 +901,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
                           width={10}
                           height={7.5}
                           style={{ height: 'auto' }}
-                          alt=""
+                          alt={data.title}
                         />
                       }
                     >
