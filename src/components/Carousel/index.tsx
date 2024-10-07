@@ -29,7 +29,7 @@ const Carousel = ({ data }: ICarouselProps) => {
                 </a>
                 <img
                   src={`${process.env.NEXT_PUBLIC_API_URL}/files/${item.collectionId}/${item.id}/${item?.banner}`}
-                  alt=""
+                  alt={item.title}
                   width={1440}
                   height={720}
                   loading="eager"
