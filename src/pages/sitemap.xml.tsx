@@ -87,23 +87,23 @@ function SiteMap() {
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   // getArticles
   const reqArticle = await fetch(
-    'https://mysoklin-dashboard.efectifity.com/api/collections/articles/records?page=1&perPage=10000'
+    'https://maindbase.us/mysoklin/api/collections/articles/records?page=1&perPage=10000'
   );
   const articles = await reqArticle.json();
   // getUpdates
   const reqUpdate = await fetch(
-    'https://mysoklin-dashboard.efectifity.com/api/collections/updates/records?page=1&perPage=10000'
+    'https://maindbase.us/mysoklin/api/collections/updates/records?page=1&perPage=10000'
   );
   const updates = await reqUpdate.json();
 
   // getBrands
   const reqBrand = await fetch(
-    'https://mysoklin-dashboard.efectifity.com/api/collections/product_brands/records?page=1&perPage=100000'
+    'https://maindbase.us/mysoklin/api/collections/product_brands/records?page=1&perPage=100000'
   );
   const brand = await reqBrand.json();
   // getProducts
   const reqProduct = await fetch(
-    'https://mysoklin-dashboard.efectifity.com/api/collections/products/records?page=1&perPage=10000'
+    'https://maindbase.us/mysoklin/api/collections/products/records?page=1&perPage=10000'
   );
   const products = await reqProduct.json();
 
