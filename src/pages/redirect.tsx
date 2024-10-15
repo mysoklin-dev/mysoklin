@@ -20,9 +20,14 @@ const RedirectAuth = () => {
 
     const params = new URL(window.location as any).searchParams;
 
+    // Tambahkan pengecekan dan logging
+    console.log('Provider state:', provider.state);
+    console.log('URL state param:', params.get('state'));
+
     if (provider.state !== params.get('state')) {
-      // eslint-disable-next-line @typescript-eslint/no-throw-literal
-      throw "State parameters don't match.";
+      console.error("State parameters don't match.");
+      window.location.href = '/'; // Redirect ke halaman utama
+      return;
     }
 
     // console.log(params.get('code'));
