@@ -1,6 +1,6 @@
 import { createMutation, createQuery } from 'react-query-kit';
 
-import pb from '@/lib/pocketbaseClient';
+import pb from '@/lib/pocketbase-client';
 
 const GET_LIST_AUTH_METHODS = 'GET_LIST_AUTH_METHODS';
 
