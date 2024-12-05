@@ -1,357 +1,309 @@
-import { CgAttachment } from '@react-icons/all-files/cg/CgAttachment';
-import { CgFacebook } from '@react-icons/all-files/cg/CgFacebook';
-import { CgGoogle } from '@react-icons/all-files/cg/CgGoogle';
-import type { GetServerSideProps, NextPage } from 'next';
-import Head from 'next/head';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { FacebookTag, Google } from 'iconoir-react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import PocketBase from 'pocketbase';
-import { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 
-import Button from '@/components/Button';
-import Container from '@/components/Container';
+import BaseAlertDialog from '@/components/Base/AlertDialog';
+import BaseCheckbox from '@/components/Base/Checkbox';
+import BaseInput from '@/components/Base/Input';
 import LatestUpdates from '@/components/LatestUpdates';
 import ProductsCarousel from '@/components/ProductsCarousel';
-import usePocketBaseAuth from '@/hooks/usePocketBaseAuth';
+import { useAlertDialog } from '@/hooks/use-alert-dialog';
+import Yup from '@/lib/yup';
+import { useCreateUser, useGetListAuthMethods } from '@/services/userService';
 
-const Register: NextPage<any> = ({ og }) => {
-  const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
-  // States
+export const formSchema = Yup.object({
+  name: Yup.string().required().label('Full Name'),
+  email: Yup.string().email().required().label('Email'),
+  province: Yup.string().required().label('Province'),
+  city: Yup.string().required().label('City'),
+  address: Yup.string().required().label('Address'),
+  post_code: Yup.string().required().label('Postal Code'),
+  password: Yup.string().required().min(8).label('Password'),
+  confirm_password: Yup.string()
+    .required()
+    .oneOf([Yup.ref('password')], 'Password must match')
+    .label('Confirm Password'),
+  agreement: Yup.boolean().oneOf([true], 'You must agree to the terms'),
+});
+
+const RegisterPage = () => {
   const router = useRouter();
-  const [isSent, setIsSent] = useState<boolean>(false);
-  const [user]: any = usePocketBaseAuth();
-  const [authList, setAuthList] = useState<any>([]);
-  const redirectUrl =
-    process.env.NODE_ENV === 'production'
-      ? 'https://mysoklin.com/redirect'
-      : 'http://localhost:3000/redirect';
-  const [form, setForm] = useState<any>({
-    username: '',
-    email: '',
-    emailVisibility: false,
-    password: '',
-    passwordConfirm: '',
-    name: '',
+  const { props: alertDialogProps, showAlert } = useAlertDialog();
+  const { data: listAuthMethods, isLoading: loadingAuthMethods } =
+    useGetListAuthMethods();
+
+  const { mutate: mutateCreateUser } = useCreateUser({
+    onSuccess() {
+      showAlert({
+        open: true,
+        message: 'Register success!',
+        loading: false,
+        type: 'success',
+        onClose: () => {
+          router.push('/login');
+        },
+      });
+    },
+    onError() {
+      showAlert({
+        open: true,
+        message: 'Register failed!',
+        loading: false,
+        type: 'error',
+      });
+    },
   });
 
-  useEffect(() => {
-    if (user !== null && typeof window !== 'undefined') {
-      router.push('/profile');
-    }
-  }, [user]);
+  const form = useForm<Yup.InferType<typeof formSchema>>({
+    resolver: yupResolver(formSchema),
+    mode: 'all',
+    defaultValues: {
+      name: '',
+      email: '',
+      province: '',
+      city: '',
+      address: '',
+      post_code: '',
+      password: '',
+      confirm_password: '',
+      agreement: false,
+    },
+  });
 
-  useEffect(() => {
-    const fetchAuthMethods = async () => {
-      try {
-        const result = await pb.collection('users').listAuthMethods();
-        setAuthList(result.authProviders);
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
-      }
-    };
-
-    fetchAuthMethods();
-  }, []);
-
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append('username', form.username);
-    formData.append('email', form.email);
-    formData.append('emailVisibility', form.emailVisibility);
-    formData.append('password', form.password);
-    formData.append('passwordConfirm', form.passwordConfirm);
-    formData.append('name', form.name);
-
-    const fileInput: any = document.getElementById('file');
-    if (fileInput !== null) {
-      formData.append('avatar', fileInput.files[0]);
-    }
-
-    try {
-      const record = await pb.collection('users').create(formData);
-      setIsSent(true);
-      // eslint-disable-next-line no-console
-      console.log(record);
-      setForm(() => ({
-        username: '',
-        email: '',
-        emailVisibility: '',
-        password: '',
-        passwordConfirm: '',
-        name: '',
-      }));
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
-    }
-  };
-
-  const handleLocalStorage = (provider: any) => {
-    localStorage.setItem('provider', JSON.stringify(provider));
+  const handleSubmit = (values: Yup.InferType<typeof formSchema>) => {
+    mutateCreateUser({
+      payload: {
+        name: values.name,
+        email: values.email,
+        province: values.province,
+        city: values.city,
+        address: values.address,
+        post_code: values.post_code,
+        password: values.password,
+        passwordConfirm: values.confirm_password,
+        emailVisibility: false,
+      },
+    });
+    showAlert({
+      open: true,
+      message: 'Registering...',
+      loading: true,
+      type: 'default',
+    });
   };
 
   return (
     <>
-      <Head>
-        <title>{og?.og_title}</title>
-        <meta property="og:title" content={og?.og_title} />
-        <meta name="description" content={og?.og_description} />
-        <meta property="og:description" content={og?.og_description} />
-        <meta
-          property="og:image"
-          content={`${process.env.NEXT_PUBLIC_API_URL}/files/${og.collectionId}/${og.id}/${og.og_image}`}
-        />
-
-        <style>{`
-          body {
-            background: #fff;
-          }
-        `}</style>
-      </Head>
-
-      <Container className="my-4 p-8 md:my-10 md:px-0 md:py-10">
-        <div className="flex justify-center gap-10">
-          {/* Right */}
-          <div
-            className="rounded-xl px-10 py-14 text-center"
-            style={{ background: '#EEF3F6', width: '100%', maxWidth: '500px' }}
-          >
-            <div className="mb-4 text-center">
-              <img
-                src="/assets/images/register.svg"
-                className="inline-block"
-                alt=""
-              />
-            </div>
-
-            <h3 className="mb-10 text-3xl font-black text-gray-800">
-              Sign In or Sign Up
-            </h3>
-
-            {authList.map((provider: any) => (
-              <a
-                href={provider.authUrl + redirectUrl}
-                key={`provider-${provider.codeChallenge}`}
-                className="mb-3 flex items-center gap-2 rounded-xl bg-white p-4 text-center text-lg shadow-lg hover:bg-gray-50"
-                onClick={() => {
-                  handleLocalStorage(provider);
-                }}
-              >
-                {provider.name === 'google' ? (
-                  <CgGoogle size={20} />
-                ) : (
-                  <CgFacebook size={20} />
-                )}{' '}
-                <div className="ml-3 text-sm md:ml-10 md:text-lg">
-                  Continue with {provider.name}
-                </div>
-              </a>
-            ))}
-
-            <form onSubmit={handleSubmit} className="hidden">
-              <div className="mt-8">
-                <input
-                  required
-                  type="text"
-                  className="formControl"
-                  placeholder="Username"
-                  value={form.username}
-                  onChange={(e: any) => {
-                    setForm((prev: any) => ({
-                      ...prev,
-                      username: e.target.value,
-                    }));
-                  }}
-                />
-              </div>
-
-              <div className="mt-8 grid grid-cols-1 gap-10">
-                <div>
-                  <input
-                    required
-                    type="text"
-                    className="formControl"
-                    placeholder="Full Name"
-                    value={form.name}
-                    onChange={(e: any) => {
-                      setForm((prev: any) => ({
-                        ...prev,
-                        name: e.target.value,
-                      }));
-                    }}
-                  />
-                </div>
-              </div>
-
-              <div className="mt-8">
-                <input
-                  required
-                  type="email"
-                  className="formControl"
-                  placeholder="Email"
-                  value={form.email}
-                  onChange={(e: any) => {
-                    setForm((prev: any) => ({
-                      ...prev,
-                      email: e.target.value,
-                    }));
-                  }}
-                />
-              </div>
-
-              <div className="mt-8">
-                <input
-                  className="formControl"
-                  placeholder="Password"
-                  type="password"
-                  value={form.password}
-                  onChange={(e: any) => {
-                    setForm((prev: any) => ({
-                      ...prev,
-                      password: e.target.value,
-                    }));
-                  }}
-                />
-              </div>
-
-              <div className="mt-8">
-                <input
-                  className="formControl"
-                  placeholder="Confirm Password"
-                  type="password"
-                  value={form.passwordConfirm}
-                  onChange={(e: any) => {
-                    setForm((prev: any) => ({
-                      ...prev,
-                      passwordConfirm: e.target.value,
-                    }));
-                  }}
-                />
-              </div>
-
-              <div className="mt-8 flex items-center justify-end gap-3">
-                <input
-                  type="file"
-                  id="file"
-                  // value={form.attachment}
-                  style={{ width: 0, height: 0, opacity: 0 }}
-                  onChange={(e: any) => {
-                    setForm((prev: any) => ({
-                      ...prev,
-                      avatar: e.target.value,
-                    }));
-                  }}
-                />
-                {form.attachment ? form.attachment : ''}
-                <label htmlFor="file">
-                  <Button variant="elevated" icon={<CgAttachment />}>
-                    Avatar
-                  </Button>
-                </label>
-              </div>
-
-              <button
-                type="submit"
-                className="elevated  text-md flex w-full items-center justify-center gap-2 rounded-full bg-blue-400 text-white"
-                style={{ padding: '20px 25px', marginTop: 20 }}
-              >
-                Register
-              </button>
-            </form>
+      <BaseAlertDialog {...alertDialogProps} />
+      <div className="grid h-full w-full grid-cols-1 gap-8 bg-background px-8 py-6 text-base lg:grid-cols-2 lg:gap-20 lg:px-20 lg:py-10">
+        <div className="relative">
+          <Image
+            className="h-auto w-full rounded-2xl object-cover object-center"
+            src="/assets/images/login-image.jpg"
+            width={800}
+            height={622}
+            alt="Login Image"
+          />
+          <div className="absolute left-0 top-0 px-6 py-8 text-white lg:px-10 lg:py-20">
+            <h2 className="mb-3 text-2xl font-bold lg:text-3xl">
+              Get to know about SoKlin
+            </h2>
+            <p className="leading-relaxed">
+              An invitation to be a member of
+              <br /> Smart Mom with SoKlin.
+            </p>
           </div>
         </div>
-
-        {/* <pre>{JSON.stringify(authList, null, 2)}</pre> */}
-      </Container>
+        <div>
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold lg:text-3xl">Get started!</h2>
+            <p className="leading-relaxed text-gray-500">
+              Create your account now.
+            </p>
+          </div>
+          <form onSubmit={form.handleSubmit(handleSubmit)}>
+            <div className="mb-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
+              <Controller
+                control={form.control}
+                name="name"
+                render={(val) => (
+                  <BaseInput
+                    {...val.field}
+                    type="text"
+                    placeholder="Full Name"
+                    error={val.fieldState.error?.message}
+                  />
+                )}
+              />
+              <Controller
+                control={form.control}
+                name="email"
+                render={(val) => (
+                  <BaseInput
+                    {...val.field}
+                    type="email"
+                    placeholder="Email"
+                    error={val.fieldState.error?.message}
+                  />
+                )}
+              />
+              <Controller
+                control={form.control}
+                name="province"
+                render={(val) => (
+                  <BaseInput
+                    {...val.field}
+                    type="text"
+                    placeholder="Province"
+                    error={val.fieldState.error?.message}
+                  />
+                )}
+              />
+              <Controller
+                control={form.control}
+                name="city"
+                render={(val) => (
+                  <BaseInput
+                    {...val.field}
+                    type="text"
+                    placeholder="City"
+                    error={val.fieldState.error?.message}
+                  />
+                )}
+              />
+              <Controller
+                control={form.control}
+                name="address"
+                render={(val) => (
+                  <BaseInput
+                    {...val.field}
+                    type="text"
+                    placeholder="Address"
+                    error={val.fieldState.error?.message}
+                  />
+                )}
+              />
+              <Controller
+                control={form.control}
+                name="post_code"
+                render={(val) => (
+                  <BaseInput
+                    {...val.field}
+                    type="text"
+                    placeholder="Postal Code"
+                    error={val.fieldState.error?.message}
+                  />
+                )}
+              />
+              <Controller
+                control={form.control}
+                name="password"
+                render={(val) => (
+                  <BaseInput
+                    {...val.field}
+                    type="password"
+                    placeholder="Password"
+                    error={val.fieldState.error?.message}
+                  />
+                )}
+              />
+              <Controller
+                control={form.control}
+                name="confirm_password"
+                render={(val) => (
+                  <BaseInput
+                    {...val.field}
+                    type="password"
+                    placeholder="Confirm Password"
+                    error={val.fieldState.error?.message}
+                  />
+                )}
+              />
+            </div>
+            <Controller
+              control={form.control}
+              name="agreement"
+              render={(val) => (
+                <BaseCheckbox
+                  className="mb-6"
+                  value={val.field.value}
+                  onChange={val.field.onChange}
+                  error={val.fieldState.error?.message}
+                  label={
+                    <p>
+                      By signing up you agree to our{' '}
+                      <Link
+                        href="/terms-and-condition"
+                        className="text-blue underline decoration-wavy"
+                      >
+                        terms & conditions
+                      </Link>
+                      , including the updates about SoKlin&apos;s event.
+                    </p>
+                  }
+                />
+              )}
+            />
+            <div className="space-y-4">
+              <button
+                type="submit"
+                className="w-full rounded-lg bg-blue p-4 text-white transition duration-300 hover:bg-blue/90"
+              >
+                Create Account
+              </button>
+              <div className="flex items-center">
+                <hr className="flex-1 border-t border-gray-300" />
+                <p className="mx-4 text-gray-500">OR</p>
+                <hr className="flex-1 border-t border-gray-300" />
+              </div>
+              <div className="flex flex-col gap-4 lg:flex-row lg:gap-6">
+                {listAuthMethods &&
+                  !loadingAuthMethods &&
+                  listAuthMethods.authProviders.map((provider) => (
+                    <a
+                      key={`provider-${provider.codeChallenge}`}
+                      href={
+                        provider.authUrl + process.env.NEXT_PUBLIC_REDIRECT_URL
+                      }
+                      className="flex w-full items-center justify-center gap-1 rounded-lg border border-blue bg-white p-4 text-blue transition duration-300 hover:bg-blue hover:text-white"
+                      onClick={() =>
+                        localStorage.setItem(
+                          'provider',
+                          JSON.stringify(provider)
+                        )
+                      }
+                    >
+                      {provider.name === 'google' && (
+                        <Google height={24} width={24} />
+                      )}
+                      {provider.name === 'facebook' && (
+                        <FacebookTag height={24} width={24} />
+                      )}
+                      Sign up with {provider.name}
+                    </a>
+                  ))}
+              </div>
+              <p className="text-center text-gray-500">
+                Already have an account?{' '}
+                <Link
+                  href="/login"
+                  className="text-blue underline decoration-wavy"
+                >
+                  Log in
+                </Link>
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
 
       <ProductsCarousel />
       <LatestUpdates />
-
-      {isSent && (
-        <>
-          <div
-            onClick={() => {
-              setIsSent(false);
-            }}
-            className="modal-overlay"
-          ></div>
-          <div className="modal-box rounded-md bg-white px-7 py-6 pb-10 text-center">
-            <div className="text-right">
-              <button
-                onClick={() => {
-                  setIsSent(false);
-                }}
-              >
-                <img
-                  src="/assets/images/close__1.svg"
-                  alt="close"
-                  loading="lazy"
-                />
-              </button>
-            </div>
-
-            <div className="mb-8 mt-5 text-center">
-              <img
-                src="/assets/images/amico.svg"
-                style={{ display: 'inline-block' }}
-                alt=""
-              />
-
-              <div className="mt-4 text-2xl font-black">
-                Account Successfully Created
-              </div>
-            </div>
-
-            <button
-              onClick={() => {
-                setIsSent(false);
-              }}
-              className="close"
-            >
-              Close
-            </button>
-          </div>
-        </>
-      )}
-
-      <style jsx>
-        {`
-          .modal-box {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 400px;
-            margin: 0 auto;
-            left: 0;
-            right: 0;
-            background: #fff;
-            z-index: 99999;
-          }
-          .modal-overlay {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            margin: 0 auto;
-            left: 0;
-            top: 0;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 9999;
-          }
-        `}
-      </style>
     </>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
-  const record = await pb.collection('pages').getOne('2693a7awa5aiep0');
-  return {
-    props: {
-      og: JSON.parse(JSON.stringify(record)),
-    },
-  };
-};
-
-export default Register;
+export default RegisterPage;
