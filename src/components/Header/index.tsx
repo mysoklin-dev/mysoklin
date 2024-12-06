@@ -229,9 +229,9 @@ const Header = () => {
                       <span>
                         <img
                           src={
-                            userData.avatar !== 0
+                            userData.avatar && userData.avatar !== 0
                               ? `${process.env.NEXT_PUBLIC_API_URL}/files/${userData.collectionId}/${userData.id}/${userData.avatar}?thumb=80x80`
-                              : `https://mysoklin-dashboard.efectifity.com/_/images/avatars/avatar0.svg`
+                              : '/assets/images/avatar-placeholder.png'
                           }
                           alt=""
                           referrerPolicy="no-referrer"

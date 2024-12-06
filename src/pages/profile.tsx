@@ -4,7 +4,7 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import Button from '@/components/Button';
 import Container from '@/components/Container';
@@ -162,6 +162,18 @@ const Profile = () => {
     return 'Completed';
   };
 
+  const avatar = useMemo(() => {
+    if (userData) {
+      if (userData.avatar) {
+        return `${process.env.NEXT_PUBLIC_API_URL}/files/${userData.collectionId}/${userData.id}/${userData.avatar}?thumb=80x80`;
+      }
+      if (userData?.avatarUrl) {
+        return userData.avatarUrl;
+      }
+    }
+    return '/assets/images/avatar-placeholder.png';
+  }, [userData]);
+
   return (
     <>
       <Head>
@@ -219,11 +231,7 @@ const Profile = () => {
                   {/* Umage */}
                   <div>
                     <img
-                      src={
-                        userData.avatar !== ''
-                          ? `${process.env.NEXT_PUBLIC_API_URL}/files/${userData.collectionId}/${userData.id}/${userData.avatar}?thumb=80x80`
-                          : userData.avatarUrl
-                      }
+                      src={avatar}
                       width={60}
                       height={50}
                       className="rounded-full"
