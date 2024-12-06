@@ -243,7 +243,7 @@ const Header = () => {
                       <span>{(pocketBaseAuth as any).model.name}</span>
                     </Link>
                   ) : (
-                    <Link href="/register" className="text-blue-400">
+                    <Link href="/login" className="text-blue-400">
                       Account
                     </Link>
                   )}
@@ -383,7 +383,7 @@ const Header = () => {
             ) : (
               <Link
                 onClick={handleCloseMenu}
-                href="/register"
+                href="/login"
                 className="block px-8 py-3 text-white"
               >
                 Account
