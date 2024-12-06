@@ -1,23 +1,14 @@
 import { createMutation, createQuery } from 'react-query-kit';
 
 import pb from '@/lib/pocketbase-client';
+import type {
+  TCreateUserPayload,
+  TListAuthMethods,
+  TLoginPayload,
+  TLoginResponse,
+} from '@/types/user';
 
 const GET_LIST_AUTH_METHODS = 'GET_LIST_AUTH_METHODS';
-
-type TAuthProvider = {
-  authUrl: string;
-  codeChallenge: string;
-  codeChallengeMethod: string;
-  codeVerifier: string;
-  name: string;
-  state: string;
-};
-
-type TListAuthMethods = {
-  authProviders: TAuthProvider[];
-  emailPassword: boolean;
-  usernamePassword: boolean;
-};
 
 /**
  * Get List Auth Methods
@@ -41,26 +32,26 @@ export const useGetListAuthMethods = createQuery({
 /**
  * Create User
  */
-
 export const useCreateUser = createMutation({
-  mutationFn({
-    payload,
-  }: {
-    payload: {
-      name: string;
-      email: string;
-      password: string;
-      passwordConfirm: string;
-      emailVisibility: boolean;
-      province: string;
-      city: string;
-      address: string;
-      post_code: string;
-    };
-  }) {
+  mutationFn({ payload }: { payload: TCreateUserPayload }) {
     return new Promise((resolve, reject) => {
       pb.collection('users')
         .create(payload)
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  },
+});
+
+export const useLogin = createMutation({
+  mutationFn({ payload }: { payload: TLoginPayload }): Promise<TLoginResponse> {
+    return new Promise((resolve, reject) => {
+      pb.collection('users')
+        .authWithPassword(payload.email, payload.password)
         .then((res) => {
           resolve(res);
         })
