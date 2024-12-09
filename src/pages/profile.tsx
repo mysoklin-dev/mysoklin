@@ -38,7 +38,6 @@ interface IUser {
 }
 
 const formSchema = Yup.object({
-  old_password: Yup.string().required().min(8).label('Old Password'),
   new_password: Yup.string().required().min(8).label('New Password'),
   new_confirm_password: Yup.string()
     .required()
@@ -60,7 +59,6 @@ const Profile = () => {
     resolver: yupResolver(formSchema),
     mode: 'all',
     defaultValues: {
-      old_password: '',
       new_password: '',
       new_confirm_password: '',
     },
@@ -77,6 +75,7 @@ const Profile = () => {
           router.push('/profile');
         },
       });
+      form.reset();
     },
     onError() {
       showAlert({
@@ -94,7 +93,6 @@ const Profile = () => {
     mutateChangePassword({
       id: (user as any).model.id,
       payload: {
-        oldPassword: values.old_password,
         password: values.new_password,
         passwordConfirm: values.new_confirm_password,
       },
@@ -488,31 +486,6 @@ const Profile = () => {
               </div>
 
               <div className="mt-4 flex flex-col gap-6">
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  <div className="col-span-2">
-                    <label>Old Password</label>
-
-                    <Controller
-                      control={form.control}
-                      name="old_password"
-                      render={(val) => (
-                        <>
-                          <input
-                            {...val.field}
-                            type="password"
-                            placeholder="Old Password"
-                          />
-                          {val.fieldState.error?.message && (
-                            <p className="text-red-500">
-                              {val.fieldState.error?.message}
-                            </p>
-                          )}
-                        </>
-                      )}
-                    />
-                  </div>
-                </div>
-
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div className="col-span-2">
                     <label>New Password</label>
