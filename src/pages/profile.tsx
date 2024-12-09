@@ -541,7 +541,7 @@ const Profile = () => {
                   className="elevated  text-md flex items-center justify-center gap-2 rounded-full bg-blue-400 text-white"
                   style={{ padding: '15px 25px', marginTop: 20 }}
                 >
-                  Save Changes
+                  Change Password
                 </button>
               </div>
               {/* <pre>{JSON.stringify(userData, null, 2)}</pre> */}
