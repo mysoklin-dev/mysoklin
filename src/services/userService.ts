@@ -83,3 +83,21 @@ export const useChangePassword = createMutation({
     });
   },
 });
+
+/**
+ * Verify Email
+ */
+export const useVerifyEmail = createMutation({
+  mutationFn({ email }: { email: string }) {
+    return new Promise((resolve, reject) => {
+      pb.collection('users')
+        .requestVerification(email)
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  },
+});

@@ -14,7 +14,7 @@ import Container from '@/components/Container';
 import { useAlertDialog } from '@/hooks/use-alert-dialog';
 import usePocketBaseAuth from '@/hooks/usePocketBaseAuth';
 import Yup from '@/lib/yup';
-import { useChangePassword } from '@/services/userService';
+import { useChangePassword, useVerifyEmail } from '@/services/userService';
 
 interface IUser {
   address: string;
@@ -81,6 +81,26 @@ const Profile = () => {
       showAlert({
         open: true,
         message: 'Failed to change password!',
+        loading: false,
+        type: 'error',
+      });
+    },
+  });
+
+  const { mutate: mutateVerifyEmail } = useVerifyEmail({
+    onSuccess() {
+      showAlert({
+        open: true,
+        message: 'Email verification sent!',
+        loading: false,
+        type: 'success',
+      });
+      form.reset();
+    },
+    onError() {
+      showAlert({
+        open: true,
+        message: 'Failed to send email verification!',
         loading: false,
         type: 'error',
       });
@@ -239,6 +259,18 @@ const Profile = () => {
     return '/assets/images/avatar-placeholder.png';
   }, [userData]);
 
+  const handleVerifyAccount = () => {
+    if (userData) {
+      mutateVerifyEmail({ email: userData.email });
+      showAlert({
+        open: true,
+        message: 'Sending email verification...',
+        loading: true,
+        type: 'default',
+      });
+    }
+  };
+
   return (
     <>
       <Head>
@@ -290,6 +322,24 @@ const Profile = () => {
                     </div>
                   </div>
                 </div>
+
+                {userData && userData.email && !userData.verified && (
+                  <div className="mt-8 w-full rounded-lg border border-orange-300 bg-orange-50 p-4">
+                    <h2 className="mb-1 text-lg font-semibold text-orange-700">
+                      Account not verified
+                    </h2>
+                    <p className="text-orange-800">
+                      Your account not verified yet.{' '}
+                      <button
+                        type="button"
+                        className="underline"
+                        onClick={handleVerifyAccount}
+                      >
+                        Click here to send email verification
+                      </button>
+                    </p>
+                  </div>
+                )}
 
                 <h2 className="mt-8 text-xl">Avatar</h2>
 
