@@ -33,3 +33,9 @@ export type TLoginPayload = {
 export type TLoginResponse = {
   token: string;
 };
+
+export type TChangePasswordPayload = {
+  oldPassword: string;
+  password: string;
+  passwordConfirm: string;
+};

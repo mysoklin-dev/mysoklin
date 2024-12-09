@@ -2,6 +2,7 @@ import { createMutation, createQuery } from 'react-query-kit';
 
 import pb from '@/lib/pocketbase-client';
 import type {
+  TChangePasswordPayload,
   TCreateUserPayload,
   TListAuthMethods,
   TLoginPayload,
@@ -47,11 +48,32 @@ export const useCreateUser = createMutation({
   },
 });
 
+/**
+ * Login
+ */
 export const useLogin = createMutation({
   mutationFn({ payload }: { payload: TLoginPayload }): Promise<TLoginResponse> {
     return new Promise((resolve, reject) => {
       pb.collection('users')
         .authWithPassword(payload.email, payload.password)
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  },
+});
+
+/**
+ * Change Password
+ */
+export const useChangePassword = createMutation({
+  mutationFn({ id, payload }: { id: string; payload: TChangePasswordPayload }) {
+    return new Promise((resolve, reject) => {
+      pb.collection('users')
+        .update(id, payload)
         .then((res) => {
           resolve(res);
         })

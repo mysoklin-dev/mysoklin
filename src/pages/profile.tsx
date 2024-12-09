@@ -1,14 +1,20 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
+import { yupResolver } from '@hookform/resolvers/yup';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import PocketBase from 'pocketbase';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 
+import BaseAlertDialog from '@/components/Base/AlertDialog';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
+import { useAlertDialog } from '@/hooks/use-alert-dialog';
 import usePocketBaseAuth from '@/hooks/usePocketBaseAuth';
+import Yup from '@/lib/yup';
+import { useChangePassword } from '@/services/userService';
 
 interface IUser {
   address: string;
@@ -31,6 +37,15 @@ interface IUser {
   verified: boolean;
 }
 
+const formSchema = Yup.object({
+  old_password: Yup.string().required().min(8).label('Old Password'),
+  new_password: Yup.string().required().min(8).label('New Password'),
+  new_confirm_password: Yup.string()
+    .required()
+    .oneOf([Yup.ref('new_password')], 'Password must match')
+    .label('New Confirm Password'),
+});
+
 const Profile = () => {
   // load the previously stored provider's data
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
@@ -39,6 +54,58 @@ const Profile = () => {
   const [userData, setUserData] = useState<IUser | null>(null);
   const [domLoaded, setDomLoaded] = useState(false);
   const [isSent, setIsSent] = useState<boolean>(false);
+  const { props: alertDialogProps, showAlert } = useAlertDialog();
+
+  const form = useForm<Yup.InferType<typeof formSchema>>({
+    resolver: yupResolver(formSchema),
+    mode: 'all',
+    defaultValues: {
+      old_password: '',
+      new_password: '',
+      new_confirm_password: '',
+    },
+  });
+
+  const { mutate: mutateChangePassword } = useChangePassword({
+    onSuccess() {
+      showAlert({
+        open: true,
+        message: 'Password changed!',
+        loading: false,
+        type: 'success',
+        onClose: () => {
+          router.push('/profile');
+        },
+      });
+    },
+    onError() {
+      showAlert({
+        open: true,
+        message: 'Failed to change password!',
+        loading: false,
+        type: 'error',
+      });
+    },
+  });
+
+  const handleSubmitChangePassword = (
+    values: Yup.InferType<typeof formSchema>
+  ) => {
+    mutateChangePassword({
+      id: (user as any).model.id,
+      payload: {
+        oldPassword: values.old_password,
+        password: values.new_password,
+        passwordConfirm: values.new_confirm_password,
+      },
+    });
+    showAlert({
+      open: true,
+      message: 'Changing password...',
+      loading: true,
+      type: 'default',
+    });
+  };
 
   useEffect(() => {
     setDomLoaded(true);
@@ -186,6 +253,7 @@ const Profile = () => {
         `}</style>
       </Head>
       <Container className="px-4 py-10 md:px-0 md:py-20">
+        <BaseAlertDialog {...alertDialogProps} />
         <div className="grid grid-cols-1 gap-3 md:grid-cols-4">
           {/* Menu */}
           <div className="md:col-span-1">
@@ -410,6 +478,101 @@ const Profile = () => {
                 {/* <pre>{JSON.stringify(userData, null, 2)}</pre> */}
               </form>
             )}
+
+            <form
+              onSubmit={form.handleSubmit(handleSubmitChangePassword)}
+              className="mt-10 block rounded-xl bg-white p-10"
+            >
+              <div className="flex items-center justify-between">
+                <h1 className="text-3xl">Change Password</h1>
+              </div>
+
+              <div className="mt-4 flex flex-col gap-6">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                  <div className="col-span-2">
+                    <label>Old Password</label>
+
+                    <Controller
+                      control={form.control}
+                      name="old_password"
+                      render={(val) => (
+                        <>
+                          <input
+                            {...val.field}
+                            type="password"
+                            placeholder="Old Password"
+                          />
+                          {val.fieldState.error?.message && (
+                            <p className="text-red-500">
+                              {val.fieldState.error?.message}
+                            </p>
+                          )}
+                        </>
+                      )}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                  <div className="col-span-2">
+                    <label>New Password</label>
+
+                    <Controller
+                      control={form.control}
+                      name="new_password"
+                      render={(val) => (
+                        <>
+                          <input
+                            {...val.field}
+                            type="password"
+                            placeholder="New Password"
+                          />
+                          {val.fieldState.error?.message && (
+                            <p className="text-red-500">
+                              {val.fieldState.error?.message}
+                            </p>
+                          )}
+                        </>
+                      )}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                  <div className="col-span-2">
+                    <label>New Confirm Password</label>
+
+                    <Controller
+                      control={form.control}
+                      name="new_confirm_password"
+                      render={(val) => (
+                        <>
+                          <input
+                            {...val.field}
+                            type="password"
+                            placeholder="New Confirm Password"
+                          />
+                          {val.fieldState.error?.message && (
+                            <p className="text-red-500">
+                              {val.fieldState.error?.message}
+                            </p>
+                          )}
+                        </>
+                      )}
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  className="elevated  text-md flex items-center justify-center gap-2 rounded-full bg-blue-400 text-white"
+                  style={{ padding: '15px 25px', marginTop: 20 }}
+                >
+                  Save Changes
+                </button>
+              </div>
+              {/* <pre>{JSON.stringify(userData, null, 2)}</pre> */}
+            </form>
           </div>
         </div>
       </Container>
