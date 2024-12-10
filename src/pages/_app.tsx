@@ -1,12 +1,14 @@
 /* eslint-disable @next/next/next-script-for-ga */
 import '../styles/global.css';
 
+import { QueryClientProvider } from '@tanstack/react-query';
 import { Analytics } from '@vercel/analytics/react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { SWRConfig } from 'swr';
 
 import Main from '@/layouts/Main';
+import { queryClient } from '@/lib/react-query';
 
 // eslint-disable-next-line no-return-assign
 const MyApp = ({ Component, pageProps }: AppProps) => (
@@ -42,7 +44,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
       }}
     >
       <div className="position-relative">
-        <Component {...pageProps} />
+        <QueryClientProvider client={queryClient}>
+          <Component {...pageProps} />
+        </QueryClientProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </div>
     </SWRConfig>

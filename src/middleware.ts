@@ -6,7 +6,8 @@ import { NextResponse } from 'next/server';
 export function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith('/admin')) {
     const token = request.cookies.get('token');
-    if (!token) {
+    const admin = request.cookies.get('admin');
+    if (!token || !admin) {
       return NextResponse.rewrite(new URL('/admin/login', request.url));
     }
   }
