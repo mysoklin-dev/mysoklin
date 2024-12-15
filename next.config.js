@@ -76,6 +76,25 @@ module.exports = withBundleAnalyzer({
           'articles/jangan-panik-ini-dia-cara-menghilangkan-luntur-pada-baju-berwarna/',
         permanent: true,
       },
+      {
+        source:
+          '/articles/moms-ini-cara-memutihkan-seragam-putih-yang-sudah-kuning/',
+        destination: 'articles/cara-memutihkan-seragam-putih/',
+        permanent: true,
+      },
+      {
+        source:
+          '/articles/7-cara-menghilangkan-noda-tinta-yang-sudah-kering-di-baju/',
+        destination: 'articles/7-cara-menghilangkan-noda-tinta-di-baju/',
+        permanent: true,
+      },
+      {
+        source:
+          '/articles/cari-cairan-pembersih-lantai-yang-wangi-tahan-lama-cek-soklin-lantai-apple-and-peony-ya/',
+        destination:
+          'articles/cairan-pembersih-lantai-yang-wangi-tahan-lama-soklin-lantai-apple-peony/',
+        permanent: true,
+      },
     ];
   },
 });
