@@ -101,6 +101,26 @@ module.exports = withBundleAnalyzer({
           'articles/cairan-pembersih-lantai-yang-wangi-tahan-lama-soklin-lantai-apple-peony/',
         permanent: true,
       },
+      {
+        source:
+          '/articles/moms-ini-cara-menghilangkan-noda-membandel-di-baju-berwarna/',
+        destination:
+          'articles/cara-menghilangkan-cat-minyak-yang-sudah-kering/',
+        permanent: true,
+      },
+      {
+        source:
+          '/articles/gini-lho-cara-menghilangkan-noda-kuning-di-baju-putih-bagian-ketiak/',
+        destination:
+          'articles/cara-menghilangkan-noda-kuning-di-baju-putih-bagian-ketiak/',
+        permanent: true,
+      },
+      {
+        source:
+          '/articles/pahami-komposisi-deterjen-cair-agar-tak-salah-pilih/',
+        destination: 'articles/komposisi-deterjen-cair',
+        permanent: true,
+      },
     ];
   },
 });
