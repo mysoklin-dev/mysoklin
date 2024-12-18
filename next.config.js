@@ -90,6 +90,12 @@ module.exports = withBundleAnalyzer({
       },
       {
         source:
+          '/articles/apakah-rapika-3-in-1-harus-dicampur-air-ini-penjelasannya/',
+        destination: 'articles/cara-pakai-rapika-3-in-1/',
+        permanent: true,
+      },
+      {
+        source:
           '/articles/cari-cairan-pembersih-lantai-yang-wangi-tahan-lama-cek-soklin-lantai-apple-and-peony-ya/',
         destination:
           'articles/cairan-pembersih-lantai-yang-wangi-tahan-lama-soklin-lantai-apple-peony/',
