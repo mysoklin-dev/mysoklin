@@ -121,6 +121,13 @@ module.exports = withBundleAnalyzer({
         destination: 'articles/komposisi-deterjen-cair',
         permanent: true,
       },
+      {
+        source:
+          '/articles/cari-deterjen-cair-terbaik-cek-soklin-liquid-lavender-moms/',
+        destination:
+          'articles/kandungan-dan-cara-menggunakan-soklin-liquid-lavender',
+        permanent: true,
+      },
     ];
   },
 });
