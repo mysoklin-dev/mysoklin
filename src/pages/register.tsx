@@ -236,7 +236,7 @@ const RegisterPage = () => {
                     <p>
                       By signing up you agree to our{' '}
                       <Link
-                        href="/privacy-policy"
+                        href="/terms-and-conditions"
                         className="text-blue underline decoration-wavy"
                       >
                         terms & conditions
