@@ -1,7 +1,7 @@
 import { List } from 'iconoir-react';
 import React from 'react';
 
-const PrivacyPolicyPage = () => {
+const TermsAndConditionsPage = () => {
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-8 sm:py-12 lg:py-16 xl:px-0">
       <h1 className="mb-3 text-5xl font-bold">Privacy Policy</h1>
@@ -181,4 +181,4 @@ const PrivacyPolicyPage = () => {
   );
 };
 
-export default PrivacyPolicyPage;
+export default TermsAndConditionsPage;
