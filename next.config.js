@@ -209,6 +209,19 @@ module.exports = withBundleAnalyzer({
           'articles/tips-dan-trik-mengembalikan-warna-baju-yang-pudar',
         permanent: true,
       },
+      {
+        source:
+          '/articles/5-cara-agar-selimut-lembut-dan-wangi-dengan-softener-soklin/',
+        destination:
+          'articles/cara-mencuci-bed-cover-agar-tetap-lembut-dan-awet',
+        permanent: true,
+      },
+      {
+        source:
+          '/articles/cara-membersihkan-noda-kopi-dengan-soklin-liquid-pink/',
+        destination: 'articles/cara-menghilangkan-noda-kopi-di-baju-putih',
+        permanent: true,
+      },
     ];
   },
 });
