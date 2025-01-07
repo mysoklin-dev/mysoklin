@@ -128,6 +128,87 @@ module.exports = withBundleAnalyzer({
           'articles/kandungan-dan-cara-menggunakan-soklin-liquid-lavender',
         permanent: true,
       },
+      {
+        source:
+          '/articles/jangan-panik-ini-dia-cara-menghilangkan-luntur-pada-baju-berwarna/',
+        destination: 'articles/cara-menghilangkan-noda-luntur-pada-baju-putih',
+        permanent: true,
+      },
+      {
+        source:
+          '/articles/10-cara-menggunakan-pelicin-pakaian-laundry-rekomendasi-produk-nya/',
+        destination:
+          'articles/10-cara-menggunakan-pelicin-pakaian-laundry-dan-rekomendasi-produk-nya',
+        permanent: true,
+      },
+      {
+        source:
+          '/articles/5-cara-agar-baju-olahraga-bebas-bau-keringat-dengan-soklin-pewangi-active-sport/',
+        destination:
+          'articles/7-bahan-baju-olahraga-dan-tips-memilih-serta-merawatnya',
+        permanent: true,
+      },
+      {
+        source: '/articles/cara-mencuci-bed-cover-agar-tetap-lembut-dan-awet/',
+        destination:
+          'articles/cara-mencuci-bed-cover-agar-tetap-lembut-dan-awet',
+        permanent: true,
+      },
+      {
+        source:
+          '/articles/5-manfaat-pelicin-pakaian-agar-menyetrika-lebih-rapi-rekomendasi-produk-nya/',
+        destination:
+          'articles/rekomendasi-produk-pelicin-pakaian-dan manfaat-nya',
+        permanent: true,
+      },
+      {
+        source:
+          '/articles/6-cara-bersihkan-kamar-tidur-dengan-pembersih-lantai-soklin/',
+        destination:
+          'articles/10-cara-membersihkan-kamar-tidur-agar-nyaman-dan-sehat',
+        permanent: true,
+      },
+      {
+        source:
+          '/articles/tips-bersihkan-dapur-agar-bebas-kuman-dan-wangi-dengan-soklin-lantai/',
+        destination:
+          'articles/cara-menata-membersihkan-dapur-agar-terlihat-rapi-dan-bersih',
+        permanent: true,
+      },
+      {
+        source:
+          '/articles/tips-merapikan-baju-pakai-setrika-uap-dan-rapika-spray/',
+        destination:
+          'articles/cara-menggunakan-setrika-uap-agar-pakaian-halus-dan-bebas-kerutan',
+        permanent: true,
+      },
+      {
+        source:
+          '/articles/inilah-cara-merawat-pakaian-di-musim-hujan-dengan-soklin-softergent-korean-camellia-apple/',
+        destination:
+          'articles/9-cara-agar-baju-cepat-kering-saat-musim-hujan-anti-apek',
+        permanent: true,
+      },
+      {
+        source:
+          '/articles/simak-cara-mencuci-handuk-kotor-dengan-soklin-cair-liquid-berikut-ini/',
+        destination:
+          'articles/simak-cara-mencuci-handuk-yang-dekil-dan-kotor-dengan-bahan-alami',
+        permanent: true,
+      },
+      {
+        source:
+          '/articles/tips-kamar-mandi-bersih-dan-wangi-dengan-soklin-pembersih-lantai-lemon-zest/',
+        destination:
+          'articles/7-solusi-permasalahan-dalam-membersihkan-kamar-mandi',
+        permanent: true,
+      },
+      {
+        source: '/articles/cara-menghilangkan-noda-luntur-dengan-bahan-alami/',
+        destination:
+          'articles/tips-dan-trik-mengembalikan-warna-baju-yang-pudar',
+        permanent: true,
+      },
     ];
   },
 });
