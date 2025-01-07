@@ -149,12 +149,6 @@ module.exports = withBundleAnalyzer({
         permanent: true,
       },
       {
-        source: '/articles/cara-mencuci-bed-cover-agar-tetap-lembut-dan-awet/',
-        destination:
-          'articles/cara-mencuci-bed-cover-agar-tetap-lembut-dan-awet',
-        permanent: true,
-      },
-      {
         source:
           '/articles/5-manfaat-pelicin-pakaian-agar-menyetrika-lebih-rapi-rekomendasi-produk-nya/',
         destination:
