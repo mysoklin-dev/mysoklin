@@ -216,6 +216,26 @@ module.exports = withBundleAnalyzer({
         destination: 'articles/cara-menghilangkan-noda-kopi-di-baju-putih',
         permanent: true,
       },
+      {
+        source:
+          '/articles/5-manfaat-pelicin-pakaian-agar-menyetrika-lebih-rapi-rekomendasi-produk-nya/',
+        destination:
+          'articles/rekomendasi-produk-pelicin-pakaian-dan-manfaat-nya',
+        permanent: true,
+      },
+      {
+        source:
+          '/articles/5-manfaat-pelicin-pakaian-agar-menyetrika-lebih-rapi/',
+        destination:
+          'articles/rekomendasi-produk-pelicin-pakaian-dan-manfaat-nya',
+        permanent: true,
+      },
+      {
+        source: '/articles/10-cara-menggunakan-pelicin-pakaian-laundry/',
+        destination:
+          'articles/10-cara-menggunakan-pelicin-pakaian-laundry-dan-rekomendasi-produk-nya',
+        permanent: true,
+      },
     ];
   },
 });
