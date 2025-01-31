@@ -231,9 +231,15 @@ module.exports = withBundleAnalyzer({
         permanent: true,
       },
       {
-        source: '/articles/10-cara-menggunakan-pelicin-pakaian-laundry/',
+        source: '/articles/10-cara-me6nggunakan-pelicin-pakaian-laundry/',
         destination:
           'articles/10-cara-menggunakan-pelicin-pakaian-laundry-dan-rekomendasi-produk-nya',
+        permanent: true,
+      },
+      {
+        source: '/articles/cara-menghilangkan-noda-oli-di-baju/',
+        destination:
+          'articles/ternyata-begini-cara-menghilangkan-noda-oli-di-baju',
         permanent: true,
       },
     ];

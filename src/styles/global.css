@@ -235,3 +235,13 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
 .textformat ul li{
   margin: 15px 0;
 }
+
+.content h1,
+.content h2,
+.content h3,
+.content h4,
+.content h5,
+.content h6{
+  font-size: revert;
+  line-height: 1.4;
+} 
