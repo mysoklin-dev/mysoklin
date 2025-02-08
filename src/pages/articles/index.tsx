@@ -12,19 +12,29 @@ import { withCdn } from '@/helpers';
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
-  const record = await pb.collection('pages').getOne('j8tbtaznrqnb1f2');
-  return {
-    props: {
-      og: JSON.parse(JSON.stringify(record)),
-    },
-  };
+
+  try {
+    const record = await pb.collection('pages').getOne('j8tbtaznrqnb1f2');
+    return {
+      props: {
+        og: JSON.parse(JSON.stringify(record)),
+      },
+    };
+  } catch (error) {
+    console.error('Error fetching OG data:', error);
+    return {
+      props: {
+        og: null, // Jika gagal, kembalikan null untuk mencegah error
+      },
+    };
+  }
 };
 
 const Articles: NextPage<any> = ({ og }) => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const [posts, setPosts] = useState<any>([]);
   const [current, setCurrent] = useState(1);
-  const [total, setTotal] = useState<number>(10);
+  const [total, setTotal] = useState<number>(0);
 
   useEffect(() => {
     const getPosts = async () => {
@@ -35,38 +45,48 @@ const Articles: NextPage<any> = ({ og }) => {
         setPosts(resultList.items);
         setTotal(resultList.totalItems);
       } catch (error) {
-        // eslint-disable-next-line no-console
-        if (error) console.log(error);
+        console.error('Error fetching articles:', error);
       }
     };
 
     getPosts();
   }, [current]);
 
-  const onChange = (page: any) => {
+  const onChange = (page: number) => {
     setCurrent(page);
   };
 
-  if (!posts && posts.length === 0) {
-    return null;
+  if (!posts || posts.length === 0) {
+    return (
+      <Container className="px-5">
+        <h1>Tidak ada artikel ditemukan.</h1>
+      </Container>
+    );
   }
 
   return (
     <>
       <Head>
-        <title>{og?.og_title}</title>
-        <meta property="og:title" content={og?.og_title} />
-        <meta name="description" content={og?.og_description} />
-        <meta property="og:description" content={og?.og_description} />
+        <title>{og?.og_title || 'Articles'}</title>
+        <meta property="og:title" content={og?.og_title || 'Articles'} />
+        <meta
+          name="description"
+          content={og?.og_description || 'Daftar artikel terbaru'}
+        />
+        <meta
+          property="og:description"
+          content={og?.og_description || 'Daftar artikel terbaru'}
+        />
         <meta
           property="og:image"
-          content={`${process.env.NEXT_PUBLIC_API_URL}/files/${og.collectionId}/${og.id}/${og.og_image}`}
-        />
-        <meta
-          property="og:test"
-          content={`${process.env.NEXT_PUBLIC_API_URL}/files/${og.collectionId}/${og.id}/${og.og_image}`}
+          content={
+            og?.collectionId && og?.id && og?.og_image
+              ? `${process.env.NEXT_PUBLIC_API_URL}/files/${og.collectionId}/${og.id}/${og.og_image}`
+              : '/default-og-image.png'
+          }
         />
       </Head>
+
       <div className="banner_image">
         {posts[0] && (
           <img
@@ -105,7 +125,7 @@ const Articles: NextPage<any> = ({ og }) => {
               ></div>
 
               <div className="flex justify-center">
-                <Link href={`/articles/${posts[0].slug}`}>
+                <Link href={`/articles/${posts[0].slug}`} passHref>
                   <Button variant="elevated">Read</Button>
                 </Link>
               </div>
@@ -113,8 +133,6 @@ const Articles: NextPage<any> = ({ og }) => {
           </div>
         )}
 
-        {/* Blog */}
-        {/* <pre>{JSON.stringify(posts, null, 2)}</pre> */}
         <div className="mt-20 grid grid-cols-1 gap-10 md:grid-cols-3">
           {posts.map((item: any, i: number) => (
             <React.Fragment key={`article-${item.id}-${i + 1}`}>
@@ -137,7 +155,7 @@ const Articles: NextPage<any> = ({ og }) => {
             onChange={onChange}
             current={current}
             total={total}
-            pageSize={6}
+            pageSize={7}
           />
         </div>
       </Container>
