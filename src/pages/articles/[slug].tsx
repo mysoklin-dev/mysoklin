@@ -25,12 +25,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     if (result.items.length > 0) {
       const article = result.items[0];
-      return {
-        redirect: {
-          permanent: true,
-          destination: `/articles/${article.slug}`,
-        },
-      };
+      // Pastikan article tidak undefined sebelum redirect
+      if (article && article.slug) {
+        return {
+          redirect: {
+            permanent: true,
+            destination: `/articles/${article.slug}`,
+          },
+        };
+      }
     }
 
     // Tampilkan 404 jika tidak ditemukan
