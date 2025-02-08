@@ -34,7 +34,8 @@ export async function middleware(request: NextRequest) {
 
       if (result.items.length > 0) {
         const article = result.items[0];
-        if (article.slug !== slug) {
+        // Tambahkan pengecekan eksplisit untuk memastikan article tidak undefined
+        if (article && article.slug !== slug) {
           const newUrl = new URL(`/articles/${article.slug}`, request.url);
           return NextResponse.redirect(newUrl);
         }
