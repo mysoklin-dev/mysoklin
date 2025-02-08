@@ -33,7 +33,6 @@ const ArticleCard = ({
             width="337"
             height="216"
             loading="lazy"
-            style={{ height: 'auto' }}
           />
         </Link>
       </div>
@@ -86,6 +85,9 @@ const ArticleCard = ({
         .thumbnail img {
           display: inline-block;
           width: 100%;
+          height: 240px;
+          object-fit: cover;
+          object-position: center;
         }
 
         .excerpt {

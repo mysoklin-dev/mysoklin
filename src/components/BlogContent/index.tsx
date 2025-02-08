@@ -15,6 +15,7 @@ import {
 
 import Container from '@/components/Container';
 import { withCdn } from '@/helpers';
+import { cleanHTMLContent } from '@/helpers/cleanHTML';
 
 interface BlogContentProps {
   og: any;
@@ -133,7 +134,7 @@ const BlogContent = ({ og, isFallback, type }: BlogContentProps) => {
                     h: 453,
                     q: 100,
                   })}
-                  alt=""
+                  alt={post.title}
                   width={754}
                   height={453}
                   style={{ width: '100%', height: 'auto!important' }}
@@ -143,7 +144,9 @@ const BlogContent = ({ og, isFallback, type }: BlogContentProps) => {
               <div className="my-10">
                 <div
                   className="content"
-                  dangerouslySetInnerHTML={{ __html: post.content }}
+                  dangerouslySetInnerHTML={{
+                    __html: cleanHTMLContent(post.content),
+                  }}
                 ></div>
               </div>
             </div>
@@ -209,7 +212,7 @@ const BlogContent = ({ og, isFallback, type }: BlogContentProps) => {
                               loading="lazy"
                               width="100"
                               height="100"
-                              alt=""
+                              alt={relpost.title}
                             />
                           </Link>
                         </div>
