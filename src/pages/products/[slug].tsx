@@ -1,5 +1,5 @@
 import FsLightbox from 'fslightbox-react';
-import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -15,28 +15,9 @@ import TipsAndTricks from '@/components/TipsAndTricks';
 import { average, withCdn } from '@/helpers';
 import usePocketBaseAuth from '@/hooks/usePocketBaseAuth';
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: true, // or 'blocking'
-  };
-};
-
-// export const getStaticProps: GetStaticProps = async (context) => {
-//   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
-//   const { slug } = context.params as any; // no longer causes error
-//   const record = await pb
-//     .collection('products')
-//     .getFirstListItem(`slug ~ '${slug}'`);
-//   return {
-//     props: { og: JSON.parse(JSON.stringify(record)) },
-//     revalidate: 60,
-//   };
-// };
-
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
-  const { slug } = context.params as any;
+  const { slug } = context.params as { slug: string };
 
   try {
     const record = await pb
@@ -44,11 +25,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
       .getFirstListItem(`slug ~ '${slug}'`);
 
     return {
-      props: { og: JSON.parse(JSON.stringify(record)) },
-      revalidate: 60,
+      props: {
+        og: JSON.parse(JSON.stringify(record)),
+      },
     };
   } catch (error) {
-    // If the slug is not found, return notFound: true
     return {
       notFound: true,
     };
@@ -57,7 +38,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 const ProductDetail: NextPage<any> = ({ og }) => {
   const router = useRouter();
-  const { isFallback } = useRouter();
   const { id } = router.query;
   const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL);
   const data = og;
@@ -111,7 +91,6 @@ const ProductDetail: NextPage<any> = ({ og }) => {
   useEffect(() => {
     if (og) {
       const galls = [] as any[];
-      // eslint-disable-next-line array-callback-return
       og.gallery.map((item: string) => {
         galls.push(
           `${process.env.NEXT_PUBLIC_API_URL}/files/${og.collectionId}/${og.id}/${item}`
@@ -130,7 +109,6 @@ const ProductDetail: NextPage<any> = ({ og }) => {
         });
         setProducts(resultList.items);
       } catch (error) {
-        // eslint-disable-next-line no-console
         if (error) console.log(error);
       }
     };
@@ -147,7 +125,6 @@ const ProductDetail: NextPage<any> = ({ og }) => {
   const sendReview = async () => {
     if (user === null) {
       setLoginModal(true);
-
       return;
     }
 
@@ -162,7 +139,6 @@ const ProductDetail: NextPage<any> = ({ og }) => {
 
       const r = await pb.collection('reviews').create(reviewData);
       if (r.collectionId) {
-        // eslint-disable-next-line no-console
         console.log('success');
         setIsSent(true);
       }
@@ -173,10 +149,6 @@ const ProductDetail: NextPage<any> = ({ og }) => {
       // ignore
     }
   };
-
-  if (isFallback && !data) {
-    return <>Loading...</>;
-  }
 
   return (
     <>
