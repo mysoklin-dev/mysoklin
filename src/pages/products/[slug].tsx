@@ -91,7 +91,7 @@ const ProductDetail: NextPage<any> = ({ og }) => {
   useEffect(() => {
     if (og) {
       const galls = [] as any[];
-      og.gallery.map((item: string) => {
+      og.gallery.forEach((item: string) => {
         galls.push(
           `${process.env.NEXT_PUBLIC_API_URL}/files/${og.collectionId}/${og.id}/${item}`
         );
